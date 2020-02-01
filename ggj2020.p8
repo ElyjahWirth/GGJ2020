@@ -85,6 +85,7 @@ function new_game_screen()
  local s={}
 
  s.init=function(s)
+  cash_money=1000
   s.draw_systems={}
   s.update_systems={}
   s.scenes={}
@@ -111,6 +112,7 @@ function new_game_screen()
    sys.update()
   end
 
+  s.active_scenes[s.current_scene].active=false
   if (btnp(0)) then
    s.current_scene=max(s.current_scene-1,1)
    manberry.update_icon()
@@ -119,6 +121,7 @@ function new_game_screen()
    s.current_scene=min(s.current_scene+1,#s.active_scenes)
    manberry.update_icon()
   end
+  s.active_scenes[s.current_scene].active=true
  end
 
  s.draw=function(s)
@@ -136,6 +139,7 @@ function new_game_screen()
   local xpos=(s.current_scene-1)*32
   local ypos=104
   rect(xpos-1,ypos,xpos+32,ypos+15,7)
+  print("$"..cash_money, 0, 15*8+2)
  end
 
  s:init()
@@ -146,6 +150,7 @@ end
 --scenes--
 function new_scene()
  local s={}
+ s.active=false
  s.name="scene"
  s.update=function(scene) end
  s.draw=function(scene)
@@ -263,6 +268,64 @@ function new_farm_scene()
   x=96,
   y=0
  }
+ s.bushes={}
+ s.planted_bushes={}
+ add(s.bushes, strawberry_bush)
+
+ s.selected=1
+
+ s.update=function(scene)
+  for bush in all(scene.planted_bushes) do
+   bush.harvest_counter+=(1/30)
+  end
+
+  if scene.active then
+   if btnp(2) then
+    scene.selected=max(scene.selected-1, 1)
+   end
+   if btnp(3) then
+    scene.selected=min(scene.selected+1, #scene.bushes)
+   end
+   if btnp(5) then
+    local desired_bush=scene.bushes[scene.selected]
+    if cash_money-desired_bush.price > 0 then
+     local new_bush={
+      x=rnd(16*8),
+      y=rnd(4*8)+4*8,
+      template=desired_bush,
+      harvest_counter=0.0
+     }
+     add(scene.planted_bushes, new_bush)
+     cash_money-=desired_bush.price
+     desired_bush.quantity+=1
+    end
+   end
+  end
+ end
+
+ s.draw=function(scene)
+  map(scene.background.x,scene.background.y,0,0,16,16)
+  column=1
+  for i=1,#scene.bushes,1 do
+   local ing=scene.bushes[i]
+   local icon=ing.icon
+   local x_pix=(icon*8)%128
+   local y_pix=flr(abs(icon/16))*8
+   local x_target=8+((i-1)*(40))
+   local y_target=80
+   sspr(x_pix,y_pix,8,8,x_target,y_target,16,16)
+   print(ing.quantity,x_target+17,y_target+11)
+   print("$"..ing.price,x_target+17,y_target+2)
+   if (i==scene.selected) rect(x_target-1,y_target-1,x_target+16,y_target+16,7)
+  end
+  column+=1
+
+  for bush in all(scene.planted_bushes) do
+   local icon=bush.template.icon
+   if (bush.template.harvest_time >= bush.harvest_counter) icon=emptybush_icon
+   spr(icon,bush.x,bush.y)
+  end
+ end
 
  return s
 end
@@ -322,22 +385,23 @@ function new_kitchen_scene()
   end
 
   --ingredient list selected--
-  if btnp(2) then
-   scene.selected_ingredient=max(scene.selected_ingredient-1, 1)
+  if scene.active then
+   if btnp(2) then
+    scene.selected_ingredient=max(scene.selected_ingredient-1, 1)
+   end
+   if btnp(3) then
+    scene.selected_ingredient=min(scene.selected_ingredient+1, #scene.available_ingredients)
+   end
+   if btnp(5) and #scene.mixer_contents<3 and scene.available_ingredients[scene.selected_ingredient].quantity > 0 then
+    add(scene.mixer_contents, scene.available_ingredients[scene.selected_ingredient])
+    scene.available_ingredients[scene.selected_ingredient].quantity-=1
+   end
+   if btnp(4) and #scene.mixer_contents!=0 then
+    scene.process_mix=true
+    recipe = lookup_recipe(scene.mixer_contents)
+    if recipe and recipe.output then scene.current_output=recipe.output else scene.current_output=badjam end
+   end
   end
-  if btnp(3) then
-   scene.selected_ingredient=min(scene.selected_ingredient+1, #scene.available_ingredients)
-  end
-  if btnp(5) and #scene.mixer_contents<3 and scene.available_ingredients[scene.selected_ingredient].quantity > 0 then
-   add(scene.mixer_contents, scene.available_ingredients[scene.selected_ingredient])
-   scene.available_ingredients[scene.selected_ingredient].quantity-=1
-  end
-  if btnp(4) and #scene.mixer_contents!=0 then
-   scene.process_mix=true
-   recipe = lookup_recipe(scene.mixer_contents)
-   if recipe and recipe.output then scene.current_output=recipe.output else scene.current_output=badjam end
-  end
-
  end
 
  s.advance_mix=function(scene)
@@ -379,19 +443,68 @@ function new_kitchen_scene()
 end
 
 -->8
+--manufacturing
+emptybush_icon=51
+
+strawberry_bush={
+ icon=48,
+ price=10,
+ produce=strawberry,
+ harvest_time=10.0,
+ unlocked=true,
+ quantity=0
+}
+
+function unlock_blueberry(farm_scene)
+ blueberry_bush.unlocked=true
+ add(farm_scene.bushes, blueberry_bush)
+end
+
+function first_blueberry_complete(kitchen_scene)
+ blueberry.unlocked=true
+ add(kitchen_scene.available_ingredients, blueberry)
+end
+
+blueberry_bush={
+ icon=52,
+ price=10,
+ produce=blueberry,
+ harvest_time=10,
+ unlocked=false,
+ quantity=0
+}
+
+function unlock_factory(farm_scene)
+ factory.unlocked=true
+end
+
+function first_factory_complete(game_screen)
+ unlock_factories()
+end
+
+factory={
+ icon=49,
+ price=10,
+ product=nil,
+ harvest_time=10,
+ unlocked=false,
+ quantity=0
+}
+
+-->8
 --ingredients--
 strawberry={
  name="strawberry",
- unlocked=true,
+ unlocked=false,
  icon=function() return 16 end,
- quantity=10
+ quantity=0
 }
 
 blueberry={
  name="blueberry",
- unlocked=true,
+ unlocked=false,
  icon=function() return 17 end,
- quantity=7
+ quantity=0
 }
 
 manberry={
