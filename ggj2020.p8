@@ -1,8 +1,7 @@
 pico-8 cartridge // http://www.pico-8.com
 version 18
 __lua__
-//repair
-
+--globals--
 function _init()
  screen = new_start_screen()
 end
@@ -48,6 +47,8 @@ function new_start_screen()
   spr(32,50,60+(10*s.selected))
   print("global jam game", 60, 20)
  end
+
+ return s
 end
 
 
@@ -73,6 +74,8 @@ function new_credits_screen()
   end
   print("global jam game", 60, 20)
  end
+
+ return s
 end
 
 
@@ -111,7 +114,6 @@ function new_game_screen()
  s.draw=function(s)
   cls()
   s.active_scenes[s.current_scene]:draw()
-  print("game screen bitches",0,0)
   for sys in all(s.draw_systems) do
    sys.draw()
   end
@@ -150,6 +152,22 @@ function new_kitchen_scene()
  local s=new_scene()
  s.name="kitchen"
  s.background.x=16
+ s.all_ingredients={}
+ add(s.all_ingredients, strawberry)
+ s.selected_ingredient=1
+ s.available_ingredients={}
+ for i in all(s.all_ingredients) do
+  if (i.unlocked) add(s.available_ingredients, i)
+ end
+
+ s.draw=function(scene)
+  map(scene.background.x,scene.background.y,0,0,16,16)
+  i=0
+  for ing in all(s.available_ingredients) do
+
+  end
+  print(scene.name, 0, 10)
+ end
  return s
 end
 
@@ -195,6 +213,13 @@ function new_universal_scene()
  return s
 end
 
+-->8
+--ingredients--
+strawberry={
+ unlocked=true,
+ icon=16,
+ quantity=10
+}
 
 __gfx__
 00000000555555555555555500000000000000000000000000000000000000000000000000000000000000000000000000bbbbbbbbbbbbbbbbbbbbbbbbbbbb00
