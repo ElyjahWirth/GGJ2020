@@ -1,10 +1,9 @@
 pico-8 cartridge // http://www.pico-8.com
 version 18
 __lua__
-//repair
-
+--globals--
 function _init()
- screen = new_start_screen()
+ screen=new_start_screen()
 end
 
 function _draw()
@@ -16,7 +15,7 @@ function _update()
 end
 
 -->8
--- screens --
+--screens--
 function new_start_screen()
  local s={}
  s.init=function(s)
@@ -48,6 +47,9 @@ function new_start_screen()
   spr(32,50,60+(10*s.selected))
   print("global jam game", 60, 20)
  end
+
+ s:init()
+ return s
 end
 
 
@@ -73,6 +75,9 @@ function new_credits_screen()
   end
   print("global jam game", 60, 20)
  end
+
+ s:init()
+ return s
 end
 
 
