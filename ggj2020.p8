@@ -300,6 +300,11 @@ function new_farm_scene()
      desired_bush.quantity+=1
     end
    end
+   if btnp(4) then
+    for bush in all(scene.planted_bushes) do
+
+    end
+   end
   end
  end
 
