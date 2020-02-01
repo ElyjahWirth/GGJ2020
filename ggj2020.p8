@@ -109,8 +109,14 @@ function new_game_screen()
    sys.update()
   end
 
-  if (btnp(0)) s.current_scene=max(s.current_scene-1,1)
-  if (btnp(1)) s.current_scene=min(s.current_scene+1,#s.active_scenes)
+  if (btnp(0)) then
+   s.current_scene=max(s.current_scene-1,1)
+   manberry.update_icon()
+  end
+  if (btnp(1)) then
+   s.current_scene=min(s.current_scene+1,#s.active_scenes)
+   manberry.update_icon()
+  end
  end
 
  s.draw=function(s)
