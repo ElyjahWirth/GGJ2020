@@ -48,6 +48,7 @@ function new_start_screen()
   print("global jam game", 60, 20)
  end
 
+ s:init()
  return s
 end
 
@@ -75,6 +76,7 @@ function new_credits_screen()
   print("global jam game", 60, 20)
  end
 
+ s:init()
  return s
 end
 
