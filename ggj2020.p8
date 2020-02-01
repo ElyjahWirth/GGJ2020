@@ -155,6 +155,8 @@ function new_kitchen_scene()
  local s=new_scene()
  s.name="kitchen"
  s.background.x=16
+ s.selected_ingredient={}
+ s.available_ingredients={}
  return s
 end
 
@@ -200,6 +202,13 @@ function new_universal_scene()
  return s
 end
 
+-->8
+--ingredients--
+strawberry={
+ unlocked=true,
+ icon=16,
+ quantity=10
+}
 
 __gfx__
 00000000555555555555555500000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
