@@ -224,12 +224,6 @@ function new_universal_scene()
 end
 
 -->8
-<<<<<<< HEAD
---kitchen--
-
-function lookup_recipe(mixer_contents)
- return false
-=======
 --kitchen & farm--
 function new_farm_scene()
  local s=new_scene()
@@ -241,7 +235,6 @@ function new_farm_scene()
  }
 
  return s
->>>>>>> 1ec77e913f7cc0d77a932f948d9fd2dc5d3e3dc3
 end
 
 function new_kitchen_scene()
@@ -418,6 +411,72 @@ badjam={
  unlocked=false,
  icon=function() return 3 end,
  quantity=0
+}
+
+
+strawberryjam={
+ name="strawberry jam",
+ shortname="strawberry jam",
+ unlocked=false,
+ icon=function() return 1 end,
+ quantity=0
+}
+
+strawberryduojam={
+ name="strawduoberry jam",
+ shortname="s.duobery jam",
+ unlocked=false,
+ icon=function() return 1 end,
+ quantity=0
+}
+
+strawberrytrijam={
+ name="strawtriberry jam",
+ shortname="s.tribery jam",
+ unlocked=false,
+ icon=function() return 1 end,
+ quantity=0
+}
+
+-->8
+--recipes--
+function lookup_recipe(mixer_contents)
+ output=false
+
+ --make a sublist of recipes where inputs length is the name as mixer contents length
+ --filter out recipes that don't contain element 1
+ --filter out recupes that don't contain element 2
+ --filter out recupes that don't contain element 3
+ --return the only remaining recipe
+
+ return output
+end
+
+recipes={
+ --strawberry jam--
+ {
+  inputs={
+   strawberry
+  },
+  output=strawberryjam
+ },
+ --strawduoberry jam--
+ {
+  inputs={
+   strawberry,
+   strawberry
+  },
+  output=strawberryduojam
+ },
+ --strawtriberry jam--
+ {
+  inputs={
+   strawberry,
+   strawberry,
+   strawberry
+  },
+  output=strawberrytrijam
+ }
 }
 
 __gfx__
