@@ -495,28 +495,28 @@ factory={
 --ingredients--
 strawberry={
  name="strawberry",
- unlocked=false,
+ unlocked=true,
  icon=function() return 16 end,
- quantity=0
+ quantity=10
 }
 
 blueberry={
  name="blueberry",
- unlocked=false,
+ unlocked=true,
  icon=function() return 17 end,
- quantity=0
+ quantity=10
 }
 
 manberry={
  name="manberry",
- unlocked=false,
+ unlocked=true,
  icon_options={18,19,20,21,22},
  current_icon=1,
  icon=function() return manberry.icon_options[manberry.current_icon] end,
  update_icon=function()
   manberry.current_icon=flr(rnd(#manberry.icon_options)+1)
  end,
- quantity=0
+ quantity=10
 }
 
 globerry={
