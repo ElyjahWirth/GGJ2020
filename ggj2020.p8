@@ -437,6 +437,10 @@ function new_kitchen_scene()
   if (scene.mixer_contents[1]) spr(scene.mixer_contents[1].icon(),8,8)
   if (scene.mixer_contents[2]) spr(scene.mixer_contents[2].icon(),24,8)
   if (scene.mixer_contents[3]) spr(scene.mixer_contents[3].icon(),40,8)
+  if #scene.available_ingredients > 0 then
+   local name = scene.available_ingredients[scene.selected_ingredient].name
+   print(name, 0, 1)
+  end
  end
 
  return s
