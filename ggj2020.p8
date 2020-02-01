@@ -307,21 +307,21 @@ end
 -->8
 --ingredients--
 strawberry={
- name="strawberry"
+ name="strawberry",
  unlocked=true,
  icon=function() return 16 end,
  quantity=10
 }
 
 blueberry={
- name="blueberry"
+ name="blueberry",
  unlocked=true,
  icon=function() return 17 end,
  quantity=7
 }
 
 manberry={
- name="manberry"
+ name="manberry",
  unlocked=false,
  icon_options={18,19,20,21,22},
  current_icon=1,
@@ -333,35 +333,35 @@ manberry={
 }
 
 globerry={
- name="globerry"
+ name="globerry",
  unlocked=false,
  icon=function() return 23 end,
  quantity=0
 }
 
 bigberry={
- name="bigberry"
+ name="bigberry",
  unlocked=false,
  icon=function() return 24 end,
  quantity=0
 }
 
 bangberry={
- name="bangberry"
+ name="bangberry",
  unlocked=false,
  icon=function() return 25 end,
  quantity=0
 }
 
 darkberry={
- name="darkberry"
+ name="darkberry",
  unlocked=false,
  icon=function() return 26 end,
  quantity=0
 }
 
 galactiberry={
- name="galactiberry"
+ name="galactiberry",
  unlocked=false,
  icon=function() return 27 end,
  quantity=0
