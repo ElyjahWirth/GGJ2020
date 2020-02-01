@@ -133,9 +133,9 @@ function new_game_screen()
   if (s.active_scenes[3]) sspr(s.active_scenes[3].icon.x, s.active_scenes[3].icon.y,32,16,64,104)
   if (s.active_scenes[4]) sspr(s.active_scenes[4].icon.x, s.active_scenes[4].icon.y,32,16,96,104)
   --highlight current button
-  local xpos=s.active_scenes[s.current_scene].icon.x
-  local ypos=s.active_scenes[s.current_scene].icon.y
-  rect(xpos,ypos,xpos+32,ypos+16,7)
+  local xpos=(s.current_scene-1)*32
+  local ypos=104
+  rect(xpos-1,ypos,xpos+32,ypos+15,7)
  end
 
  s:init()
