@@ -199,6 +199,11 @@ end
 
 -->8
 --kitchen--
+
+function lookup_recipe(mixer_contents)
+ return false
+end
+
 function new_kitchen_scene()
  local s=new_scene()
  s.name="kitchen"
@@ -225,19 +230,17 @@ function new_kitchen_scene()
 
 
  s.update=function(scene)
-  --ingredient list selected--
-  if btnp(2) then
-   scene.selected_ingredient=max(scene.selected_ingredient-1, 1)
-  end
-  if btnp(3) then
-   scene.selected_ingredient=min(scene.selected_ingredient+1, #scene.available_ingredients)
-  end
-  if btnp(5) and #scene.mixer_contents<3 then
-   add(scene.mixer_contents, scene.available_ingredients[scene.selected_ingredient])
-  end
-  if btnp(4) and #scene.mixer_contents!=0 then
-   scene.process_mix=true
-  else
+  if scene.mix_complete then
+
+   scene.current_output.quantity += 1
+   if not scene.current_output.unlocked then
+    scene.current_output.unlocked=true
+    add(scene.available_ingredients, scene.current_output)
+   end
+   --scene.current_output={}
+
+   scene.mixer_contents={}
+   scene.mix_complete=false
    scene.process_mix=false
   end
 
@@ -245,9 +248,21 @@ function new_kitchen_scene()
    scene:advance_mix()
   end
 
-  if scene.mix_complete then
-   scene.mixer_contents={}
-   scene.mix_complete=false
+  --ingredient list selected--
+  if btnp(2) then
+   scene.selected_ingredient=max(scene.selected_ingredient-1, 1)
+  end
+  if btnp(3) then
+   scene.selected_ingredient=min(scene.selected_ingredient+1, #scene.available_ingredients)
+  end
+  if btnp(5) and #scene.mixer_contents<3 and scene.available_ingredients[scene.selected_ingredient].quantity > 0 then
+   add(scene.mixer_contents, scene.available_ingredients[scene.selected_ingredient])
+   scene.available_ingredients[scene.selected_ingredient].quantity-=1
+  end
+  if btnp(4) and #scene.mixer_contents!=0 then
+   scene.process_mix=true
+   recipe = lookup_recipe(scene.mixer_contents)
+   if recipe and recipe.output then scene.current_output=recipe.output else scene.current_output=badjam end
   end
 
  end
@@ -267,12 +282,14 @@ function new_kitchen_scene()
   local loop_end=min(loop_start+11, #scene.available_ingredients)
 
   for i=loop_start,loop_end,1 do
-   local icon=scene.available_ingredients[i].icon()
+   local ing=scene.available_ingredients[i]
+   local icon=ing.icon()
    local x_pix=(icon*8)%128
    local y_pix=flr(abs(icon/16))*8
    local x_target=(8+(column*3))*8
    local y_target=(row*3)*8
    sspr(x_pix,y_pix,8,8,x_target,y_target,16,16)
+   print(ing.quantity,x_target,y_target+16)
    column+=1
    column%=3
    if (column==0) row+=1
@@ -280,13 +297,9 @@ function new_kitchen_scene()
   end
 
   --draw mixer--
-
   if (scene.mixer_contents[1]) spr(scene.mixer_contents[1].icon(),8,8)
   if (scene.mixer_contents[2]) spr(scene.mixer_contents[2].icon(),24,8)
   if (scene.mixer_contents[3]) spr(scene.mixer_contents[3].icon(),40,8)
-  print(#scene.mixer_contents)
-  print(#scene.mixer_contents<3)
- end
 
  return s
 end
@@ -306,43 +319,51 @@ blueberry={
 }
 
 manberry={
- unlocked=true,
+ unlocked=false,
  icon_options={18,19,20,21,22},
  current_icon=1,
  icon=function() return manberry.icon_options[manberry.current_icon] end,
  update_icon=function()
   manberry.current_icon=flr(rnd(#manberry.icon_options)+1)
- end
+ end,
+ quantity=0
 }
 
 globerry={
- unlocked=true,
+ unlocked=false,
  icon=function() return 23 end,
- quantity=7
+ quantity=0
 }
 
 bigberry={
- unlocked=true,
+ unlocked=false,
  icon=function() return 24 end,
- quantity=7
+ quantity=0
 }
 
 bangberry={
- unlocked=true,
+ unlocked=false,
  icon=function() return 25 end,
- quantity=7
+ quantity=0
 }
 
 darkberry={
- unlocked=true,
+ unlocked=false,
  icon=function() return 26 end,
- quantity=7
+ quantity=0
 }
 
 galactiberry={
- unlocked=true,
+ unlocked=false,
  icon=function() return 27 end,
- quantity=7
+ quantity=0
+}
+
+badjam={
+ name="badjam",
+ unlocked=false,
+ icon=function() return 3 end,
+ quantity=0
 }
 
 __gfx__
