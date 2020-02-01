@@ -127,6 +127,15 @@ function new_game_screen()
   for sys in all(s.draw_systems) do
    sys.draw()
   end
+  --draw the transition buttons--
+  sspr(s.active_scenes[1].icon.x,s.active_scenes[1].icon.y,32,16,0,104)
+  if (s.active_scenes[2]) sspr(s.active_scenes[2].icon.x, s.active_scenes[2].icon.y,32,16,32,104)
+  if (s.active_scenes[3]) sspr(s.active_scenes[3].icon.x, s.active_scenes[3].icon.y,32,16,64,104)
+  if (s.active_scenes[4]) sspr(s.active_scenes[4].icon.x, s.active_scenes[4].icon.y,32,16,96,104)
+  --highlight current button
+  local xpos=s.active_scenes[s.current_scene].icon.x
+  local ypos=s.active_scenes[s.current_scene].icon.y
+  rect(xpos,ypos,xpos+32,ypos+16,7)
  end
 
  s:init()
@@ -147,6 +156,10 @@ function new_scene()
   x=0,
   y=0
  }
+ s.icon={
+  x=0,
+  y=0
+ }
  return s
 end
 
@@ -154,6 +167,9 @@ function new_store_scene()
  local s=new_scene()
  s.name="store"
  s.background.x=32
+ s.unlocked=true
+ s.icon.x=56
+ s.icon.y=32
  return s
 end
 
@@ -162,6 +178,8 @@ function new_hr_scene()
  s.name="hr"
  s.background.x=48
  s.unlocked=true
+ s.icon.x=88
+ s.icon.y=32
  return s
 end
 
@@ -170,6 +188,8 @@ function new_factories_scene()
  s.name="factories"
  s.background.x=64
  s.unlocked=false
+ s.icon.x=24
+ s.icon.y=48
  return s
 end
 
@@ -178,6 +198,8 @@ function new_global_scene()
  s.name="global"
  s.background.x=80
  s.unlocked=false
+ s.icon.x=56
+ s.icon.y=48
  return s
 end
 
@@ -186,6 +208,8 @@ function new_galactic_scene()
  s.name="galactic"
  s.background.x=96
  s.unlocked=false
+ s.icon.x=88
+ s.icon.y=48
  return s
 end
 
@@ -194,6 +218,8 @@ function new_universal_scene()
  s.name="universal"
  s.background.x=112
  s.unlocked=false
+ s.icon.x=96
+ s.icon.y=44
  return s
 end
 
@@ -203,6 +229,10 @@ function new_farm_scene()
  local s=new_scene()
  s.name="farm"
  s.unlocked=true
+ s.icon={
+  x=96,
+  y=0
+ }
 
  return s
 end
@@ -212,6 +242,10 @@ function new_kitchen_scene()
  s.name="kitchen"
  s.background.x=16
  s.unlocked=true
+ s.icon={
+  x=24,
+  y=32
+ }
 
  s.process_mix=false
  s.mix_complete=false
