@@ -139,7 +139,6 @@ function new_scene()
  s.update=function(scene) end
  s.draw=function(scene)
   map(scene.background.x,scene.background.y,0,0,16,16)
-  print(scene.name, 0, 10)
  end
  s.unlocked=true
  s.background={
@@ -164,24 +163,57 @@ function new_kitchen_scene()
  add(s.all_ingredients, strawberry)
  add(s.all_ingredients, blueberry)
  add(s.all_ingredients, manberry)
+ add(s.all_ingredients, globerry)
+ add(s.all_ingredients, bigberry)
+ add(s.all_ingredients, bangberry)
+ add(s.all_ingredients, darkberry)
+ add(s.all_ingredients, galactiberry)
+ add(s.all_ingredients, oneberry)
+ add(s.all_ingredients, twoberry)
+ add(s.all_ingredients, threeberry)
+ add(s.all_ingredients, fourberry)
+ add(s.all_ingredients, fiveberry)
+ add(s.all_ingredients, sixberry)
  s.selected_ingredient=1
  s.available_ingredients={}
  for i in all(s.all_ingredients) do
   if (i.unlocked) add(s.available_ingredients, i)
  end
 
+ --todo: for now up and down go through the array
+ --in the long run it should be omnidirectional
+ --that means that back button will take you to scene menu
+ --and scene menu will require selection
+ --once we have icons do that
+ s.update=function(scene)
+  if btnp(2) then
+   s.selected_ingredient=max(s.selected_ingredient-1, 1)
+  end
+  if btnp(3) then
+   s.selected_ingredient=min(s.selected_ingredient+1, #s.available_ingredients)
+  end
+ end
+
  s.draw=function(scene)
   map(scene.background.x,scene.background.y,0,0,16,16)
-  i=0
-  for ing in all(s.available_ingredients) do
+  column=0
+  row=0
+  page=flr(abs(scene.selected_ingredient-1)/12)
+  loop_start=(page*12)+1
+  loop_end=min(loop_start+11, #scene.available_ingredients)
+
+  for i=loop_start,loop_end,1 do
+   local ing=scene.available_ingredients[i]
    local icon=ing.icon()
    x_pix=(icon*8)%128
    y_pix=flr(abs(icon/16))*8
-   x_target=(8+(i*3))*8
-   y_target=0*8
+   x_target=(8+(column*3))*8
+   y_target=(row*3)*8
    sspr(x_pix,y_pix,8,8,x_target,y_target,16,16)
-   i+=1
-   i%=3
+   column+=1
+   column%=3
+   if (column==0) row+=1
+   if (i==scene.selected_ingredient) rect(x_target-1,y_target-1,x_target+16,y_target+16,7)
   end
  end
  return s
@@ -249,8 +281,74 @@ manberry={
  current_icon=1,
  icon=function() return manberry.icon_options[manberry.current_icon] end,
  update_icon=function()
-  manberry.current_icon=flr(rnd(#manberry.icon_options-1)+1)
+  manberry.current_icon=flr(rnd(#manberry.icon_options)+1)
  end
+}
+
+globerry={
+ unlocked=true,
+ icon=function() return 23 end,
+ quantity=7
+}
+
+bigberry={
+ unlocked=true,
+ icon=function() return 24 end,
+ quantity=7
+}
+
+bangberry={
+ unlocked=true,
+ icon=function() return 25 end,
+ quantity=7
+}
+
+darkberry={
+ unlocked=true,
+ icon=function() return 26 end,
+ quantity=7
+}
+
+galactiberry={
+ unlocked=true,
+ icon=function() return 27 end,
+ quantity=7
+}
+
+oneberry={
+ unlocked=true,
+ icon=function() return 27 end,
+ quantity=7
+}
+
+twoberry={
+ unlocked=true,
+ icon=function() return 27 end,
+ quantity=7
+}
+
+threeberry={
+ unlocked=true,
+ icon=function() return 27 end,
+ quantity=7
+}
+
+fourberry={
+ unlocked=true,
+ icon=function() return 27 end,
+ quantity=7
+}
+
+fiveberry={
+ unlocked=true,
+ icon=function() return 27 end,
+ quantity=7
+}
+
+sixberry={
+ unlocked=true,
+ icon=function() return 27 end,
+ quantity=7
 }
 
 __gfx__
