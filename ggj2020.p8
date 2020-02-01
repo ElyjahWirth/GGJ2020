@@ -155,6 +155,50 @@ function new_farm_scene()
  return s
 end
 
+function new_store_scene()
+ local s=new_scene()
+ s.name="store"
+ s.background.x=32
+ return s
+end
+
+function new_hr_scene()
+ local s=new_scene()
+ s.name="hr"
+ s.background.x=48
+ return s
+end
+
+function new_factories_scene()
+ local s=new_scene()
+ s.name="factories"
+ s.background.x=64
+ return s
+end
+
+function new_global_scene()
+ local s=new_scene()
+ s.name="global"
+ s.background.x=80
+ return s
+end
+
+function new_galactic_scene()
+ local s=new_scene()
+ s.name="galactic"
+ s.background.x=96
+ return s
+end
+
+function new_universal_scene()
+ local s=new_scene()
+ s.name="universal"
+ s.background.x=112
+ return s
+end
+
+-->8
+--kitchen--
 function new_kitchen_scene()
  local s=new_scene()
  s.name="kitchen"
@@ -244,48 +288,6 @@ function new_kitchen_scene()
   print(#scene.mixer_contents<3)
  end
 
- return s
-end
-
-function new_store_scene()
- local s=new_scene()
- s.name="store"
- s.background.x=32
- return s
-end
-
-function new_hr_scene()
- local s=new_scene()
- s.name="hr"
- s.background.x=48
- return s
-end
-
-function new_factories_scene()
- local s=new_scene()
- s.name="factories"
- s.background.x=64
- return s
-end
-
-function new_global_scene()
- local s=new_scene()
- s.name="global"
- s.background.x=80
- return s
-end
-
-function new_galactic_scene()
- local s=new_scene()
- s.name="galactic"
- s.background.x=96
- return s
-end
-
-function new_universal_scene()
- local s=new_scene()
- s.name="universal"
- s.background.x=112
  return s
 end
 
