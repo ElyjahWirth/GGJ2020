@@ -203,6 +203,7 @@ function new_kitchen_scene()
 
   if scene.mix_complete then
    scene.mixer_contents={}
+   scene.mix_complete=false
   end
 
  end
