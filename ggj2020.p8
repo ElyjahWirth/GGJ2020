@@ -153,6 +153,11 @@ function new_kitchen_scene()
  local s=new_scene()
  s.name="kitchen"
  s.background.x=16
+
+ s.mixer_selected=false
+ s.process_mix=false
+ s.mixer_contents={}
+
  s.all_ingredients={}
  add(s.all_ingredients, strawberry)
  add(s.all_ingredients, blueberry)
@@ -162,51 +167,72 @@ function new_kitchen_scene()
  add(s.all_ingredients, bangberry)
  add(s.all_ingredients, darkberry)
  add(s.all_ingredients, galactiberry)
- add(s.all_ingredients, oneberry)
- add(s.all_ingredients, twoberry)
- add(s.all_ingredients, threeberry)
- add(s.all_ingredients, fourberry)
- add(s.all_ingredients, fiveberry)
- add(s.all_ingredients, sixberry)
  s.selected_ingredient=1
  s.available_ingredients={}
  for i in all(s.all_ingredients) do
   if (i.unlocked) add(s.available_ingredients, i)
  end
 
- --todo: for now up and down go through the array
- --in the long run it should be omnidirectional
- --that means that back button will take you to scene menu
- --and scene menu will require selection
- --once we have icons do that
+
  s.update=function(scene)
-  if btnp(2) then
-   scene.selected_ingredient=max(scene.selected_ingredient-1, 1)
+  if not scene.mixer_selected then
+   --ingredient list selected--
+   if btnp(2) then
+    scene.selected_ingredient=max(scene.selected_ingredient-1, 1)
+   end
+   if btnp(3) then
+    scene.selected_ingredient=min(scene.selected_ingredient+1, #scene.available_ingredients)
+   end
+   if btnp(5) then
+    scene.mixer_selected=true
+   end
+  else
+   --mixer selected--
+   if btnp(5) then
+    --deposit ingredient--
+    if (#scene.mixer_contents<3) add(scene.mixer_contents, scene.available_ingredients[scene.selected_ingredient])
+    scene.mixer_selected=false
+   end
   end
-  if btnp(3) then
-   scene.selected_ingredient=min(scene.selected_ingredient+1, #scene.available_ingredients)
-  end
+
+     --mixer selected--
+   if btnp(4) and #scene.mixer.contents > 0 then
+    --todo: this needs to happen even if this scene isn't in focus
+    scene.process_mix=true
+   end
+
  end
 
  s.draw=function(scene)
   map(scene.background.x,scene.background.y,0,0,16,16)
-  column=0
-  row=0
-  page=flr(abs(scene.selected_ingredient-1)/12)
-  loop_start=(page*12)+1
-  loop_end=min(loop_start+11, #scene.available_ingredients)
+
+  --draw ingredient list--
+  local column=0
+  local row=0
+  local page=flr(abs(scene.selected_ingredient-1)/12)
+  local loop_start=(page*12)+1
+  local loop_end=min(loop_start+11, #scene.available_ingredients)
 
   for i=loop_start,loop_end,1 do
    local icon=scene.available_ingredients[i].icon()
-   x_pix=(icon*8)%128
-   y_pix=flr(abs(icon/16))*8
-   x_target=(8+(column*3))*8
-   y_target=(row*3)*8
+   local x_pix=(icon*8)%128
+   local y_pix=flr(abs(icon/16))*8
+   local x_target=(8+(column*3))*8
+   local y_target=(row*3)*8
    sspr(x_pix,y_pix,8,8,x_target,y_target,16,16)
    column+=1
    column%=3
    if (column==0) row+=1
    if (i==scene.selected_ingredient) rect(x_target-1,y_target-1,x_target+16,y_target+16,7)
+  end
+
+  --draw mixer--
+
+  if (scene.mixer_contents[1]) spr(scene.mixer_contents[1].icon(),8,8)
+  if (scene.mixer_contents[2]) spr(scene.mixer_contents[2].icon(),24,8)
+  if (scene.mixer_contents[3]) spr(scene.mixer_contents[3].icon(),40,8)
+  if (scene.mixer_selected) then
+
   end
  end
  return s
@@ -303,42 +329,6 @@ darkberry={
 }
 
 galactiberry={
- unlocked=true,
- icon=function() return 27 end,
- quantity=7
-}
-
-oneberry={
- unlocked=true,
- icon=function() return 27 end,
- quantity=7
-}
-
-twoberry={
- unlocked=true,
- icon=function() return 27 end,
- quantity=7
-}
-
-threeberry={
- unlocked=true,
- icon=function() return 27 end,
- quantity=7
-}
-
-fourberry={
- unlocked=true,
- icon=function() return 27 end,
- quantity=7
-}
-
-fiveberry={
- unlocked=true,
- icon=function() return 27 end,
- quantity=7
-}
-
-sixberry={
  unlocked=true,
  icon=function() return 27 end,
  quantity=7
