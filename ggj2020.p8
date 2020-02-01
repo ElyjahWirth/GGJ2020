@@ -660,7 +660,7 @@ recipes={
  },
  --strawtriberry jam--
  {
-  inputs={
+  inputs={ 
    strawberry,
    strawberry,
    strawberry
