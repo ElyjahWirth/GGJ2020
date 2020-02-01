@@ -1,19 +1,71 @@
 pico-8 cartridge // http://www.pico-8.com
 version 18
 __lua__
-//repair
+-- repair --
+-- globals --
 
 function _init()
-
+ screen = new_start_screen()
+ screen.init()
 end
 
 function _draw()
-
+ screen.draw()
 end
 
 function _update()
-
+ screen.update()
 end
+
+-->8
+-- screens --
+function new_screen()
+ local s={}
+
+ s.init=function()
+  s.draw_systems={}
+  s.update_systems={}
+ end
+
+ s.update=function()
+  for sys in all(s.update_systems) do
+   sys.update()
+  end
+ end
+
+ s.draw=function()
+  for sys in all(s.draw_systems) do
+   sys.draw()
+  end
+ end
+
+ return s
+end
+
+function new_start_screen()
+ local s=new_screen()
+ s.init=function()
+  s.opts = {"start game", "exit"}
+  s.selected=1
+ end
+
+ s.update=function()
+  if (btn(2)) s.selected=max(s.selected-1,1)
+  if (btn(3)) s.selected=min(s.selected+1,#s.opts)
+ end
+
+ s.draw=function()
+  cls()
+  for i=1,#s.opts,1 do
+   print(s.opts[i], 60, 60+(10*i))
+  end
+  spr(32,50,60+(10*s.selected))
+ end
+
+ return s
+end
+
+
 __gfx__
 00000000555555555555555500000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 000000000628826006d11d6000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
