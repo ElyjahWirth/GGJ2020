@@ -4,16 +4,198 @@ __lua__
 //repair
 
 function _init()
-
+ screen = new_start_screen()
 end
 
 function _draw()
-
+ screen:draw()
 end
 
 function _update()
-
+ screen:update()
 end
+
+-->8
+-- screens --
+function new_start_screen()
+ local s={}
+ s.init=function(s)
+  s.opts = {"start game", "credits"}
+  s.selected=1
+  s.is_selected=false
+ end
+
+ s.update=function(s)
+  if btnp(5) then s.is_selected=true else s.is_selected=false end
+  if (btnp(2)) s.selected=max(s.selected-1,1)
+  if (btnp(3)) s.selected=min(s.selected+1,#s.opts)
+
+  if s.is_selected then
+   if s.selected==1 then
+    screen=new_game_screen()
+   end
+   if s.selected==2 then
+    screen=new_credits_screen()
+   end
+  end
+ end
+
+ s.draw=function(s)
+  cls()
+  for i=1,#s.opts,1 do
+   print(s.opts[i], 60, 60+(10*i))
+  end
+  spr(32,50,60+(10*s.selected))
+  print("global jam game", 60, 20)
+ end
+end
+
+
+function new_credits_screen()
+ local s={}
+ s.init=function(s)
+  s.opts={"elyjah 'mr ely' wirth", "robert 'rantingbob' gardner", "mari 'make a jam game?' kyle"}
+  s.back=false
+ end
+
+ s.update=function(s)
+  if btnp(4) then s.back=true else s.back=false end
+
+  if s.back then
+   screen=new_start_screen()
+  end
+ end
+
+ s.draw=function(s)
+  cls()
+  for i=1,#s.opts,1 do
+   print(s.opts[i], (5*i), 60+(10*i))
+  end
+  print("global jam game", 60, 20)
+ end
+end
+
+
+function new_game_screen()
+ local s={}
+
+ s.init=function(s)
+  s.draw_systems={}
+  s.update_systems={}
+  s.scenes={}
+  add(s.scenes, new_farm_scene())
+  add(s.scenes, new_kitchen_scene())
+  add(s.scenes, new_store_scene())
+  add(s.scenes, new_hr_scene())
+  add(s.scenes, new_factories_scene())
+  add(s.scenes, new_global_scene())
+  add(s.scenes, new_galactic_scene())
+  add(s.scenes, new_universal_scene())
+  s.active_scenes={}
+  for scene in all(s.scenes) do
+   if (scene.unlocked) add(s.active_scenes,scene)
+  end
+  s.current_scene=1
+ end
+
+ s.update=function(s)
+  s.active_scenes[s.current_scene]:update()
+  for sys in all(s.update_systems) do
+   sys.update()
+  end
+
+  if (btnp(0)) s.current_scene=max(s.current_scene-1,1)
+  if (btnp(1)) s.current_scene=min(s.current_scene+1,#s.active_scenes)
+ end
+
+ s.draw=function(s)
+  cls()
+  s.active_scenes[s.current_scene]:draw()
+  print("game screen bitches",0,0)
+  for sys in all(s.draw_systems) do
+   sys.draw()
+  end
+ end
+
+ s:init()
+ return s
+end
+
+-->8
+--scenes--
+function new_scene()
+ local s={}
+ s.name="scene"
+ s.update=function(scene) end
+ s.draw=function(scene)
+  map(scene.background.x,scene.background.y,0,0,16,16)
+  print(scene.name, 0, 10)
+ end
+ s.unlocked=true
+ s.background={
+  x=0,
+  y=0
+ }
+ return s
+end
+
+function new_farm_scene()
+ local s=new_scene()
+ s.name="farm"
+ s.unlocked=true
+ return s
+end
+
+function new_kitchen_scene()
+ local s=new_scene()
+ s.name="kitchen"
+ s.background.x=16
+ return s
+end
+
+function new_store_scene()
+ local s=new_scene()
+ s.name="store"
+ s.background.x=32
+ return s
+end
+
+function new_hr_scene()
+ local s=new_scene()
+ s.name="hr"
+ s.background.x=48
+ return s
+end
+
+function new_factories_scene()
+ local s=new_scene()
+ s.name="factories"
+ s.background.x=64
+ return s
+end
+
+function new_global_scene()
+ local s=new_scene()
+ s.name="global"
+ s.background.x=80
+ return s
+end
+
+function new_galactic_scene()
+ local s=new_scene()
+ s.name="galactic"
+ s.background.x=96
+ return s
+end
+
+function new_universal_scene()
+ local s=new_scene()
+ s.name="universal"
+ s.background.x=112
+ return s
+end
+
+
 __gfx__
 00000000555555555555555500000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 000000000628826006d11d6000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
