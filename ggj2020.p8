@@ -181,10 +181,10 @@ function new_kitchen_scene()
  --once we have icons do that
  s.update=function(scene)
   if btnp(2) then
-   s.selected_ingredient=max(s.selected_ingredient-1, 1)
+   scene.selected_ingredient=max(scene.selected_ingredient-1, 1)
   end
   if btnp(3) then
-   s.selected_ingredient=min(s.selected_ingredient+1, #s.available_ingredients)
+   scene.selected_ingredient=min(scene.selected_ingredient+1, #scene.available_ingredients)
   end
  end
 
@@ -197,8 +197,7 @@ function new_kitchen_scene()
   loop_end=min(loop_start+11, #scene.available_ingredients)
 
   for i=loop_start,loop_end,1 do
-   local ing=scene.available_ingredients[i]
-   local icon=ing.icon()
+   local icon=scene.available_ingredients[i].icon()
    x_pix=(icon*8)%128
    y_pix=flr(abs(icon/16))*8
    x_target=(8+(column*3))*8
@@ -259,7 +258,7 @@ end
 --ingredients--
 strawberry={
  unlocked=true,
- icon=16,
+ icon=function() return 16 end,
  quantity=10
 }
 
