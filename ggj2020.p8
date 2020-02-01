@@ -237,7 +237,7 @@ function new_kitchen_scene()
     scene.current_output.unlocked=true
     add(scene.available_ingredients, scene.current_output)
    end
-   --scene.current_output={}
+   scene.current_output={}
 
    scene.mixer_contents={}
    scene.mix_complete=false
@@ -300,6 +300,7 @@ function new_kitchen_scene()
   if (scene.mixer_contents[1]) spr(scene.mixer_contents[1].icon(),8,8)
   if (scene.mixer_contents[2]) spr(scene.mixer_contents[2].icon(),24,8)
   if (scene.mixer_contents[3]) spr(scene.mixer_contents[3].icon(),40,8)
+ end
 
  return s
 end
