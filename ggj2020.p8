@@ -385,7 +385,7 @@ function new_kitchen_scene()
   end
 
   --ingredient list selected--
-  if scene.active then
+  if scene.active and #scene.available_ingredients>0 then
    if btnp(2) then
     scene.selected_ingredient=max(scene.selected_ingredient-1, 1)
    end
