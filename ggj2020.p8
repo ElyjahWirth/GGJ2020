@@ -6,64 +6,109 @@ __lua__
 
 function _init()
  screen = new_start_screen()
- screen.init()
 end
 
 function _draw()
- screen.draw()
+ screen:draw()
 end
 
 function _update()
- screen.update()
+ screen:update()
 end
 
 -->8
 -- screens --
-function new_screen()
+function new_game_screen()
  local s={}
 
- s.init=function()
+ s.init=function(s)
   s.draw_systems={}
   s.update_systems={}
  end
 
- s.update=function()
+ s.update=function(s)
   for sys in all(s.update_systems) do
    sys.update()
   end
  end
 
- s.draw=function()
+ s.draw=function(s)
+  cls()
+  print("game screen bitches")
   for sys in all(s.draw_systems) do
    sys.draw()
   end
  end
 
+ s:init()
  return s
 end
 
 function new_start_screen()
- local s=new_screen()
- s.init=function()
-  s.opts = {"start game", "exit"}
+ local s={}
+ s.init=function(s)
+  s.opts = {"start game", "credits"}
   s.selected=1
+  s.is_selected=false
  end
 
- s.update=function()
+ s.update=function(s)
+  if btn(5) then s.is_selected=true else s.is_selected=false end
   if (btn(2)) s.selected=max(s.selected-1,1)
   if (btn(3)) s.selected=min(s.selected+1,#s.opts)
+
+  if s.is_selected then
+   if s.selected==1 then
+    screen=new_game_screen()
+   end
+   if s.selected==2 then
+    screen=new_credits_screen()
+   end
+  end
  end
 
- s.draw=function()
+ s.draw=function(s)
   cls()
   for i=1,#s.opts,1 do
    print(s.opts[i], 60, 60+(10*i))
   end
   spr(32,50,60+(10*s.selected))
+  print("global jam game", 60, 20)
  end
 
+ s:init()
  return s
 end
+
+function new_credits_screen()
+ local s={}
+ s.init=function(s)
+  s.opts={"elyjah 'mr ely' wirth", "robert 'rantingbob' gardner", "mari 'make a jam game?' kyle"}
+  s.back=false
+ end
+
+ s.update=function(s)
+  if btn(4) then s.back=true else s.back=false end
+
+  if s.back then
+   screen=new_start_screen()
+  end
+ end
+
+ s.draw=function(s)
+  cls()
+  for i=1,#s.opts,1 do
+   print(s.opts[i], (5*i), 60+(10*i))
+  end
+  print("global jam game", 60, 20)
+ end
+
+ s:init()
+ return s
+end
+
+-->8
+--scenes--
 
 
 __gfx__
