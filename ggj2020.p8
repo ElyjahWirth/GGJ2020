@@ -109,8 +109,14 @@ function new_game_screen()
    sys.update()
   end
 
-  if (btnp(0)) s.current_scene=max(s.current_scene-1,1)
-  if (btnp(1)) s.current_scene=min(s.current_scene+1,#s.active_scenes)
+  if btnp(0) then
+   s.current_scene=max(s.current_scene-1,1)
+   manberry.update_icon()
+  end
+  if btnp(1) then
+   s.current_scene=min(s.current_scene+1,#s.active_scenes)
+   manberry.update_icon()
+  end
  end
 
  s.draw=function(s)
@@ -156,6 +162,8 @@ function new_kitchen_scene()
  s.background.x=16
  s.all_ingredients={}
  add(s.all_ingredients, strawberry)
+ add(s.all_ingredients, blueberry)
+ add(s.all_ingredients, manberry)
  s.selected_ingredient=1
  s.available_ingredients={}
  for i in all(s.all_ingredients) do
@@ -166,9 +174,15 @@ function new_kitchen_scene()
   map(scene.background.x,scene.background.y,0,0,16,16)
   i=0
   for ing in all(s.available_ingredients) do
-
+   local icon=ing.icon()
+   x_pix=(icon*8)%128
+   y_pix=flr(abs(icon/16))*8
+   x_target=(8+(i*3))*8
+   y_target=0*8
+   sspr(x_pix,y_pix,8,8,x_target,y_target,16,16)
+   i+=1
+   i%=3
   end
-  print(scene.name, 0, 10)
  end
  return s
 end
@@ -219,8 +233,24 @@ end
 --ingredients--
 strawberry={
  unlocked=true,
- icon=16,
+ icon=function() return 16 end,
  quantity=10
+}
+
+blueberry={
+ unlocked=true,
+ icon=function() return 17 end,
+ quantity=7
+}
+
+manberry={
+ unlocked=true,
+ icon_options={18,19,20,21,22},
+ current_icon=1,
+ icon=function() return manberry.icon_options[manberry.current_icon] end,
+ update_icon=function()
+  manberry.current_icon=flr(rnd(#manberry.icon_options-1)+1)
+ end
 }
 
 __gfx__
