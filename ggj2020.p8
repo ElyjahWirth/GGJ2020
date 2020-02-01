@@ -288,7 +288,7 @@ function new_farm_scene()
    end
    if btnp(5) then
     local desired_bush=scene.bushes[scene.selected]
-    if cash_money-desired_bush.price > 0 then
+    if cash_money-desired_bush.price >= 0 then
      local new_bush={
       x=rnd(16*8),
       y=rnd(4*8)+4*8,
