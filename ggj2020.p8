@@ -160,8 +160,8 @@ function new_kitchen_scene()
  s.name="kitchen"
  s.background.x=16
 
- s.mixer_selected=false
  s.process_mix=false
+ s.mix_complete=false
  s.mixer_contents={}
 
  s.all_ingredients={}
@@ -181,32 +181,34 @@ function new_kitchen_scene()
 
 
  s.update=function(scene)
-  if not scene.mixer_selected then
-   --ingredient list selected--
-   if btnp(2) then
-    scene.selected_ingredient=max(scene.selected_ingredient-1, 1)
-   end
-   if btnp(3) then
-    scene.selected_ingredient=min(scene.selected_ingredient+1, #scene.available_ingredients)
-   end
-   if btnp(5) then
-    scene.mixer_selected=true
-   end
+  --ingredient list selected--
+  if btnp(2) then
+   scene.selected_ingredient=max(scene.selected_ingredient-1, 1)
+  end
+  if btnp(3) then
+   scene.selected_ingredient=min(scene.selected_ingredient+1, #scene.available_ingredients)
+  end
+  if btnp(5) and #scene.mixer_contents<3 then
+   add(scene.mixer_contents, scene.available_ingredients[scene.selected_ingredient])
+  end
+  if btnp(4) and #scene.mixer_contents!=0 then
+   scene.process_mix=true
   else
-   --mixer selected--
-   if btnp(5) then
-    --deposit ingredient--
-    if (#scene.mixer_contents<3) add(scene.mixer_contents, scene.available_ingredients[scene.selected_ingredient])
-    scene.mixer_selected=false
-   end
+   scene.process_mix=false
   end
 
-     --mixer selected--
-   if btnp(4) and #scene.mixer.contents > 0 then
-    --todo: this needs to happen even if this scene isn't in focus
-    scene.process_mix=true
-   end
+  if scene.process_mix and not scene.mix_complete then
+   scene:advance_mix()
+  end
 
+  if scene.mix_complete then
+   scene.mixer_contents={}
+  end
+
+ end
+
+ s.advance_mix=function(scene)
+  scene.mix_complete=true
  end
 
  s.draw=function(scene)
@@ -237,10 +239,10 @@ function new_kitchen_scene()
   if (scene.mixer_contents[1]) spr(scene.mixer_contents[1].icon(),8,8)
   if (scene.mixer_contents[2]) spr(scene.mixer_contents[2].icon(),24,8)
   if (scene.mixer_contents[3]) spr(scene.mixer_contents[3].icon(),40,8)
-  if (scene.mixer_selected) then
-
-  end
+  print(#scene.mixer_contents)
+  print(#scene.mixer_contents<3)
  end
+
  return s
 end
 
