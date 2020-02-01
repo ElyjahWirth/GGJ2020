@@ -163,6 +163,11 @@ function new_scene()
  return s
 end
 
+function unlock_store(s)
+ s.active_scenes[3]=s.scenes[3]
+ s.active_scenes[3].unlocked=true
+end
+
 function new_store_scene()
  local s=new_scene()
  s.name="store"
@@ -171,6 +176,11 @@ function new_store_scene()
  s.icon.x=56
  s.icon.y=32
  return s
+end
+
+function unlock_hr(s)
+ s.active_scenes[4]=s.scenes[4]
+ s.active_scenes[4].unlocked=true
 end
 
 function new_hr_scene()
@@ -183,6 +193,11 @@ function new_hr_scene()
  return s
 end
 
+function unlock_factories(s)
+ s.active_scenes[1]=s.scenes[5]
+ s.active_scenes[1].unlocked=true
+end
+
 function new_factories_scene()
  local s=new_scene()
  s.name="factories"
@@ -191,6 +206,11 @@ function new_factories_scene()
  s.icon.x=24
  s.icon.y=48
  return s
+end
+
+function unlock_global(s)
+ s.active_scenes[1]=s.scenes[6]
+ s.active_scenes[1].unlocked=true
 end
 
 function new_global_scene()
@@ -203,6 +223,11 @@ function new_global_scene()
  return s
 end
 
+function unlock_galactic(s)
+ s.active_scenes[1]=s.scenes[7]
+ s.active_scenes[1].unlocked=true
+end
+
 function new_galactic_scene()
  local s=new_scene()
  s.name="galactic"
@@ -211,6 +236,11 @@ function new_galactic_scene()
  s.icon.x=88
  s.icon.y=48
  return s
+end
+
+function unlock_universal(s)
+ s.active_scenes[1]=s.scenes[8]
+ s.active_scenes[1].unlocked=true
 end
 
 function new_universal_scene()
@@ -235,6 +265,11 @@ function new_farm_scene()
  }
 
  return s
+end
+
+function unlock_kitchen(s)
+ s.active_scenes[2]=s.scenes[2]
+ s.active_scenes[2].unlocked=true
 end
 
 function new_kitchen_scene()
