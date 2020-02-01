@@ -104,7 +104,9 @@ function new_game_screen()
  end
 
  s.update=function(s)
-  s.active_scenes[s.current_scene]:update()
+  for scene in all(s.scenes) do
+   scene:update()
+  end
   for sys in all(s.update_systems) do
    sys.update()
   end
@@ -140,18 +142,11 @@ function new_scene()
  s.draw=function(scene)
   map(scene.background.x,scene.background.y,0,0,16,16)
  end
- s.unlocked=true
+ s.unlocked=false
  s.background={
   x=0,
   y=0
  }
- return s
-end
-
-function new_farm_scene()
- local s=new_scene()
- s.name="farm"
- s.unlocked=true
  return s
 end
 
@@ -166,6 +161,7 @@ function new_hr_scene()
  local s=new_scene()
  s.name="hr"
  s.background.x=48
+ s.unlocked=true
  return s
 end
 
@@ -173,6 +169,7 @@ function new_factories_scene()
  local s=new_scene()
  s.name="factories"
  s.background.x=64
+ s.unlocked=false
  return s
 end
 
@@ -180,6 +177,7 @@ function new_global_scene()
  local s=new_scene()
  s.name="global"
  s.background.x=80
+ s.unlocked=false
  return s
 end
 
@@ -187,6 +185,7 @@ function new_galactic_scene()
  local s=new_scene()
  s.name="galactic"
  s.background.x=96
+ s.unlocked=false
  return s
 end
 
@@ -194,20 +193,32 @@ function new_universal_scene()
  local s=new_scene()
  s.name="universal"
  s.background.x=112
+ s.unlocked=false
  return s
 end
 
 -->8
+<<<<<<< HEAD
 --kitchen--
 
 function lookup_recipe(mixer_contents)
  return false
+=======
+--kitchen & farm--
+function new_farm_scene()
+ local s=new_scene()
+ s.name="farm"
+ s.unlocked=true
+
+ return s
+>>>>>>> 1ec77e913f7cc0d77a932f948d9fd2dc5d3e3dc3
 end
 
 function new_kitchen_scene()
  local s=new_scene()
  s.name="kitchen"
  s.background.x=16
+ s.unlocked=true
 
  s.process_mix=false
  s.mix_complete=false
