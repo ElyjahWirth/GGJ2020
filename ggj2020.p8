@@ -199,11 +199,6 @@ end
 
 -->8
 --kitchen--
-
-function lookup_recipe(mixer_contents)
- return false
-end
-
 function new_kitchen_scene()
  local s=new_scene()
  s.name="kitchen"
@@ -300,6 +295,7 @@ function new_kitchen_scene()
   if (scene.mixer_contents[1]) spr(scene.mixer_contents[1].icon(),8,8)
   if (scene.mixer_contents[2]) spr(scene.mixer_contents[2].icon(),24,8)
   if (scene.mixer_contents[3]) spr(scene.mixer_contents[3].icon(),40,8)
+  print(scene.available_ingredients[scene.selected_ingredient].shortname,0,0,7)
  end
 
  return s
@@ -309,6 +305,7 @@ end
 --ingredients--
 strawberry={
  name="strawberry",
+ shortname="strawberry",
  unlocked=true,
  icon=function() return 16 end,
  quantity=10
@@ -316,6 +313,7 @@ strawberry={
 
 blueberry={
  name="blueberry",
+ shortname="blueberry",
  unlocked=true,
  icon=function() return 17 end,
  quantity=7
@@ -323,6 +321,7 @@ blueberry={
 
 manberry={
  name="manberry",
+ shortname="manberry",
  unlocked=false,
  icon_options={18,19,20,21,22},
  current_icon=1,
@@ -335,6 +334,7 @@ manberry={
 
 globerry={
  name="globerry",
+ shortname="globerry",
  unlocked=false,
  icon=function() return 23 end,
  quantity=0
@@ -342,6 +342,7 @@ globerry={
 
 bigberry={
  name="bigberry",
+ shortname="bigberry",
  unlocked=false,
  icon=function() return 24 end,
  quantity=0
@@ -349,6 +350,7 @@ bigberry={
 
 bangberry={
  name="bangberry",
+ shortname="bangberry",
  unlocked=false,
  icon=function() return 25 end,
  quantity=0
@@ -356,6 +358,7 @@ bangberry={
 
 darkberry={
  name="darkberry",
+ shortname="darkberry",
  unlocked=false,
  icon=function() return 26 end,
  quantity=0
@@ -363,6 +366,7 @@ darkberry={
 
 galactiberry={
  name="galactiberry",
+ shortname="galactiberry",
  unlocked=false,
  icon=function() return 27 end,
  quantity=0
@@ -370,9 +374,75 @@ galactiberry={
 
 badjam={
  name="badjam",
+ shortname="badjam",
  unlocked=false,
  icon=function() return 3 end,
  quantity=0
+}
+
+strawberryjam={
+ name="strawberry jam",
+ shortname="strawberry jam",
+ unlocked=false,
+ icon=function() return 1 end,
+ quantity=0
+}
+
+strawberryduojam={
+ name="strawduoberry jam",
+ shortname="s.duobery jam",
+ unlocked=false,
+ icon=function() return 1 end,
+ quantity=0
+}
+
+strawberrytrijam={
+ name="strawtriberry jam",
+ shortname="s.tribery jam",
+ unlocked=false,
+ icon=function() return 1 end,
+ quantity=0
+}
+
+-->8
+--recipes--
+function lookup_recipe(mixer_contents)
+ output=false
+
+ --make a sublist of recipes where inputs length is the name as mixer contents length
+ --filter out recipes that don't contain element 1
+ --filter out recupes that don't contain element 2
+ --filter out recupes that don't contain element 3
+ --return the only remaining recipe
+
+ return output
+end
+
+recipes={
+ --strawberry jam--
+ {
+  inputs={
+   strawberry
+  },
+  output=strawberryjam
+ },
+ --strawduoberry jam--
+ {
+  inputs={
+   strawberry,
+   strawberry
+  },
+  output=strawberryduojam
+ },
+ --strawtriberry jam--
+ {
+  inputs={
+   strawberry,
+   strawberry,
+   strawberry
+  },
+  output=strawberrytrijam
+ }
 }
 
 __gfx__
