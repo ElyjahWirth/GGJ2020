@@ -300,6 +300,11 @@ function new_hr_scene()
  s.selected_upgrade=1
 
  s.update=function(scene)
+  check_for_unlocks(scene)
+
+  for upgrade in all(scene.purchased_upgrades) do
+   upgrade.update(scene)
+  end
   if scene.active and #scene.available_upgrades>0 then
    if btnp(2) then
     scene.selected_upgrade=max(scene.selected_upgrade-1, 1)
@@ -310,13 +315,24 @@ function new_hr_scene()
 
    local selected=scene.available_upgrades[scene.selected_upgrade]
    if btnp(5) and can_spend(selected.price, selected.scale) and selected.quantity < selected.max_quantity then
+    if selected.quantity==0 then
+     add(s.purchased_upgrades, selected)
+     selected.on_unlock(scene)
+    end
     selected.quantity+=1
+    selected.on_purchase(scene)
+    lose_money(selected.price, selected.scale)
     if selected.quantity == selected.max_quantity then
      del(s.available_upgrades, selected)
+     s.selected_upgrade=1
     end
    end
 
   end
+
+
+
+
  end
 
  s.draw=function(scene)
@@ -329,13 +345,30 @@ function new_hr_scene()
    local x_pix=(icon*8)%128
    local y_pix=flr(abs(icon/16))*8
    local x_target=72
-   local y_target=(i-1)*8
+   local y_target=8+((i-1)*24)
    local price=cash_symbols[upgrade.scale]..upgrade.price
 
    sspr(x_pix,y_pix,8,8,x_target,y_target,16,16)
-   print(price,x_target,y_target+16)
+   print(price,x_target,y_target+17)
    if (i==scene.selected_upgrade) rect(x_target-1,y_target-1,x_target+16,y_target+16,7)
   end
+
+ for i=1,#scene.purchased_upgrades,1 do
+   local upgrade = scene.purchased_upgrades[i]
+   local icon=upgrade.icon
+   local x_pix=(icon*8)%128
+   local y_pix=flr(abs(icon/16))*8
+   local x_target=0
+   local y_target=8+((i-1)*24)
+
+   sspr(x_pix,y_pix,8,8,x_target,y_target,16,16)
+   print(upgrade.quantity,x_target,y_target+17)
+  end
+
+  if #scene.available_upgrades>0 then
+   print(scene.available_upgrades[scene.selected_upgrade].name, 0, 1)
+  end
+
  end
 
  return s
@@ -2509,6 +2542,26 @@ recipes={
 
 -->8
 -- upgrades --
+function check_for_unlocks(scene)
+ if cash_money[1]==32767 and not accountant.unlocked then
+  accountant.unlocked=true
+  add(scene.available_upgrades, accountant)
+  accountant.on_unlock(scene)
+ end
+
+ if cash_money[2]==32767 and not banker.unlocked then
+  banker.unlocked=true
+  add(scene.available_upgrades, banker)
+  banker.on_unlock(scene)
+ end
+
+ if cash_money[3]==32767 and not blockchain.unlocked then
+  blockchain.unlocked=true
+  add(scene.available_upgrades, blockchain)
+  blockchain.on_unlock(scene)
+ end
+end
+
 accountant={
  name="accountant",
  description="converts "..cash_symbols[1].." into "..cash_symbols[2],
@@ -2517,7 +2570,15 @@ accountant={
  scale=1,
  quantity=0,
  max_quantity=1,
- icon=1
+ icon=173,
+ on_purchase=function(scene) end,
+ on_unlock=function(scene) end,
+ update=function(scene)
+  if cash_money[1]==32767 then
+   cash_money[1]=0
+   cash_money[2]+=1
+  end
+ end
 }
 
 banker={
@@ -2528,7 +2589,15 @@ banker={
  scale=2,
  quantity=0,
  max_quantity=1,
- icon=1,
+ icon=174,
+ on_purchase=function(scene) end,
+ on_unlock=function(scene) end,
+ update=function(scene)
+ if cash_money[2]==32767 then
+   cash_money[2]=0
+   cash_money[3]+=1
+  end
+ end
 }
 
 blockchain={
@@ -2539,7 +2608,15 @@ blockchain={
  scale=3,
  quantity=0,
  max_quantity=1,
- icon=1
+ icon=175,
+ on_purchase=function(scene) end,
+ on_unlock=function(scene) end,
+ update=function(scene)
+  if cash_money[3]==32767 then
+   cash_money[3]=0
+   cash_money[4]+=1
+  end
+ end
 }
 __gfx__
 00000000555555555555555555555555555555555555555555555555555555555555555555555555555555555555555500bbbbbbbbbbbbbbbbbbbbbbbbbbbb00
