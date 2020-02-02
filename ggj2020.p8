@@ -12,15 +12,9 @@ cash_money[1]=50
 cash_money[2]=0
 cash_money[3]=0
 cash_money[4]=0
---[[
- stage 1 = farm
- stage 2 = factoruy
- stage 3 = globe
- stage 4 = galaxy
- stage 5 = universe
-]]--
-stage=1
 known_good_recipes={}
+jam_timer=0
+game_over=false
 
 function add_money(value, scale)
  if scale==nil then scale=1 end
@@ -62,6 +56,7 @@ function _draw()
 end
 
 function _update()
+ if(not game_over) jam_timer+=1/30
  screen:update()
 end
 
@@ -70,6 +65,7 @@ end
 function new_start_screen()
  local s={}
  s.init=function(s)
+  game_over=false
   s.opts = {"start game", "credits"}
   s.selected=1
   s.is_selected=false
@@ -135,6 +131,7 @@ function new_gameover_screen()
  local s={}
  s.init=function(s)
   s.back=false
+  game_over=true
  end
 
  s.update=function(s)
@@ -148,6 +145,10 @@ function new_gameover_screen()
   print("you have repaired the universe",0,8)
   print("you have returned all to",0,16)
   print("the primardial jam",0,24)
+
+  sspr(8,32,8,8,48,48,32,32)
+  local score="score: "..jam_timer
+  print(score,64-(4*(#score/2)),82)
  end
 
  s:init()
@@ -2255,6 +2256,7 @@ recipes={
 -->8
 -- upgrades --
 function check_for_unlocks(scene)
+ if (primordialjam.quantity >= 1) screen=new_gameover_screen()
 
  if cash_money[1]>=100 and not blueberry_bush.unlocked then
   blueberry_bush.unlocked=true
