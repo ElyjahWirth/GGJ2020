@@ -131,6 +131,32 @@ function new_credits_screen()
  return s
 end
 
+function new_gameover_screen()
+ local s={}
+ s.init=function(s)
+  s.back=false
+ end
+
+ s.update=function(s)
+  if btnp(4) or btnp(5) then s.back=true else s.back=false end
+
+  if s.back then
+   screen=new_start_screen()
+  end
+ end
+
+ s.draw=function(s)
+  cls()
+  print("you have repaired the universe")
+  print("you have returned all to")
+  print("the primardial jam")
+  print("global jam game", 60, 20)
+ end
+
+ s:init()
+ return s
+end
+
 
 function new_game_screen()
  local s={}
@@ -372,13 +398,7 @@ function new_store_scene()
 
  s.draw=function(scene)
   map(scene.background.x,scene.background.y,0,0,16,16)
-
-  --ely futsin here--
-
-  gran_x=20
-  gran_y=24
-  spr(granimation,gran_x,gran_y,4,4)
-  ----
+  spr(granimation,20,24,4,4)
 
   --draw stock list--
   local column=0
@@ -611,7 +631,9 @@ jam_sale_constants={
 }
 
 function get_price(jam)
- return get_base_price(jam) * get_generatoin_modifier(jam) * get_demand(jam) * jam_sale_constants.global_sales_efficiency
+ local price=get_base_price(jam) * get_generatoin_modifier(jam) * get_demand(jam) * jam_sale_constants.global_sales_efficiency
+ if (price < 0) price=32767
+ return price
 end
 
 function get_generatoin_modifier(jam)
