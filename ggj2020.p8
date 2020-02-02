@@ -749,29 +749,26 @@ end
 
  --filter out recipes that don't contain element 1
 for recipecheck in all(temp_recipes) do
- for ingrediantcheck in all (recipecheck.inputs) do
-  if ingrediantcheck==mixer_contents[1] then
-  add(matches,recipecheck)
-  end
- end
+ local used1= false
+ if recipecheck.inputs[1] == mixer_contents[1] then used1=true end
+ if (used1) add(matches,recipecheck)
 end
 
  --filter out recupes that don't contain element 2
 if #mixer_contents>=2 then
  local matches2 = {}
  for recipecheck in all(matches) do
-  local found1=false
-  local found2=false
-  if recipecheck.inputs[1] == mixer_contents[1] or 
-    recipecheck.inputs[1] == mixer_contents[2] then
-    found1=true
-  end
-  if recipecheck.inputs[2] == mixer_contents[1] or 
-    recipecheck.inputs[2] == mixer_contents[2] then
-    found2=true
-  end
+  
+  local used1= false
+  local used2= false
+
+  if recipecheck.inputs[1] == mixer_contents[1] then used1=true end
+  if recipecheck.inputs[1] == mixer_contents[2] then used2=true end
+
+  if recipecheck.inputs[2] == mixer_contents[1] then used1=true end
+  if recipecheck.inputs[2] == mixer_contents[2] then used2=true end
  
-  if found1 and found2 then
+  if used1 and used2 then
    add(matches2,recipecheck)
   end
  end
@@ -782,25 +779,23 @@ end
 if #mixer_contents==3 then
  local matches3 = {}
  for recipecheck in all(matches) do
-  local found1=false
-  local found2=false
-  local found3=false
-  if recipecheck.inputs[1] == mixer_contents[1] or 
-    recipecheck.inputs[1] == mixer_contents[2] or
-    recipecheck.inputs[1] == mixer_contents[3] then
-    found1=true
-  end
-  if recipecheck.inputs[2] == mixer_contents[1] or 
-    recipecheck.inputs[2] == mixer_contents[2] or
-    recipecheck.inputs[2] == mixer_contents[3] then
-    found2=true
-  end
- if recipecheck.inputs[3] == mixer_contents[1] or 
-    recipecheck.inputs[3] == mixer_contents[2] or
-    recipecheck.inputs[3] == mixer_contents[3] then
-    found3=true
-  end
-  if found1 and found2 and found3 then
+  local used1= false
+  local used2= false
+  local used3= false
+
+  if recipecheck.inputs[1] == mixer_contents[1] then used1=true end
+  if recipecheck.inputs[1] == mixer_contents[2] then used2=true end
+  if recipecheck.inputs[1] == mixer_contents[3] then used3=true end
+
+  if recipecheck.inputs[2] == mixer_contents[1] then used1=true end
+  if recipecheck.inputs[2] == mixer_contents[2] then used2=true end
+  if recipecheck.inputs[2] == mixer_contents[3] then used3=true end
+
+  if recipecheck.inputs[3] == mixer_contents[1] then used1=true end
+  if recipecheck.inputs[3] == mixer_contents[2] then used2=true end
+  if recipecheck.inputs[3] == mixer_contents[3] then used3=true end
+
+  if used1 and used2 and used3 then
    add(matches3,recipecheck)
   end
  end
