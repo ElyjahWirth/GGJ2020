@@ -271,10 +271,46 @@ function new_store_scene()
     scene.selected_stock=min(scene.selected_stock+1, #scene.stock)
    end
    if btnp(5) and scene.stock[scene.selected_stock].quantity > 0 then
-    scene.stock[scene.selected_stock].quantity-=1
-    cash_money+=get_price_for(scene.stock[scene.selected_stock])
+    sold(scene.stock[scene.selected_stock])
    end
 
+  end
+ end
+
+ s.draw=function(scene)
+  map(scene.background.x,scene.background.y,0,0,16,16)
+
+  --draw ingredient list--
+  local column=0
+  local row=0
+  local page=flr(abs(scene.selected_stock-1)/12)
+  local loop_start=(page*12)+1
+  local loop_end=min(loop_start+11, #scene.stock)
+
+  for i=loop_start,loop_end,1 do
+   local ing=scene.stock[i]
+   local icon=ing.icon()
+   local x_pix=(icon*8)%128
+   local y_pix=flr(abs(icon/16))*8
+   local x_target=(8+(column*3))*8
+   local y_target=(row*3)*8
+   sspr(x_pix,y_pix,8,8,x_target,y_target,16,16)
+   print(ing.quantity,x_target,y_target+16)
+   column+=1
+   column%=3
+   if (column==0) row+=1
+   if (i==scene.selected_stock) rect(x_target-1,y_target-1,x_target+16,y_target+16,7)
+  end
+
+  if #scene.stock > 0 then
+   local name=scene.stock[scene.selected_stock].shortname
+   local price="$"..get_price_for(scene.stock[scene.selected_stock])
+   local demand=""..get_demand_for(scene.stock[scene.selected_stock]).."*"
+   print(name, 0, 1)
+   print("sale price:",8,64)
+   print(price, 56-(#price*4), 72)
+   print("demand:",8,80)
+   print(demand,56-(#demand*4),88)
   end
  end
 
@@ -409,6 +445,7 @@ function new_kitchen_scene()
      screen.active_scenes[3]=screen.scenes[3]
      screen.active_scenes[3].unlocked=true
     end
+    add(screen.active_scenes[3].stock, scene.current_output)
    end
    scene.current_output={}
 
@@ -486,7 +523,16 @@ end
 -->8
 --ingredients--
 function get_price_for(jam)
- return 100
+ return 1000
+end
+
+function get_demand_for(jam)
+ return 1.1
+end
+
+function sold(jam)
+ jam.quantity-=1
+ cash_money+=get_price_for(jam)
 end
 
 strawberry={
