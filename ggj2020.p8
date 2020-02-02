@@ -20,6 +20,7 @@ cash_money[4]=0
  stage 5 = universe
 ]]--
 stage=1
+known_good_recipes={}
 
 function add_money(value, scale)
  if scale==nil then scale=1 end
@@ -436,7 +437,7 @@ granimation_time=0
   map(scene.background.x,scene.background.y,0,0,16,16)
 
   --ely futsin here--
-  
+
   gran_x=20
   gran_y=24
   spr(granimation,gran_x,gran_y,4,4)
@@ -572,32 +573,12 @@ function new_kitchen_scene()
  s.mix_complete=false
  s.mixer_contents={}
  s.available_ingredients={}
- add(s.available_ingredients, strawberry)
- add(s.available_ingredients, blueberry)
- add(s.available_ingredients, bananaberry)
- add(s.available_ingredients, manberry)
- add(s.available_ingredients, globerry)
- add(s.available_ingredients, bigberry)
- add(s.available_ingredients, bangberry)
- add(s.available_ingredients, darkberry)
- add(s.available_ingredients, galactiberry)
  s.selected_ingredient=1
 
  s.update=function(scene)
   if scene.mix_complete then
-
-   scene.current_output.quantity += 1
-   if not scene.current_output.unlocked then
-    scene.current_output.unlocked=true
-    add(scene.available_ingredients, scene.current_output)
-    if not screen.active_scenes[3] then
-     screen.active_scenes[3]=screen.scenes[3]
-     screen.active_scenes[3].unlocked=true
-    end
-    add(screen.active_scenes[3].stock, scene.current_output)
-   end
+   gain_jam(scene.current_output)
    scene.current_output={}
-
    scene.mixer_contents={}
    scene.mix_complete=false
    scene.process_mix=false
@@ -680,6 +661,8 @@ jam_sale_constants={
  global_sales_efficiency=1.0,
  global_demand_loss=0.01,
  global_demand_loss_modifier=1.0,
+ global_harvest_mod=1,
+ global_cook_speed=1.0,
 }
 
 function get_price(jam)
@@ -710,7 +693,7 @@ strawberry={
  shortname="strawberry",
  unlocked=true,
  icon=function() return 16 end,
- quantity=100
+ quantity=0
 }
 
 blueberry={
@@ -718,7 +701,7 @@ blueberry={
  shortname="blueberry",
  unlocked=true,
  icon=function() return 17 end,
- quantity=100
+ quantity=0
 }
 
 bananaberry={
@@ -726,7 +709,7 @@ bananaberry={
  shortname="bananaberry",
  unlocked=true,
  icon=function() return 63 end,
- quantity=100
+ quantity=0
 }
 
 manberry={
@@ -739,7 +722,7 @@ manberry={
  update_icon=function()
   manberry.current_icon=flr(rnd(#manberry.icon_options)+1)
  end,
- quantity=100
+ quantity=0
 }
 
 globerry={
@@ -747,7 +730,7 @@ globerry={
  shortname="globerry",
  unlocked=false,
  icon=function() return 23 end,
- quantity=100
+ quantity=0
 }
 
 bigberry={
@@ -755,7 +738,7 @@ bigberry={
  shortname="bigberry",
  unlocked=false,
  icon=function() return 24 end,
- quantity=100
+ quantity=0
 }
 
 bangberry={
@@ -763,7 +746,7 @@ bangberry={
  shortname="bangberry",
  unlocked=false,
  icon=function() return 25 end,
- quantity=100
+ quantity=0
 }
 
 darkberry={
@@ -771,7 +754,7 @@ darkberry={
  shortname="darkberry",
  unlocked=false,
  icon=function() return 26 end,
- quantity=100
+ quantity=0
 }
 
 galactiberry={
@@ -779,7 +762,7 @@ galactiberry={
  shortname="galactiberry",
  unlocked=false,
  icon=function() return 27 end,
- quantity=100
+ quantity=0
 }
 
 strawberryjam={
@@ -787,7 +770,7 @@ strawberryjam={
  shortname="strawberry jam",
  unlocked=false,
  icon=function() return 1 end,
- quantity=100,
+ quantity=0,
  base_price=1,
  demand_rate=0.01,
   gen=1,
@@ -800,7 +783,7 @@ strawberryduojam={
  shortname="s.duobery jam",
  unlocked=false,
  icon=function() return 1 end,
- quantity=100,
+ quantity=0,
  base_price=1,
  demand_rate=0.01,
   gen=1,
@@ -813,7 +796,7 @@ strawberrytrijam={
  shortname="s.tribery jam",
  unlocked=false,
  icon=function() return 1 end,
- quantity=100,
+ quantity=0,
  base_price=1,
  demand_rate=0.01,
   gen=1,
@@ -826,7 +809,7 @@ strawberrynanajam={
  shortname="s.nanabery jam",
  unlocked=false,
  icon=function() return 1 end,
- quantity=100,
+ quantity=0,
  base_price=1,
  demand_rate=0.01,
   gen=1,
@@ -839,7 +822,7 @@ bananaberryjam={
  shortname="bananajama",
  unlocked=false,
  icon=function() return 9 end,
- quantity=100,
+ quantity=0,
  base_price=1,
  demand_rate=0.01,
   gen=1,
@@ -852,7 +835,7 @@ bananaberryduojam={
  shortname="bananaduojama",
  unlocked=false,
  icon=function() return 9 end,
- quantity=100,
+ quantity=0,
  base_price=1,
  demand_rate=0.01,
   gen=1,
@@ -865,7 +848,7 @@ bananaberrytrijam={
  shortname="bananatrijama",
  unlocked=false,
  icon=function() return 9 end,
- quantity=100,
+ quantity=0,
  base_price=1,
  demand_rate=0.01,
   gen=1,
@@ -878,7 +861,7 @@ bananaberrynanajam={
  shortname="bananananajama",
  unlocked=false,
  icon=function() return 9 end,
- quantity=100,
+ quantity=0,
  base_price=1,
  demand_rate=0.01,
   gen=1,
@@ -891,7 +874,7 @@ blueberryjam={
  shortname="blueberry jam",
  unlocked=false,
  icon=function() return 2 end,
- quantity=100,
+ quantity=0,
  base_price=1,
  demand_rate=0.01,
   gen=1,
@@ -904,7 +887,7 @@ blueberryduojam={
  shortname="b.duobery jam",
  unlocked=false,
  icon=function() return 2 end,
- quantity=100,
+ quantity=0,
  base_price=1,
  demand_rate=0.01,
   gen=1,
@@ -917,7 +900,7 @@ blueberrytrijam={
  shortname="b.tribery jam",
  unlocked=false,
  icon=function() return 2 end,
- quantity=100,
+ quantity=0,
  base_price=1,
  demand_rate=0.01,
   gen=1,
@@ -930,7 +913,7 @@ blueberrynanajam={
  shortname="b.nanabery jam",
  unlocked=false,
  icon=function() return 2 end,
- quantity=100,
+ quantity=0,
  base_price=1,
  demand_rate=0.01,
   gen=1,
@@ -943,7 +926,7 @@ manberryjam={
  shortname="manberry jam",
  unlocked=false,
  icon=function() return 5 end,
- quantity=100,
+ quantity=0,
  base_price=1,
  demand_rate=0.01,
   gen=1,
@@ -1588,20 +1571,27 @@ scale=4
 
 -->8
 --manufacturing
-function harvest(scene)
+function harvest(scene, num)
+ if not num then num=32767 end
+ local counter=0
  for bush in all(scene.planted_bushes) do
-  if bush.harvest_counter > bush.template.harvest_time then
-   bush.harvest_counter=0.0
-   if not screen.active_scenes[2] then
-    screen.active_scenes[2]=screen.scenes[2]
-    screen.active_scenes[2].unlocked=true
-   end
-   bush.template.produce.quantity+=1
-   if not bush.template.produce.unlocked then
-    add(screen.active_scenes[2].available_ingredients, bush.template.produce)
-    bush.template.produce.unlocked=true
-   end
+  if bush.harvest_counter > bush.template.harvest_time  and counter < num then
+   harvest_bush(bush)
+   counter+=1
   end
+ end
+end
+
+function harvest_bush(bush)
+ bush.harvest_counter=0.0
+ if not screen.active_scenes[2] then
+  screen.active_scenes[2]=screen.scenes[2]
+  screen.active_scenes[2].unlocked=true
+ end
+ bush.template.produce.quantity+=1
+ if not bush.template.produce.unlocked then
+  add(screen.active_scenes[2].available_ingredients, bush.template.produce)
+  bush.template.produce.unlocked=true
  end
 end
 
@@ -1652,6 +1642,54 @@ factory={
 
 -->8
 --recipes--
+function has_ingredients(recipe)
+ local input1=0
+ local input2=0
+ local input3=0
+ if #recipe.inputs==1 then
+  input1 = recipe.inputs[1].quantity-1
+ end
+
+ if #recipe.inputs==2 then
+  input1 = recipe.inputs[1].quantity-1
+  input2 = recipe.inputs[2].quantity-1
+  if recipe.inputs[1]==recipe.inputs[2] then input2-=1 end
+ end
+
+ if #recipe.inputs==3 then
+  input1 = recipe.inputs[1].quantity-1
+  input2 = recipe.inputs[2].quantity-1
+  input3 = recipe.inputs[3].quantity-1
+  if recipe.inputs[1]==recipe.inputs[2] then input2-=1 end
+  if recipe.inputs[1]==recipe.inputs[3] then input3-=1 end
+  if recipe.inputs[2]==recipe.inputs[3] then input3-=1 end
+ end
+
+ if input1<0 or input2<0 or input3<0 then return false else return true end
+end
+
+function spend_ingredients(recipe)
+ for input in all(recipe.inputs) do
+  input.quantity-=1
+ end
+end
+
+function gain_jam(jam)
+ kitchen=screen.active_scenes[2]
+ store=screen.active_scenes[3]
+ jam.quantity += 1
+ if not jam.unlocked then
+  jam.unlocked=true
+  add(kitchen.available_ingredients, jam)
+  if not store then
+   screen.active_scenes[3]=screen.scenes[3]
+   screen.active_scenes[3].unlocked=true
+   store=screen.active_scenes[3]
+  end
+  add(store.stock, jam)
+ end
+end
+
 function lookup_recipe(mixer_contents)
  local output=false
  local temp_recipes = {}
@@ -1659,83 +1697,89 @@ function lookup_recipe(mixer_contents)
  --make a sublist of recipes where inputs length is the same as mixer contents length
  for check in all(recipes) do
   if #check.inputs==#mixer_contents then
-  add(temp_recipes,check)
+   add(temp_recipes,check)
+  end
  end
-end
 
  --filter out recipes that don't contain element 1
-if #mixer_contents==1 then
- for recipecheck in all(temp_recipes) do
-  local used1= false
-  if recipecheck.inputs[1] == mixer_contents[1] then used1=true end
-  if (used1) add(matches,recipecheck)
- end
-end
- --filter out recupes that don't contain element 2
-if #mixer_contents==2 then
- local matches2 = {}
- for recipecheck in all(temp_recipes) do
-
-  local used1= false
-  local used2= false
-
-  if recipecheck.inputs[1] == mixer_contents[1] then used1=true end
-  if recipecheck.inputs[1] == mixer_contents[2] then used2=true end
-
-  if recipecheck.inputs[2] == mixer_contents[1] then used1=true end
-  if recipecheck.inputs[2] == mixer_contents[2] then used2=true end
-
-  if used1 and used2 then
-   add(matches2,recipecheck)
+ if #mixer_contents==1 then
+  for recipecheck in all(temp_recipes) do
+   local used1= false
+   if recipecheck.inputs[1] == mixer_contents[1] then used1=true end
+   if (used1) add(matches,recipecheck)
   end
  end
-matches=matches2
-end
+  --filter out recupes that don't contain element 2
+ if #mixer_contents==2 then
+  local matches2 = {}
+  for recipecheck in all(temp_recipes) do
 
- --filter out recupes that don't contain element 3
-if #mixer_contents==3 then
- local matches3 = {}
- for recipecheck in all(temp_recipes) do
-  local used1= false
-  local used2= false
-  local used3= false
+   local used1= false
+   local used2= false
 
-  if recipecheck.inputs[1] == mixer_contents[1] then used1=true end
-  if recipecheck.inputs[1] == mixer_contents[2] then used2=true end
-  if recipecheck.inputs[1] == mixer_contents[3] then used3=true end
+   if recipecheck.inputs[1] == mixer_contents[1] then used1=true end
+   if recipecheck.inputs[1] == mixer_contents[2] then used2=true end
 
-  if recipecheck.inputs[2] == mixer_contents[1] then used1=true end
-  if recipecheck.inputs[2] == mixer_contents[2] then used2=true end
-  if recipecheck.inputs[2] == mixer_contents[3] then used3=true end
+   if recipecheck.inputs[2] == mixer_contents[1] then used1=true end
+   if recipecheck.inputs[2] == mixer_contents[2] then used2=true end
 
-  if recipecheck.inputs[3] == mixer_contents[1] then used1=true end
-  if recipecheck.inputs[3] == mixer_contents[2] then used2=true end
-  if recipecheck.inputs[3] == mixer_contents[3] then used3=true end
+   if used1 and used2 then
+    add(matches2,recipecheck)
+   end
+  end
+ matches=matches2
+ end
 
-  if used1 and used2 and used3 then
-   add(matches3,recipecheck)
+  --filter out recupes that don't contain element 3
+ if #mixer_contents==3 then
+  local matches3 = {}
+  for recipecheck in all(temp_recipes) do
+   local used1= false
+   local used2= false
+   local used3= false
+
+   if recipecheck.inputs[1] == mixer_contents[1] then used1=true end
+   if recipecheck.inputs[1] == mixer_contents[2] then used2=true end
+   if recipecheck.inputs[1] == mixer_contents[3] then used3=true end
+
+   if recipecheck.inputs[2] == mixer_contents[1] then used1=true end
+   if recipecheck.inputs[2] == mixer_contents[2] then used2=true end
+   if recipecheck.inputs[2] == mixer_contents[3] then used3=true end
+
+   if recipecheck.inputs[3] == mixer_contents[1] then used1=true end
+   if recipecheck.inputs[3] == mixer_contents[2] then used2=true end
+   if recipecheck.inputs[3] == mixer_contents[3] then used3=true end
+
+   if used1 and used2 and used3 then
+    add(matches3,recipecheck)
+   end
+  end
+ matches=matches3
+ end
+
+  --return the only remaining recipe
+ if #matches > 0 then
+  output=matches[1]
+  if not outut.discovered then
+   output.discovered=true
+   add(known_good_recipes, output)
   end
  end
-matches=matches3
-end
 
- --return the only remaining recipe
-if #matches > 0 then
-output=matches[1]
-end
-
- return output
+  return output
 end
 
 recipes={
  --strawberry jam--
  {
+  discovered=false,
   inputs={
    strawberry
   },
   output=strawberryjam
  },
  {
+  discovered=false,
   inputs={
    strawberryjam
   },
@@ -1743,6 +1787,7 @@ recipes={
  },
  --strawduoberry jam--
  {
+  discovered=false,
   inputs={
    strawberry,
    strawberry
@@ -1751,6 +1796,7 @@ recipes={
  },
  --strawduoberry jam--
  {
+  discovered=false,
   inputs={
    strawberryjam,
    strawberry
@@ -1759,6 +1805,7 @@ recipes={
  },
  --strawduoberry jam--
  {
+  discovered=false,
   inputs={
    strawberryjam,
    strawberryjam
@@ -1767,6 +1814,7 @@ recipes={
  },
  --strawtriberry jam--
  {
+  discovered=false,
   inputs={
    strawberry,
    strawberry,
@@ -1777,6 +1825,7 @@ recipes={
 
  --strawtriberry jam--
  {
+  discovered=false,
   inputs={
    strawberryjam,
    strawberry,
@@ -1787,6 +1836,7 @@ recipes={
 
  --strawtriberry jam--
  {
+  discovered=false,
   inputs={
    strawberryjam,
    strawberryjam,
@@ -1797,6 +1847,7 @@ recipes={
 
  --strawtriberry jam--
  {
+  discovered=false,
   inputs={
    strawberryjam,
    strawberryjam,
@@ -1806,6 +1857,7 @@ recipes={
  },
  --strawnanaberry jam--
  {
+  discovered=false,
   inputs={
    strawberrytrijam,
    strawberrytrijam,
@@ -1814,6 +1866,7 @@ recipes={
   output=strawberrynanajam
  },
  {
+  discovered=false,
   inputs={
    strawberryjam,
    bananaberryjam,
@@ -1821,6 +1874,7 @@ recipes={
   output=strawberrynanajam
  },
  {
+  discovered=false,
   inputs={
    strawberryjam,
    bananaberry
@@ -1828,6 +1882,7 @@ recipes={
   output=strawberrynanajam
  },
  {
+  discovered=false,
   inputs={
    strawberry,
    bananaberryjam
@@ -1835,6 +1890,7 @@ recipes={
   output=strawberrynanajam
  },
  {
+  discovered=false,
   inputs={
    strawberry,
    bananaberry
@@ -1844,12 +1900,14 @@ recipes={
 
  --blueberry jam--
  {
+  discovered=false,
   inputs={
    blueberry
   },
   output=blueberryjam
  },
  {
+  discovered=false,
   inputs={
    blueberryjam
   },
@@ -1857,6 +1915,7 @@ recipes={
  },
  --blueduoberry jam--
  {
+  discovered=false,
   inputs={
    blueberry,
    blueberry
@@ -1864,6 +1923,7 @@ recipes={
   output=blueberryduojam
  },
  {
+  discovered=false,
   inputs={
    blueberryjam,
    blueberry
@@ -1871,6 +1931,7 @@ recipes={
   output=blueberryduojam
  },
  {
+  discovered=false,
   inputs={
    blueberryjam,
    blueberryjam
@@ -1879,6 +1940,7 @@ recipes={
  },
 --bluetriberry jam--
  {
+  discovered=false,
   inputs={
    blueberry,
    blueberry,
@@ -1887,6 +1949,7 @@ recipes={
   output=blueberrytrijam
  },
  {
+  discovered=false,
   inputs={
    blueberryjam,
    blueberry,
@@ -1895,6 +1958,7 @@ recipes={
   output=blueberrytrijam
  },
  {
+  discovered=false,
   inputs={
    blueberryjam,
    blueberryjam,
@@ -1903,6 +1967,7 @@ recipes={
   output=blueberrytrijam
  },
  {
+  discovered=false,
   inputs={
    blueberryjam,
    blueberryjam,
@@ -1912,6 +1977,7 @@ recipes={
  },
  --bluenanaberry jam--
  {
+  discovered=false,
   inputs={
    blueberrytrijam,
    blueberrytrijam,
@@ -1920,6 +1986,7 @@ recipes={
   output=blueberrynanajam
  },
  {
+  discovered=false,
   inputs={
    blueberryjam,
    bananaberryjam,
@@ -1927,6 +1994,7 @@ recipes={
   output=blueberrynanajam
  },
  {
+  discovered=false,
   inputs={
    blueberryjam,
    bananaberry
@@ -1934,6 +2002,7 @@ recipes={
   output=blueberrynanajam
  },
  {
+  discovered=false,
   inputs={
    blueberry,
    bananaberryjam
@@ -1941,6 +2010,7 @@ recipes={
   output=blueberrynanajam
  },
  {
+  discovered=false,
   inputs={
    blueberry,
    bananaberry
@@ -1949,12 +2019,14 @@ recipes={
  },
 --bananaberry jam--
  {
+  discovered=false,
   inputs={
    bananaberry
   },
   output=bananaberryjam
  },
  {
+  discovered=false,
   inputs={
    bananaberryjam
   },
@@ -1962,6 +2034,7 @@ recipes={
  },
  --bananaduoberry jam--
  {
+  discovered=false,
   inputs={
    bananaberry,
    bananaberry
@@ -1969,6 +2042,7 @@ recipes={
   output=bananaberryduojam
  },
  {
+  discovered=false,
   inputs={
    bananaberryjam,
    bananaberry
@@ -1976,6 +2050,7 @@ recipes={
   output=bananaberryduojam
  },
  {
+  discovered=false,
   inputs={
    bananaberryjam,
    bananaberryjam
@@ -1984,6 +2059,7 @@ recipes={
  },
 --bananatriberry jam--
  {
+  discovered=false,
   inputs={
    bananaberry,
    bananaberry,
@@ -1992,6 +2068,7 @@ recipes={
   output=bananaberrytrijam
  },
  {
+  discovered=false,
   inputs={
    bananaberryjam,
    bananaberry,
@@ -2000,6 +2077,7 @@ recipes={
   output=bananaberrytrijam
  },
  {
+  discovered=false,
   inputs={
    bananaberryjam,
    bananaberryjam,
@@ -2008,6 +2086,7 @@ recipes={
   output=bananaberrytrijam
  },
  {
+  discovered=false,
   inputs={
    bananaberryjam,
    bananaberryjam,
@@ -2017,6 +2096,7 @@ recipes={
  },
  --bananananaberry jam--
  {
+  discovered=false,
   inputs={
    bananaberrytrijam,
    bananaberrytrijam,
@@ -2029,12 +2109,14 @@ recipes={
 
 --manberry jam--
  {
+  discovered=false,
   inputs={
    manberry
   },
   output=manberryjam
  },
  {
+  discovered=false,
   inputs={
    manberryjam
   },
@@ -2042,6 +2124,7 @@ recipes={
  },
  --manduoberry jam--
  {
+  discovered=false,
   inputs={
    manberry,
    manberry
@@ -2049,6 +2132,7 @@ recipes={
   output=manberryduojam
  },
  {
+  discovered=false,
   inputs={
    manberryjam,
    manberry
@@ -2056,6 +2140,7 @@ recipes={
   output=manberryduojam
  },
  {
+  discovered=false,
   inputs={
    manberryjam,
    manberryjam
@@ -2064,6 +2149,7 @@ recipes={
  },
  --mantriberry jam--
  {
+  discovered=false,
   inputs={
    manberry,
    manberry,
@@ -2072,6 +2158,7 @@ recipes={
   output=manberrytrijam
  },
  {
+  discovered=false,
   inputs={
    manberryjam,
    manberry,
@@ -2080,6 +2167,7 @@ recipes={
   output=manberrytrijam
  },
  {
+  discovered=false,
   inputs={
    manberryjam,
    manberryjam,
@@ -2087,6 +2175,7 @@ recipes={
   },
   output=manberrytrijam
  },{
+  discovered=false,
   inputs={
    manberryjam,
    manberryjam,
@@ -2096,6 +2185,7 @@ recipes={
  },
  --mananaberry jam
  {
+  discovered=false,
   inputs={
    manberrytrijam,
    manberrytrijam,
@@ -2104,6 +2194,7 @@ recipes={
   output=manberrynanajam
  },
  {
+  discovered=false,
   inputs={
    manberryjam,
    bananaberryjam,
@@ -2111,6 +2202,7 @@ recipes={
   output=manberrynanajam
  },
  {
+  discovered=false,
   inputs={
    manberryjam,
    bananaberry
@@ -2118,6 +2210,7 @@ recipes={
   output=manberrynanajam
  },
  {
+  discovered=false,
   inputs={
    manberry,
    bananaberryjam
@@ -2125,6 +2218,7 @@ recipes={
   output=manberrynanajam
  },
  {
+  discovered=false,
   inputs={
    manberry,
    bananaberry
@@ -2133,6 +2227,7 @@ recipes={
  },
  --bluemanbery jam
  {
+  discovered=false,
   inputs={
    blueberry,
    manberry,
@@ -2140,6 +2235,7 @@ recipes={
   output=bluemanberryjam
  },
   {
+  discovered=false,
   inputs={
    blueberryjam,
    manberry,
@@ -2147,6 +2243,7 @@ recipes={
   output=bluemanberryjam
  },
   {
+  discovered=false,
   inputs={
    blueberry,
    manberryjam,
@@ -2154,6 +2251,7 @@ recipes={
   output=bluemanberryjam
  },
   {
+  discovered=false,
   inputs={
    blueberryjam,
    manberryjam,
@@ -2162,6 +2260,7 @@ recipes={
  },
  --strawmanbery jam
  {
+  discovered=false,
   inputs={
    strawberry,
    manberry,
@@ -2169,6 +2268,7 @@ recipes={
   output=strawmanberryjam
  },
   {
+  discovered=false,
   inputs={
    strawberryjam,
    manberry,
@@ -2176,6 +2276,7 @@ recipes={
   output=strawmanberryjam
  },
   {
+  discovered=false,
   inputs={
    strawberry,
    manberryjam,
@@ -2183,6 +2284,7 @@ recipes={
   output=strawmanberryjam
  },
   {
+  discovered=false,
   inputs={
    strawberryjam,
    manberryjam,
@@ -2192,6 +2294,7 @@ recipes={
 
 --bluemanstrawbery jam
  {
+  discovered=false,
   inputs={
    strawberry,
    manberry,
@@ -2200,6 +2303,7 @@ recipes={
   output=bluemanstrawberyjam
  },
   {
+  discovered=false,
   inputs={
    strawberryjam,
    manberry,
@@ -2208,6 +2312,7 @@ recipes={
   output=bluemanstrawberyjam
  },
   {
+  discovered=false,
   inputs={
    strawberry,
    manberryjam,
@@ -2216,6 +2321,7 @@ recipes={
   output=bluemanstrawberyjam
  },
   {
+  discovered=false,
   inputs={
    strawberryjam,
    manberryjam,
@@ -2224,6 +2330,7 @@ recipes={
   output=bluemanstrawberyjam
  },
  {
+  discovered=false,
   inputs={
    strawberryjam,
    manberryjam,
@@ -2232,6 +2339,7 @@ recipes={
   output=bluemanstrawberyjam
  },
  {
+  discovered=false,
   inputs={
    strawberry,
    manberryjam,
@@ -2240,6 +2348,7 @@ recipes={
   output=bluemanstrawberyjam
  },
  {
+  discovered=false,
   inputs={
    strawberry,
    manberry,
@@ -2248,6 +2357,7 @@ recipes={
   output=bluemanstrawberyjam
  },
  {
+  discovered=false,
   inputs={
    strawberryjam,
    manberry,
@@ -2257,12 +2367,14 @@ recipes={
  },
 --globerry jam--
  {
+  discovered=false,
   inputs={
    globerry,
   },
   output=globerryjam
  },
  {
+  discovered=false,
   inputs={
    globerryjam,
   },
@@ -2270,6 +2382,7 @@ recipes={
  },
 --gloduoberry jam--
  {
+  discovered=false,
   inputs={
    globerry,
    globerry,
@@ -2277,6 +2390,7 @@ recipes={
   output=globduoberryjam
  },
  {
+  discovered=false,
   inputs={
    globerry,
    globerryjam,
@@ -2284,6 +2398,7 @@ recipes={
   output=globduoberryjam
  },
  {
+  discovered=false,
   inputs={
    globerryjam,
    globerryjam,
@@ -2292,6 +2407,7 @@ recipes={
  },
  --globtriberry jam--
  {
+  discovered=false,
   inputs={
    globerry,
    globerry,
@@ -2300,6 +2416,7 @@ recipes={
   output=globtriberryjam
  },
  {
+  discovered=false,
   inputs={
    globerry,
    globerry,
@@ -2308,6 +2425,7 @@ recipes={
   output=globtriberryjam
  },
  {
+  discovered=false,
   inputs={
    globerry,
    globerryjam,
@@ -2316,6 +2434,7 @@ recipes={
   output=globtriberryjam
  },
  {
+  discovered=false,
   inputs={
    globerryjam,
    globerryjam,
@@ -2325,6 +2444,7 @@ recipes={
  },
  --globnanaberry jam--
  {
+  discovered=false,
   inputs={
    globtriberryjam,
    globtriberryjam,
@@ -2333,6 +2453,7 @@ recipes={
   output=globnanaberryjam
  },
  {
+  discovered=false,
   inputs={
    globerry,
    bananaberry
@@ -2342,6 +2463,7 @@ recipes={
 
  --globblueberry jam--
  {
+  discovered=false,
   inputs={
    globerry,
    blueberry
@@ -2350,6 +2472,7 @@ recipes={
  },
 --globstrawberry jam--
  {
+  discovered=false,
   inputs={
    globerry,
    strawberry
@@ -2358,6 +2481,7 @@ recipes={
  },
 --globmanberry jam--
  {
+  discovered=false,
   inputs={
    globerry,
    manberry
@@ -2366,6 +2490,7 @@ recipes={
  },
  --globluestrawberry jam--
  {
+  discovered=false,
   inputs={
    globerry,
    strawberry,
@@ -2375,6 +2500,7 @@ recipes={
  },
 --globluemanberry jam--
  {
+  discovered=false,
   inputs={
    globerry,
    manberry,
@@ -2384,6 +2510,7 @@ recipes={
  },
 --glostrawmanberry jam--
  {
+  discovered=false,
   inputs={
    globerry,
    manberry,
@@ -2393,6 +2520,7 @@ recipes={
  },
 --galactijam--
  {
+  discovered=false,
   inputs={
    galactiberry,
   },
@@ -2400,6 +2528,7 @@ recipes={
  },
  --galactiduojam--
  {
+  discovered=false,
   inputs={
    galactiberry,
    galactiberry,
@@ -2409,6 +2538,7 @@ recipes={
 
  --galactrijam--
  {
+  discovered=false,
   inputs={
    galactiberry,
    galactiberry,
@@ -2418,6 +2548,7 @@ recipes={
  },
  --galactinanajam--
  {
+  discovered=false,
   inputs={
    galactilactilactijam,
    galactilactilactijam,
@@ -2426,6 +2557,7 @@ recipes={
   output=galactinanajam
  },
  {
+  discovered=false,
   inputs={
    galactiberry,
    bananaberry
@@ -2435,6 +2567,7 @@ recipes={
 
  --galactibluejam--
  {
+  discovered=false,
   inputs={
    galactiberry,
    blueberry
@@ -2443,6 +2576,7 @@ recipes={
  },
  --galactistrawjam--
  {
+  discovered=false,
   inputs={
    galactiberry,
    strawberry
@@ -2451,6 +2585,7 @@ recipes={
  },
  --galactimanjam--
  {
+  discovered=false,
   inputs={
    galactiberry,
    manberry
@@ -2459,6 +2594,7 @@ recipes={
  },
  --galactiglobejam--
  {
+  discovered=false,
   inputs={
    galactiberry,
    globerry
@@ -2467,6 +2603,7 @@ recipes={
  },
  --galactibluestrawberryjam--
  {
+  discovered=false,
   inputs={
    galactiberry,
    blueberry,
@@ -2477,6 +2614,7 @@ recipes={
 
  --galactibluestrawberryjam--
  {
+  discovered=false,
   inputs={
    galactiberry,
    blueberry,
@@ -2486,6 +2624,7 @@ recipes={
  },
  --galactibluestrawberryjam--
  {
+  discovered=false,
   inputs={
    galactiberry,
    blueberry,
@@ -2495,6 +2634,7 @@ recipes={
  },
  --galactistrawmanberryjam--
  {
+  discovered=false,
   inputs={
    galactiberry,
    strawberry,
@@ -2505,6 +2645,7 @@ recipes={
 
  --galctistawgloberryjam--
  {
+  discovered=false,
   inputs={
    galactiberry,
    strawberry,
@@ -2515,6 +2656,7 @@ recipes={
 
  --galactiglobemanberryjam--
  {
+  discovered=false,
   inputs={
    galactiberry,
    manberry,
@@ -2524,6 +2666,7 @@ recipes={
  },
  --dark jam--
  {
+  discovered=false,
   inputs={
    darkberry,
   },
@@ -2531,6 +2674,7 @@ recipes={
  },
  --darkduo jam--
  {
+  discovered=false,
   inputs={
    darkberry,
    darkberry,
@@ -2539,6 +2683,7 @@ recipes={
  },
  --darktri jam--
  {
+  discovered=false,
   inputs={
    darkberry,
    darkberry,
@@ -2548,6 +2693,7 @@ recipes={
  },
  --darknana jam--
  {
+  discovered=false,
   inputs={
    darktrijam,
    darktrijam,
@@ -2556,6 +2702,7 @@ recipes={
   output=darknanajam
  },
  {
+  discovered=false,
   inputs={
    darkberry,
    bananaberry
@@ -2564,6 +2711,7 @@ recipes={
  },
  --big jam--
  {
+  discovered=false,
   inputs={
    bigberry,
   },
@@ -2571,6 +2719,7 @@ recipes={
  },
  --bigduo jam--
  {
+  discovered=false,
   inputs={
    bigberry,
    bigberry,
@@ -2579,6 +2728,7 @@ recipes={
  },
  --bigtri jam--
  {
+  discovered=false,
   inputs={
    bigberry,
    bigberry,
@@ -2588,6 +2738,7 @@ recipes={
  },
  --bignana jam--
  {
+  discovered=false,
   inputs={
    bigtrijam,
    bigtrijam,
@@ -2596,6 +2747,7 @@ recipes={
   output=bignanaberryjam
  },
  {
+  discovered=false,
   inputs={
    bigberry,
    bananaberry
@@ -2605,6 +2757,7 @@ recipes={
 
  --bang jam--
  {
+  discovered=false,
   inputs={
    bangberry,
   },
@@ -2612,6 +2765,7 @@ recipes={
  },
  --bangduo jam--
  {
+  discovered=false,
   inputs={
    bangberry,
    bangberry,
@@ -2620,6 +2774,7 @@ recipes={
  },
  --bigtri jam--
  {
+  discovered=false,
   inputs={
    bangberry,
    bangberry,
@@ -2629,6 +2784,7 @@ recipes={
  },
  --bangnana jam--
  {
+  discovered=false,
   inputs={
    bangtrijam,
    bangtrijam,
@@ -2637,6 +2793,7 @@ recipes={
   output=bangnanaberryjam
  },
  {
+  discovered=false,
   inputs={
    bangberry,
    bananaberry
@@ -2645,6 +2802,7 @@ recipes={
  },
  --chaos jam--
  {
+  discovered=false,
   inputs={
    bigberry,
    badjam,
@@ -2652,6 +2810,7 @@ recipes={
   output=chaosjam
  },
  {
+  discovered=false,
   inputs={
    darkberry,
    badjam,
@@ -2659,6 +2818,7 @@ recipes={
   output=chaosjam
  },
  {
+  discovered=false,
   inputs={
    badjam,
    bangberry,
@@ -2667,6 +2827,7 @@ recipes={
  },
  --badduo jam--
  {
+  discovered=false,
   inputs={
    badjam,
    badjam,
@@ -2675,6 +2836,7 @@ recipes={
  },
  --badduo jam--
  {
+  discovered=false,
   inputs={
    badjam,
    badjam,
@@ -2684,6 +2846,7 @@ recipes={
  },
  --badduo jam--
  {
+  discovered=false,
   inputs={
    badtrijam,
    badtrijam,
@@ -2693,6 +2856,7 @@ recipes={
  },
  --bigbang jam--
  {
+  discovered=false,
   inputs={
    bigberry,
    bangberry,
@@ -2701,6 +2865,7 @@ recipes={
  },
  --primordial jam--
  {
+  discovered=false,
   inputs={
    bigbangjam,
    darknanajam,
@@ -2733,12 +2898,46 @@ function check_for_unlocks(scene)
   blockchain.on_unlock(scene)
  end
 
- if cash_money[1]>=1000 and not farmer.unlocked then
+ if cash_money[1]>=100 and not farmer.unlocked then
   farmer.unlocked=true
   add(scene.available_upgrades, farmer)
   farmer.on_unlock(scene)
  end
+
+ if cash_money[1]>=1000 and not cook.unlocked then
+  cook.unlocked=true
+  add(scene.available_upgrades, cook)
+  cook.on_unlock(scene)
+ end
 end
+
+cook={
+ name="cook",
+ description="automatically makes known jams",
+ unlocked=false,
+ price=1000,
+ scale=1,
+ quantity=0,
+ max_quantity=32767,
+ icon=188,
+ countdown=0.0,
+ on_purchase=function(scene) end,
+ on_unlock=function(scene) end,
+ update=function(scene)
+  cook.countdown+=1/30
+  if cook.countdown > jam_sale_constants.global_cook_speed then
+   cook.countdown=0.0
+   for i=1,cook.quantity,1 do
+    for recipe in all(known_good_recipes) do
+     if has_ingredients(recipe) then
+      spend_ingredients(recipe)
+      gain_jam(recipe.output)
+     end
+    end
+   end
+  end
+ end
+}
 
 farmer={
  name="farmer",
@@ -2747,12 +2946,12 @@ farmer={
  price=100,
  scale=1,
  quantity=0,
- max_quantity=1,
+ max_quantity=32767,
  icon=188,
  on_purchase=function(scene) end,
  on_unlock=function(scene) end,
  update=function(scene)
-  if (stage==1) harvest(screen.active_scenes[1])
+  harvest(screen.active_scenes[1], jam_sale_constants.global_harvest_mod)
  end
 }
 
