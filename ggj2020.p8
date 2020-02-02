@@ -491,7 +491,7 @@ function new_kitchen_scene()
  add(s.available_ingredients, bigberry)
  add(s.available_ingredients, bangberry)
  add(s.available_ingredients, darkberry)
- add(s.available_ingredients, galacitberry)
+ add(s.available_ingredients, galactiberry)
  s.selected_ingredient=1
 
  s.update=function(scene)
@@ -966,6 +966,19 @@ globduoberryjam={
 scale=2
 }
 
+globtriberryjam={
+ name="globduoberry jam",
+ shortname="g.triberry jam",
+ unlocked=false,
+ icon=function() return 33 end,
+ quantity=100,
+ base_price=111,
+ demand_rate=0.007,
+ gen=3,
+ demand=1,
+scale=2
+}
+
 globnanaberryjam={
  name="globtriberry jam",
  shortname="g.nanabery jam",
@@ -1277,7 +1290,18 @@ darktrijam={
  demand=1,
 scale=4
 }
-
+darknanajam={
+ name="darknana jam",
+ shortname="darknana jam",
+ unlocked=false,
+ icon=function() return 80 end,
+ quantity=100,
+ base_price=111,
+ demand_rate=0.007,
+ gen=3,
+ demand=1,
+scale=4
+}
 bigberryjam={
  name="bigberry jam",
  shortname="bigberry jam",
@@ -2125,7 +2149,313 @@ recipes={
   },
   output=bluemanstrawberyjam
  },
+--globerry jam--
+ {
+  inputs={
+   globerry,
+  },
+  output=globerryjam
+ },
+ {
+  inputs={
+   globerryjam,
+  },
+  output=globerryjam
+ },
+--gloduoberry jam--
+ {
+  inputs={
+   globerry,
+   globerry,
+  },
+  output=globduoberryjam
+ },
+ {
+  inputs={
+   globerry,
+   globerryjam,
+  },
+  output=globduoberryjam
+ },
+ {
+  inputs={
+   globerryjam,
+   globerryjam,
+  },
+  output=globduoberryjam
+ },
+ --globtriberry jam--
+ {
+  inputs={
+   globerry,
+   globerry,
+   globerry,
+  },
+  output=globtriberryjam
+ },
+ {
+  inputs={
+   globerry,
+   globerry,
+   globerryjam,
+  },
+  output=globtriberryjam
+ },
+ {
+  inputs={
+   globerry,
+   globerryjam,
+   globerryjam,
+  },
+  output=globtriberryjam
+ },
+ {
+  inputs={
+   globerryjam,
+   globerryjam,
+   globerryjam,
+  },
+  output=globtriberryjam
+ },
+ --globnanaberry jam--
+ {
+  inputs={
+   globtriberryjam,
+   globtriberryjam,
+   globtriberryjam,
+  },
+  output=globnanaberryjam
+ },
+ {
+  inputs={
+   globerry,
+   bananaberry
+  },
+  output=globnanaberryjam
+ },
 
+ --globblueberry jam--
+ {
+  inputs={
+   globerry,
+   blueberry
+  },
+  output=globlueberryjam
+ },
+--globstrawberry jam--
+ {
+  inputs={
+   globerry,
+   strawberry
+  },
+  output=globstrawberryjam
+ },
+--globmanberry jam--
+ {
+  inputs={
+   globerry,
+   manberry
+  },
+  output=globmanberryjam
+ },
+ --globluestrawberry jam--
+ {
+  inputs={
+   globerry,
+   strawberry,
+   blueberry
+  },
+  output=globluestrawberryjam
+ },
+--globluemanberry jam--
+ {
+  inputs={
+   globerry,
+   manberry,
+   blueberry
+  },
+  output=globluemanberryjam
+ },
+--glostrawmanberry jam--
+ {
+  inputs={
+   globerry,
+   manberry,
+   strawberry
+  },
+  output=globstrawmanberryjam
+ },
+--galactijam--
+ {
+  inputs={
+   galactiberry,
+  },
+  output=galactijam
+ },
+ --galactiduojam--
+ {
+  inputs={
+   galactiberry,
+   galactiberry,
+  },
+  output=galactiduojam
+ },
+
+ --galactrijam--
+ {
+  inputs={
+   galactiberry,
+   galactiberry,
+   galactiberry,
+  },
+  output=galactilactilactijam
+ },
+ --galactinanajam--
+ {
+  inputs={
+   galactilactilactijam,
+   galactilactilactijam,
+   galactilactilactijam,
+  },
+  output=galactinanajam
+ },
+ {
+  inputs={
+   galactiberry,
+   bananaberry
+  },
+  output=galactinanajam
+ },
+
+ --galactibluejam--
+ {
+  inputs={
+   galactiberry,
+   blueberry
+  },
+  output=glactiblueberryjam
+ },
+ --galactistrawjam--
+ {
+  inputs={
+   galactiberry,
+   strawberry
+  },
+  output=glactistrawberryjam
+ },
+ --galactimanjam--
+ {
+  inputs={
+   galactiberry,
+   manberry
+  },
+  output=galactimanberryjam
+ },
+ --galactiglobejam--
+ {
+  inputs={
+   galactiberry,
+   globerry
+  },
+  output=galactigloberryjam
+ },
+ --galactibluestrawberryjam--
+ {
+  inputs={
+   galactiberry,
+   blueberry,
+   strawberry
+  },
+  output=galactibluestrawberryjam
+ },
+
+ --galactibluestrawberryjam--
+ {
+  inputs={
+   galactiberry,
+   blueberry,
+   manberry
+  },
+  output=galactibluemanberryjam
+ },
+ --galactibluestrawberryjam--
+ {
+  inputs={
+   galactiberry,
+   blueberry,
+   globerry
+  },
+  output=galactibluegloberryjam
+ },
+ --galactistrawmanberryjam--
+ {
+  inputs={
+   galactiberry,
+   strawberry,
+   manberry
+  },
+  output=galactistrawmanberryjam
+ },
+
+ --galctistawgloberryjam--
+ {
+  inputs={
+   galactiberry,
+   strawberry,
+   globerry
+  },
+  output=galctistawgloberryjam
+ },
+
+ --galactiglobemanberryjam--
+ {
+  inputs={
+   galactiberry,
+   manberry,
+   globerry
+  },
+  output=galactiglobemanberryjam
+ },
+ --dark jam--
+ {
+  inputs={
+   darkberry,
+  },
+  output=darkjam
+ },
+ --darkduo jam--
+ {
+  inputs={
+   darkberry,
+   darkberry,
+  },
+  output=darkduojam
+ },
+ --darktri jam--
+ {
+  inputs={
+   darkberry,
+   darkberry,
+   darkberry,
+  },
+  output=darktrijam
+ },
+ --darktri jam--
+ {
+  inputs={
+   darktrijam,
+   darktrijam,
+   darktrijam,
+  },
+  output=darknanajam
+ },
+ {
+  inputs={
+   darkberry,
+   bananaberry
+  },
+  output=darknanajam
+ },
 }
 
 
@@ -2211,14 +2541,14 @@ __gfx__
 00000fffff88ffffff88ffffff00000000000fffff88ffffff88ffffff00000000000fffff88ffffff88ffffff000000052666662222ddd557887888262d2520
 000000fffff88888888ffffff0000000000000fffff88888888ffffff0000000000000fffff88888888ffffff00000000566ddddd22666ddd222555266dd2520
 0000000fff8888888888fff0000000000000000fff8888888888fff0000000000000000fff8888888888fff0000000000022222ddd2226666622225552d22200
-000000000fffffffffffff0000000000000000000fffffffffffff0000000000000000000fffffffffffff000000000055555555000000000000000000000000
-00000000eeeffffffffeee000000000000000000eeeffffffffeee000000000000000000eeeffffffffeee000000000006134760000000000000000000000000
-00000022eeeeeeeeeeeeeee20000000000000022eeeeeeeeeeeeeee20000000000000022eeeeeeeeeeeeeee20000000006826960000000000000000000000000
-000000222eeeeeeeeeeee22220000000000000222eeeeeeeeeeee22220000000000000222eeeeeeeeeeee2222000000006a5c260000000000000000000000000
-000002222222eeeeee22222222e00000000002222222eeeeee22222222e00000000002222222eeeeee22222222e000006cdef1a6000000000000000000000000
-0000e22222222222222222222eee00000000e22222222222222222222eee00000000e22222222222222222222eee00006ab3d6e6000000000000000000000000
-0000ee2222222222222222222eeee0000000ee2222222222222222222eeee0000000ee2222222222222222222eeee0006b9dae86000000000000000000000000
-0000eeee22222222223322222eeee0000000eeee22222222223322222eeee0000000eeee22222222223322222eeee00006666660000000000000000000000000
+000000000fffffffffffff0000000000000000000fffffffffffff0000000000000000000fffffffffffff00000000005555555500555000005555005555b000
+00000000eeeffffffffeee000000000000000000eeeffffffffeee000000000000000000eeeffffffffeee00000000000613476000c4c000009999005aa5bbb0
+00000022eeeeeeeeeeeeeee20000000000000022eeeeeeeeeeeeeee20000000000000022eeeeeeeeeeeeeee200000000068269603044400000c99c005a5555b0
+000000222eeeeeeeeeeee22220000000000000222eeeeeeeeeeee22220000000000000222eeeeeeeeeeee2222000000006a5c26034585470004444005555a5bb
+000002222222eeeeee22222222e00000000002222222eeeeee22222222e00000000002222222eeeeee22222222e000006cdef1a60058507034999943bb5a5555
+0000e22222222222222222222eee00000000e22222222222222222222eee00000000e22222222222222222222eee00006ab3d6e600111077395555930b5555a5
+0000ee2222222222222222222eeee0000000ee2222222222222222222eeee0000000ee2222222222222222222eeee0006b9dae8600111007005555000bbb5aa5
+0000eeee22222222223322222eeee0000000eeee22222222223322222eeee0000000eeee22222222223322222eeee000066666600550550705555550000b5555
 0fffeeee22222222333222222eeeeff00fffeeee22222222333222222eeeeff00fffeeee22222222333222222eeeeff000000000000000000000000000000000
 ffffeeee22222223322222222eeeefffffffeeee22222223322222222eeeefffffffeeee22222223322222222eeeefff00000000000000000000000000000000
 ffffeeeee2222888888222222eeeefffffffeeeee2222888888222222eeeefffffffeeeee2222888888222222eeeefff00000000000000000000000000000000
