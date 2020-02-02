@@ -630,19 +630,6 @@ galactiberry={
  quantity=100
 }
 
-badjam={
- name="badjam",
- shortname="bad jam",
- unlocked=false,
- icon=function() return 3 end,
- quantity=100,
- base_price=1,
- demand_rate=0.01,
- gen=1,
- demand=1
-}
-
-
 strawberryjam={
  name="strawberry jam",
  shortname="strawberry jam",
@@ -652,7 +639,8 @@ strawberryjam={
  base_price=1,
  demand_rate=0.01,
   gen=1,
- demand=1
+ demand=1,
+scale=1
 }
 
 strawberryduojam={
@@ -664,7 +652,8 @@ strawberryduojam={
  base_price=1,
  demand_rate=0.01,
   gen=1,
- demand=1
+ demand=1,
+scale=1
 }
 
 strawberrytrijam={
@@ -676,7 +665,8 @@ strawberrytrijam={
  base_price=1,
  demand_rate=0.01,
   gen=1,
- demand=1
+ demand=1,
+scale=1
 }
 
 strawberrynanajam={
@@ -688,7 +678,8 @@ strawberrynanajam={
  base_price=1,
  demand_rate=0.01,
   gen=1,
- demand=1
+ demand=1,
+scale=1
 }
 
 bananaberryjam={
@@ -700,7 +691,8 @@ bananaberryjam={
  base_price=1,
  demand_rate=0.01,
   gen=1,
- demand=1
+ demand=1,
+scale=1
 }
 
 bananaberryduojam={
@@ -712,7 +704,8 @@ bananaberryduojam={
  base_price=1,
  demand_rate=0.01,
   gen=1,
- demand=1
+ demand=1,
+scale=1
 }
 
 bananaberrytrijam={
@@ -724,7 +717,8 @@ bananaberrytrijam={
  base_price=1,
  demand_rate=0.01,
   gen=1,
- demand=1
+ demand=1,
+scale=1
 }
 
 bananaberrynanajam={
@@ -736,7 +730,8 @@ bananaberrynanajam={
  base_price=1,
  demand_rate=0.01,
   gen=1,
- demand=1
+ demand=1,
+scale=1
 }
 
 blueberryjam={
@@ -748,7 +743,8 @@ blueberryjam={
  base_price=1,
  demand_rate=0.01,
   gen=1,
- demand=1
+ demand=1,
+scale=1
 }
 
 blueberryduojam={
@@ -760,7 +756,8 @@ blueberryduojam={
  base_price=1,
  demand_rate=0.01,
   gen=1,
- demand=1
+ demand=1,
+scale=1
 }
 
 blueberrytrijam={
@@ -772,7 +769,8 @@ blueberrytrijam={
  base_price=1,
  demand_rate=0.01,
   gen=1,
- demand=1
+ demand=1,
+scale=1
 }
 
 blueberrynanajam={
@@ -784,7 +782,8 @@ blueberrynanajam={
  base_price=1,
  demand_rate=0.01,
   gen=1,
- demand=1
+ demand=1,
+scale=1
 }
 
 manberryjam={
@@ -796,7 +795,8 @@ manberryjam={
  base_price=1,
  demand_rate=0.01,
   gen=1,
- demand=1
+ demand=1,
+scale=1
 }
 
 manberryduojam={
@@ -808,7 +808,8 @@ manberryduojam={
  base_price=1,
  demand_rate=0.01,
   gen=1,
- demand=1
+ demand=1,
+scale=1
 }
 
 manberrytrijam={
@@ -820,7 +821,8 @@ manberrytrijam={
  base_price=1,
  demand_rate=0.01,
   gen=1,
- demand=1
+ demand=1,
+scale=1
 }
 
 manberrynanajam={
@@ -832,7 +834,8 @@ manberrynanajam={
  base_price=1,
  demand_rate=0.01,
   gen=1,
- demand=1
+ demand=1,
+scale=1
 }
 
 bluemanberryjam={
@@ -844,7 +847,8 @@ bluemanberryjam={
  base_price=1,
  demand_rate=0.01,
   gen=1,
- demand=1
+ demand=1,
+scale=1
 }
 
 strawmanberryjam={
@@ -856,7 +860,8 @@ strawmanberryjam={
  base_price=1,
  demand_rate=0.01,
   gen=1,
- demand=1
+ demand=1,
+scale=1
 }
 
 bluemanstrawberyjam={
@@ -868,7 +873,541 @@ bluemanstrawberyjam={
  base_price=111,
  demand_rate=0.007,
  gen=3,
- demand=1
+ demand=1,
+scale=1
+}
+
+globerryjam={
+ name="globerry jam",
+ shortname="globerry jam",
+ unlocked=false,
+ icon=function() return 33 end,
+ quantity=100,
+ base_price=111,
+ demand_rate=0.007,
+ gen=3,
+ demand=1,
+scale=1
+}
+
+globduoberryjam={
+ name="globduoberry jam",
+ shortname="g.duoberry jam",
+ unlocked=false,
+ icon=function() return 33 end,
+ quantity=100,
+ base_price=111,
+ demand_rate=0.007,
+ gen=3,
+ demand=1,
+scale=1
+}
+
+globnanaberryjam={
+ name="globtriberry jam",
+ shortname="g.nanabery jam",
+ unlocked=false,
+ icon=function() return 33 end,
+ quantity=100,
+ base_price=111,
+ demand_rate=0.007,
+ gen=3,
+ demand=1,
+scale=1
+}
+
+globlueberryjam={
+ name="globlueberry jam",
+ shortname="g.b.berry jam",
+ unlocked=false,
+ icon=function() return 34 end,
+ quantity=100,
+ base_price=111,
+ demand_rate=0.007,
+ gen=3,
+ demand=1,
+scale=1
+}
+
+globstrawberryjam={
+ name="globstrawberry jam",
+ shortname="g.s.berry jam",
+ unlocked=false,
+ icon=function() return 36 end,
+ quantity=100,
+ base_price=111,
+ demand_rate=0.007,
+ gen=3,
+ demand=1,
+scale=1
+}
+
+globmanberryjam={
+ name="globmanberry jam",
+ shortname="g.manberry jam",
+ unlocked=false,
+ icon=function() return 37 end,
+ quantity=100,
+ base_price=111,
+ demand_rate=0.007,
+ gen=3,
+ demand=1,
+scale=1
+}
+
+globluestrawberryjam={
+ name="globluestrawberry jam",
+ shortname="g.b.s.bery jam",
+ unlocked=false,
+ icon=function() return 38 end,
+ quantity=100,
+ base_price=111,
+ demand_rate=0.007,
+ gen=3,
+ demand=1,
+scale=1
+}
+
+globluemanberryjam={
+ name="globluemanberry jam",
+ shortname="g.b.m.bery jam",
+ unlocked=false,
+ icon=function() return 39 end,
+ quantity=100,
+ base_price=111,
+ demand_rate=0.007,
+ gen=3,
+ demand=1,
+scale=1
+}
+
+globstrawmanberryjam={
+ name="globstrawmanberry jam",
+ shortname="g.s.m.bery jam",
+ unlocked=false,
+ icon=function() return 56 end,
+ quantity=100,
+ base_price=111,
+ demand_rate=0.007,
+ gen=3,
+ demand=1,
+scale=1
+}
+
+galactijam={
+ name="galactijam",
+ shortname="globerry jam",
+ unlocked=false,
+ icon=function() return 66 end,
+ quantity=100,
+ base_price=111,
+ demand_rate=0.007,
+ gen=3,
+ demand=1,
+scale=1
+}
+
+galactiduojam={
+ name="galactiduojam",
+ shortname="galactiduojam",
+ unlocked=false,
+ icon=function() return 66 end,
+ quantity=100,
+ base_price=111,
+ demand_rate=0.007,
+ gen=3,
+ demand=1,
+scale=1
+}
+
+galactilactilactijam={
+ name="galactrijam",
+ shortname="galactrijam",
+ unlocked=false,
+ icon=function() return 66 end,
+ quantity=100,
+ base_price=111,
+ demand_rate=0.007,
+ gen=3,
+ demand=1,
+scale=1
+}
+
+galactinanajam={
+ name="galactinanajam",
+ shortname="galactinanajam",
+ unlocked=false,
+ icon=function() return 66 end,
+ quantity=100,
+ base_price=111,
+ demand_rate=0.007,
+ gen=3,
+ demand=1,
+scale=1
+}
+
+glactiblueberryjam={
+ name="glactiblueberry jam",
+ shortname="glactib. jam",
+ unlocked=false,
+ icon=function() return 112 end,
+ quantity=100,
+ base_price=111,
+ demand_rate=0.007,
+ gen=3,
+ demand=1,
+scale=1
+}
+
+glactistrawberryjam={
+ name="glactistrawberry jam",
+ shortname="glactis. jam",
+ unlocked=false,
+ icon=function() return 113 end,
+ quantity=100,
+ base_price=111,
+ demand_rate=0.007,
+ gen=3,
+ demand=1,
+scale=1
+}
+
+galactimanberryjam={
+ name="galactimanberry jam",
+ shortname="galactim. jam",
+ unlocked=false,
+ icon=function() return 114 end,
+ quantity=100,
+ base_price=111,
+ demand_rate=0.007,
+ gen=3,
+ demand=1,
+scale=1
+}
+
+galactigloberryjam={
+ name="galactig. jam",
+ shortname="galactig. jam",
+ unlocked=false,
+ icon=function() return 57 end,
+ quantity=100,
+ base_price=111,
+ demand_rate=0.007,
+ gen=3,
+ demand=1,
+scale=1
+}
+
+galactibluestrawberryjam={
+ name="galactib.s.jam",
+ shortname="galactib.s.jam",
+ unlocked=false,
+ icon=function() return 58 end,
+ quantity=100,
+ base_price=111,
+ demand_rate=0.007,
+ gen=3,
+ demand=1,
+scale=1
+}
+
+galactibluemanberryjam={
+ name="galactibluemanberry jam",
+ shortname="galactib.m.jam",
+ unlocked=false,
+ icon=function() return 59 end,
+ quantity=100,
+ base_price=111,
+ demand_rate=0.007,
+ gen=3,
+ demand=1,
+scale=1
+}
+
+galactibluegloberryjam={
+ name="galactib.g.jam",
+ shortname="galactib.g.jam",
+ unlocked=false,
+ icon=function() return 79 end,
+ quantity=100,
+ base_price=111,
+ demand_rate=0.007,
+ gen=3,
+ demand=1,
+scale=1
+}
+
+galactistrawmanberryjam={
+ name="galactistrawmanberry jam",
+ shortname="galactis.m.jam",
+ unlocked=false,
+ icon=function() return 111 end,
+ quantity=100,
+ base_price=111,
+ demand_rate=0.007,
+ gen=3,
+ demand=1,
+scale=1
+}
+
+galctistawgloberryjam={
+ name="galactis.g.jam",
+ shortname="galactis.g.jam",
+ unlocked=false,
+ icon=function() return 95 end,
+ quantity=100,
+ base_price=111,
+ demand_rate=0.007,
+ gen=3,
+ demand=1,
+scale=1
+}
+
+galactiglobemanberryjam={
+ name="galactiglobemanberry jam",
+ shortname="galactig.m.jam",
+ unlocked=false,
+ icon=function() return 127 end,
+ quantity=100,
+ base_price=111,
+ demand_rate=0.007,
+ gen=3,
+ demand=1,
+scale=1
+}
+
+darkjam={
+ name="dark jam",
+ shortname="dark jam",
+ unlocked=false,
+ icon=function() return 80 end,
+ quantity=100,
+ base_price=111,
+ demand_rate=0.007,
+ gen=3,
+ demand=1,
+scale=1
+}
+
+darkduojam={
+ name="darkduo jam",
+ shortname="darkduo jam",
+ unlocked=false,
+ icon=function() return 80 end,
+ quantity=100,
+ base_price=111,
+ demand_rate=0.007,
+ gen=3,
+ demand=1,
+scale=1
+}
+
+darktrijam={
+ name="darktri jam",
+ shortname="darktri jam",
+ unlocked=false,
+ icon=function() return 80 end,
+ quantity=100,
+ base_price=111,
+ demand_rate=0.007,
+ gen=3,
+ demand=1,
+scale=1
+}
+
+bigberryjam={
+ name="bigberry jam",
+ shortname="bigberry jam",
+ unlocked=false,
+ icon=function() return 82 end,
+ quantity=100,
+ base_price=111,
+ demand_rate=0.007,
+ gen=3,
+ demand=1,
+scale=1
+}
+
+bigduoberryjam={
+ name="bigduoberry jam",
+ shortname="bigduobery jam",
+ unlocked=false,
+ icon=function() return 82 end,
+ quantity=100,
+ base_price=111,
+ demand_rate=0.007,
+ gen=3,
+ demand=1,
+scale=1
+}
+
+bigtriberryjam={
+ name="bigtribery jam",
+ shortname="bigtribery jam",
+ unlocked=false,
+ icon=function() return 82 end,
+ quantity=100,
+ base_price=111,
+ demand_rate=0.007,
+ gen=3,
+ demand=1,
+scale=1
+}
+
+bignanaberryjam={
+ name="bignanaberry jam",
+ shortname="biganabery jam",
+ unlocked=false,
+ icon=function() return 82 end,
+ quantity=100,
+ base_price=111,
+ demand_rate=0.007,
+ gen=3,
+ demand=1,
+scale=1
+}
+
+bangberryjam={
+ name="bangberry jam",
+ shortname="bangberry jam",
+ unlocked=false,
+ icon=function() return 96 end,
+ quantity=100,
+ base_price=111,
+ demand_rate=0.007,
+ gen=3,
+ demand=1,
+scale=1
+}
+
+bangduoberryjam={
+ name="globerry jam",
+ shortname="globerry jam",
+ unlocked=false,
+ icon=function() return 96 end,
+ quantity=100,
+ base_price=111,
+ demand_rate=0.007,
+ gen=3,
+ demand=1,
+scale=1
+}
+
+bangtriberryjam={
+ name="bangtriberry jam",
+ shortname="bangtriberyjam",
+ unlocked=false,
+ icon=function() return 96 end,
+ quantity=100,
+ base_price=111,
+ demand_rate=0.007,
+ gen=3,
+ demand=1,
+scale=1
+}
+
+bangnanaberryjam={
+ name="bangnanabeyjam",
+ shortname="bangnanabeyjam",
+ unlocked=false,
+ icon=function() return 96 end,
+ quantity=100,
+ base_price=111,
+ demand_rate=0.007,
+ gen=3,
+ demand=1,
+scale=1
+}
+
+chaosjam={
+ name="chaos jam",
+ shortname="chaos jam",
+ unlocked=false,
+ icon=function() return 172 end,
+ quantity=100,
+ base_price=111,
+ demand_rate=0.007,
+ gen=3,
+ demand=1,
+scale=1
+}
+
+badjam={
+ name="badjam",
+ shortname="bad jam",
+ unlocked=false,
+ icon=function() return 3 end,
+ quantity=100,
+ base_price=1,
+ demand_rate=0.01,
+ gen=1,
+ demand=1,
+scale=1
+}
+
+badduojam={
+ name="badduo jam",
+ shortname="badduo jam",
+ unlocked=false,
+ icon=function() return 3 end,
+ quantity=100,
+ base_price=111,
+ demand_rate=0.007,
+ gen=3,
+ demand=1,
+scale=1
+}
+
+badtrijam={
+ name="badtri jam",
+ shortname="badtri jam",
+ unlocked=false,
+ icon=function() return 3 end,
+ quantity=100,
+ base_price=111,
+ demand_rate=0.007,
+ gen=3,
+ demand=1,
+scale=1
+}
+
+badnanajam={
+ name="badnana jam",
+ shortname="badnana jam",
+ unlocked=false,
+ icon=function() return 3 end,
+ quantity=100,
+ base_price=111,
+ demand_rate=0.007,
+ gen=3,
+ demand=1,
+scale=1
+}
+
+bigbangjam={
+ name="bigbang jam",
+ shortname="bigbang jam",
+ unlocked=false,
+ icon=function() return 81 end,
+ quantity=100,
+ base_price=111,
+ demand_rate=0.007,
+ gen=3,
+ demand=1,
+scale=1
+}
+
+primordialjam={
+ name="primordial jam",
+ shortname="primordial jam",
+ unlocked=false,
+ icon=function() return 65 end,
+ quantity=100,
+ base_price=111,
+ demand_rate=0.007,
+ gen=3,
+ demand=1,
+scale=1
 }
 
 -->8
@@ -1542,54 +2081,54 @@ __gfx__
 08888880111111117dddddd77dddddd74dddddd49dddddd94dddddd4ccccbbccd1dd11dd1d11dd1105655650deeddddd0bb33333333bbbbb38338338bbbbbbb0
 00888800011111107777eee77777eee74444eee49999eee94444eee40cccbbc00d1dddd001d1111000555500dddeee000bbbbbbbbbbbbbbb33333333bbbbbbb0
 00088000001111000777eee00777eee00444eee00999eee00444eee00077770000d1dd00001d11000005500000dddee000bbbbbbbbbbbbbbbbbbbbbbbbbbbb00
-000070000000000000000000bbbbbb3b00000000000000000000000000000000ddddd57777777777775dd5777775dddd5555555555dddddddddddd5555dddd55
-000077000000000000000000b3bbbb3b00000000000000000000000000000000ddddd57777777777775dd5777775ddddd555555ddddddddddddddddddddddddd
-0000777000000000000000003bbbb3bb00000000000000000000000000000000ddddd57777777777775dd5777775ddddd555555ddddddddddddddddddddddddd
-7777777700000000000000003bbb3bbb00000000000000000000000000000000ddddd57777777777775dd5777775ddddd555555ddddddddddddddddddddddddd
-777777770000000000000000bb3b3bbb00000000000000000000000000000000ddddd57777777777775dd5777775dddddd5555dddddddddddddddddddddddddd
-000077700000000000000000b33bbb3b00000000000000000000000000000000ddddd57777777777775dd5777775dddddd5555dddddddddddddddddddddddddd
-000077000000000000000000bbbbb3bb00000000000000000000000000000000ddddd57777777777775dd5777775dddddd5555dddddddddddddddddddddddddd
-0000700000000000000000003bbbb3bb00000000000000000000000000000000ddddd57676767676765dd5767675dddddd5555dddddddddddddddddddddddddd
-0000000000000000000555000000000000000000dd5555dddd5555dddddddddd0000000000000000000000000000000067777776666666660000000000004444
-0003330000000000055555550003330000033300dd5555dddd5555dddddddddd000000000000000000000000000000007ffffff7665555660004330000004444
-0033330006600660055555550033330000333300dd5555dd5555555555555555000000000000000000000000000000006fcffcf6665aa566003a33000000aaaa
-0038333006600660555555550033333000313330dd5555dd55555555555555550000000000000000000000000000000068ffff86665aa56600aa34300000aaaa
-0333338006660666555555550333333003333310dd5555dd555555555555555500000000000000000000000000000000f6eeee6f6655556604333a30000aaaaa
-3333333366666666555555553333333333333333dd5555dddd5555dddddddddd000000000000000000000000000000006eeeeee6555555553a33aa3400aaaaa0
-3833833856565656055555503333333331331331dd5555dddd5555dddddddddd00000000000000000000000000000000eeeeeeee56666665aa33333a0aaaaa00
-3333333366666666000055003333333333333333dd5555dddd5555dddddddddd00000000000000000000000000000000eeeeeeee56666665333333aaaaaa0000
-55555555555555555555555500dddddddddddddddddddddddddddd00009999977777777777777777779999000066666666666666666666666666660000000000
-06947860065d516006dede600dddddddddddddddddd444444444ddd009999997777777fffffffff7777999900667777776666666666666666666666000000000
-06947860061ede6006eddd600dddddddd55555555dd4fffffff4ddd00999997777fffffffffffffff7779990067ffffff7665555666666666666666000000000
-06947860065d5d6006dded600dd5555555588826ddd48f8f8f84ddd009999977fffffffffffffffff7779990066fcffcf6665aa5777777666666666000000000
-6ed654a66ede1ed66dedddd60ddd628826882886ddd444444444ddd0099997778888888fff8888888f7779900668ffff86665aa7ffffff766555566000000000
-6ed3e4a6615d5d566eddede60ddd682886288826ddd4fffffff4ddd00999777f8fcccf88888fcccf8ff7779006f6eeee6f665555fcffcf6665aa566000000000
-6edce9a66e1ede166dedded60ddd6888268828886dd41f1f1f14ddd0099977ff8fcccf8fff8fcccf8fff7790066eeeeee65555558ffff86665aa566000000000
-0666666006666660066666600dd62855555555886dd444444444ddd0099777ff8fcccf8fff8fcccf8fff779006eeee777777666feeeeeef66555566000000000
-5555555555555555555555550dd68886288268826dd4fffffff4ddd0099999ff8888888fff8888888fff999006eee7ffffff7665555eee655555555000000000
-0656556006d1d160060000600dd6828682886886ddd49f9f9f94ddd0099999ffffffffff9fffffffffff9990066666fcffcf6665aa5eeee56666665000000000
-06555560061d1d60060000600ddd66668882666dddd444444444ddd0099999fffffffff99fffffffffff99900666668ffff86665aa5eeee56666665000000000
-0655656006d1d160060000600ddddd62828886ddddd4f6fff6f4ddd0099999fffff88ffffff88ffffff9999006666f6eeee6f665555666666666666000000000
-655555566d1d1d16600000060ddddd68888286ddddd4616f6864ddd00999999fffff88888888ffffff999990066666eeeeee6555555556666666666000000000
-6565565661d1d1d6600000060ddddd68282826ddddd4666f6664ddd009999999fff8888888888fff9999999006666eeeeeeee566666656666666666000000000
-655555566d1d1d16600000060dddddd666666dddddd444444444ddd00999999999fffffffffffff99999999006666eeeeeeee566666656666666666000000000
-06666660066666600666666000dddddddddddddddddddddddddddd00009999999eeeffffffffeee9999999000066666666666666666666666666660000000000
-00000000000000005555555500dddd555ddd55ddddd555ddd5550000007777777777777777777777777777000099999911111111111111111111110000000000
-0000000000000000067744600ddd555555d5555dd55555d5555555d00cccccccccccccccccccccccccccccc00999999911111111111111111111111000000000
-0000000000000000065743600ddd555555d55555555555d5555555d00cccccccccccccccccccccccccccccc00999999111611111111111111111111000000000
-0000000000000000067744600dd555555555555555555555555555d00ccccbbbbccccccccccbccccccccccb00999999111111111111111111111111000000000
-0000000000000000677744460dd555555555555555555555555555d00cccbbbccccbbcbccccbbbbbbcccccb00999911111111811888111111111111000000000
-000000000000000067dddd460dd555555555555555555555555555d00cccbbcccccbbbbccccccbbbbcccccb00111111111118788878811111111111000000000
-00000000000000006777ee460ddd555555655555d55555d5555556d00cccbbcccccbbbbcccccbbbbbccccbb00111111111111888888711111111111000000000
-0000000000000000066666600ddd66d55d66ddddd66d55d66d5566d00ccccccccbccbbcccccccccbbccccbb00111111111111178781111aaa111111000000000
-0000000000000000000000000ddd66dd66666666d66dd666666666d00ccccccccbbcbbbbbbccccccccccccb00111111111111188888711aaa111111000000000
-0000000000000000000000000ddd66dd66565656d66dd656565656d00cccccbcccbcccbbcccbbbccccccccc00111111111111187888811aaa111111000000000
-0000000000000000000000000ddd66dd66666666d66dd666666666d00ccccbbccbbbbcccccbbbbbcccccccc00111111111111188187811111111111000000000
-0000000000000000000000000ddd666dddddddddd666d666ddddddd00ccccbbbccbbbcccccbbbbbcccccbcc00111111111111111111111111111111000000000
-0000000000000000000000000d666666666dddd666666666ddddddd00ccbbbbbccbbbccccbbbbbbbcccbbbc00111111111111111111111111111111000000000
-0000000000000000000000000d656565656dddd656565656ddddddd00ccccccccccccccccbbbbbbbccccbbc0011111111111111111111cc11111111000000000
-0000000000000000000000000d666666666dddd666666666ddddddd00cccccccccccccccccccccccccccccc0011111111111111111111cc1111dd11000000000
-00000000000000000000000000dddddddddddddddddddddddddddd0000777777777777777777777777777700001111111111111111111111111dd10000000000
+000070005555555555555555bbbbbb3b55555555555555555555555555555555ddddd57777777777775dd5777775dddd5555555555dddddddddddd5555dddd55
+000077000677776006777760b3bbbb3b06777760067777600677776006777760ddddd57777777777775dd5777775ddddd555555ddddddddddddddddddddddddd
+0000777006cbcc6006cbcc603bbbb3bb06cbcc6006cbcc6006cbcc6006cbcc60ddddd57777777777775dd5777775ddddd555555ddddddddddddddddddddddddd
+7777777706bbcc6006bbcc603bbb3bbb06bbcc6006bbcc6006bbcc6006bbcc60ddddd57777777777775dd5777775ddddd555555ddddddddddddddddddddddddd
+777777776ccccbc6611d1d16bb3b3bbb6882828667777776611d828665114446ddddd57777777777775dd5777775dddddd5555dddddddddddddddddddddddddd
+000077706bcbbbc66d11d116b33bbb3b6288288667dddd766d1128866115dd46ddddd57777777777775dd5777775dddddd5555dddddddddddddddddddddddddd
+000077006777777661d111d6bbbbb3bb682888266777ee7661d188266511ee46ddddd57777777777775dd5777775dddddd5555dddddddddddddddddddddddddd
+0000700006666660066666603bbbb3bb06666660066666600666666006666660ddddd57676767676765dd5767675dddddd5555dddddddddddddddddddddddddd
+0000000000000000000555000000000000000000dd5555dddd5555dddddddddd5555555555555555555555555555555567777776666666660000000000004444
+0003330000000000055555550003330000033300dd5555dddd5555dddddddddd067777600677de6006115160061151607ffffff7665555660004330000004444
+0033330006600660055555550033330000333300dd5555dd555555555555555506cbcc6006cbdd6006511560065115606fcffcf6665aa566003a33000000aaaa
+0038333006600660555555550033333000313330dd5555dd555555555555555506bbcc6006bced60061511600615116068ffff86665aa56600aa34300000aaaa
+0333338006660666555555550333333003333310dd5555dd5555555555555555628844466bbcddd66882ddd66777ddd6f6eeee6f6655556604333a30000aaaaa
+3333333366666666555555553333333333333333dd5555dddd5555dddddddddd6882dd466ccbede66288ede667ddede66eeeeee6555555553a33aa3400aaaaa0
+3833833856565656055555503333333331331331dd5555dddd5555dddddddddd6288ee466777ded66882ded66777ded6eeeeeeee56666665aa33333a0aaaaa00
+3333333366666666000055003333333333333333dd5555dddd5555dddddddddd06666660066666600666666006666660eeeeeeee56666665333333aaaaaa0000
+55555555555555555555555500dddddddddddddddddddddddddddd00009999977777777777777777779999000066666666666666666666666666660055555555
+06947860065d516006dede600dddddddddddddddddd444444444ddd009999997777777fffffffff7777999900667777776666666666666666666666006777760
+06947860061ede6006eddd600dddddddd55555555dd4fffffff4ddd00999997777fffffffffffffff7779990067ffffff7665555666666666666666006cbcb60
+06947860065d5d6006dded600dd5555555588826ddd48f8f8f84ddd009999977fffffffffffffffff7779990066fcffcf6665aa5777777666666666006bcbc60
+6ed654a66ede1ed66dedddd60ddd628826882886ddd444444444ddd0099997778888888fff8888888f7779900668ffff86665aa7ffffff76655556606511ddd6
+6ed3e4a6615d5d566eddede60ddd682886288826ddd4fffffff4ddd00999777f8fcccf88888fcccf8ff7779006f6eeee6f665555fcffcf6665aa56606151ede6
+6edce9a66e1ede166dedded60ddd6888268828886dd41f1f1f14ddd0099977ff8fcccf8fff8fcccf8fff7790066eeeeee65555558ffff86665aa56606515ded6
+0666666006666660066666600dd62855555555886dd444444444ddd0099777ff8fcccf8fff8fcccf8fff779006eeee777777666feeeeeef66555566006666660
+5555555555555555555555550dd68886288268826dd4fffffff4ddd0099999ff8888888fff8888888fff999006eee7ffffff7665555eee655555555055555555
+0656556006d1d16006dddd600dd6828682886886ddd49f9f9f94ddd0099999ffffffffff9fffffffffff9990066666fcffcf6665aa5eeee56666665006777760
+06555560061d1d6006dddd600ddd66668882666dddd444444444ddd0099999fffffffff99fffffffffff99900666668ffff86665aa5eeee56666665006cbcb60
+0655656006d1d16006dddd600ddddd62828886ddddd4f6fff6f4ddd0099999fffff88ffffff88ffffff9999006666f6eeee6f665555666666666666006bcbc60
+655555566d1d1d166dddddd60ddddd68888286ddddd4616f6864ddd00999999fffff88888888ffffff999990066666eeeeee655555555666666666606288ddd6
+6565565661d1d1d66dddddd60ddddd68282826ddddd4666f6664ddd009999999fff8888888888fff9999999006666eeeeeeee56666665666666666606828ede6
+655555566d1d1d166dddddd60dddddd666666dddddd444444444ddd00999999999fffffffffffff99999999006666eeeeeeee56666665666666666606282ded6
+06666660066666600666666000dddddddddddddddddddddddddddd00009999999eeeffffffffeee9999999000066666666666666666666666666660006666660
+55555555555555555555555500dddd555ddd55ddddd555ddd5550000007777777777777777777777777777000099999911111111111111111111110055555555
+0611116006ad5a60067744600ddd555555d5555dd55555d5555555d00cccccccccccccccccccccccccccccc00999999911111111111111111111111006444460
+06111160061ede60065743600ddd555555d55555555555d5555555d00cccccccccccccccccccccccccccccc00999999111611111111111111111111006c44c60
+06111160065dad60067744600dd555555555555555555555555555d00ccccbbbbccccccccccbccccccccccb00999999111111111111111111111111006444460
+611111166ede1ed6677744460dd555555555555555555555555555d00cccbbbccccbbcbccccbbbbbbcccccb0099991111111181188811111111111106288ddd6
+6111111661ad5d5667dddd460dd555555555555555555555555555d00cccbbcccccbbbbccccccbbbbcccccb0011111111111878887881111111111106828ede6
+611111166e1eaea66777ee460ddd555555655555d55555d5555556d00cccbbcccccbbbbcccccbbbbbccccbb0011111111111188888871111111111106282ded6
+0666666006666660066666600ddd66d55d66ddddd66d55d66d5566d00ccccccccbccbbcccccccccbbccccbb00111111111111178781111aaa111111006666660
+5555555555555555555555550ddd66dd66666666d66dd666666666d00ccccccccbbcbbbbbbccccccccccccb00111111111111188888711aaa111111055555555
+0651de600628de600699de600ddd66dd66565656d66dd656565656d00cccccbcccbcccbbcccbbbccccccccc00111111111111187888811aaa111111006777760
+0611dd600688dd600659dd600ddd66dd66666666d66dd666666666d00ccccbbccbbbbcccccbbbbbcccccccc00111111111111188187811111111111006cbcb60
+0611ed600688ed600699ed600ddd666dddddddddd666d666ddddddd00ccccbbbccbbbcccccbbbbbcccccbcc00111111111111111111111111111111006bcbc60
+6115ddd66882ddd66999ddd60d666666666dddd666666666ddddddd00ccbbbbbccbbbccccbbbbbbbcccbbbc0011111111111111111111111111111106777ddd6
+6511ede66288ede669ddede60d656565656dddd656565656ddddddd00ccccccccccccccccbbbbbbbccccbbc0011111111111111111111cc11111111067ddede6
+6115ded66882ded66999ded60d666666666dddd666666666ddddddd00cccccccccccccccccccccccccccccc0011111111111111111111cc1111dd1106777ded6
+06666660066666600666666000dddddddddddddddddddddddddddd0000777777777777777777777777777700001111111111111111111111111dd10006666660
 00000000007777777777777000000000000000000077777777777770000000000000000000777777777777700000000000222222222222222222222222222200
 00000000777777777777777700000000000000007777777777777777000000000000000077777777777777770000000002222662225555dddd2255522d266220
 000000777777777777777777700000000000007777777777777777777000000000000077777777777777777770000000026666dd255222222ddd22552dd26620
@@ -1606,14 +2145,14 @@ __gfx__
 00000fffff88ffffff88ffffff00000000000fffff88ffffff88ffffff00000000000fffff88ffffff88ffffff000000052666662222ddd557887888262d2520
 000000fffff88888888ffffff0000000000000fffff88888888ffffff0000000000000fffff88888888ffffff00000000566ddddd22666ddd222555266dd2520
 0000000fff8888888888fff0000000000000000fff8888888888fff0000000000000000fff8888888888fff0000000000022222ddd2226666622225552d22200
-000000000fffffffffffff0000000000000000000fffffffffffff0000000000000000000fffffffffffff000000000000000000000000000000000000000000
-00000000eeeffffffffeee000000000000000000eeeffffffffeee000000000000000000eeeffffffffeee000000000000000000000000000000000000000000
-00000022eeeeeeeeeeeeeee20000000000000022eeeeeeeeeeeeeee20000000000000022eeeeeeeeeeeeeee20000000000000000000000000000000000000000
-000000222eeeeeeeeeeee22220000000000000222eeeeeeeeeeee22220000000000000222eeeeeeeeeeee2222000000000000000000000000000000000000000
-000002222222eeeeee22222222e00000000002222222eeeeee22222222e00000000002222222eeeeee22222222e0000000000000000000000000000000000000
-0000e22222222222222222222eee00000000e22222222222222222222eee00000000e22222222222222222222eee000000000000000000000000000000000000
-0000ee2222222222222222222eeee0000000ee2222222222222222222eeee0000000ee2222222222222222222eeee00000000000000000000000000000000000
-0000eeee22222222223322222eeee0000000eeee22222222223322222eeee0000000eeee22222222223322222eeee00000000000000000000000000000000000
+000000000fffffffffffff0000000000000000000fffffffffffff0000000000000000000fffffffffffff000000000055555555000000000000000000000000
+00000000eeeffffffffeee000000000000000000eeeffffffffeee000000000000000000eeeffffffffeee000000000006134760000000000000000000000000
+00000022eeeeeeeeeeeeeee20000000000000022eeeeeeeeeeeeeee20000000000000022eeeeeeeeeeeeeee20000000006826960000000000000000000000000
+000000222eeeeeeeeeeee22220000000000000222eeeeeeeeeeee22220000000000000222eeeeeeeeeeee2222000000006a5c260000000000000000000000000
+000002222222eeeeee22222222e00000000002222222eeeeee22222222e00000000002222222eeeeee22222222e000006cdef1a6000000000000000000000000
+0000e22222222222222222222eee00000000e22222222222222222222eee00000000e22222222222222222222eee00006ab3d6e6000000000000000000000000
+0000ee2222222222222222222eeee0000000ee2222222222222222222eeee0000000ee2222222222222222222eeee0006b9dae86000000000000000000000000
+0000eeee22222222223322222eeee0000000eeee22222222223322222eeee0000000eeee22222222223322222eeee00006666660000000000000000000000000
 0fffeeee22222222333222222eeeeff00fffeeee22222222333222222eeeeff00fffeeee22222222333222222eeeeff000000000000000000000000000000000
 ffffeeee22222223322222222eeeefffffffeeee22222223322222222eeeefffffffeeee22222223322222222eeeefff00000000000000000000000000000000
 ffffeeeee2222888888222222eeeefffffffeeeee2222888888222222eeeefffffffeeeee2222888888222222eeeefff00000000000000000000000000000000
@@ -1669,3 +2208,5 @@ cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
 cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
 cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
 cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+__sfx__
+010100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
