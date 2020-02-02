@@ -391,12 +391,21 @@ function new_store_scene()
  s.unlocked=true
  s.icon.x=56
  s.icon.y=32
-
+granimation=128
+granimation_time=0
 
  s.stock={}
  s.selected_stock=1
 
  s.update=function(scene)
+  --ely futsin here--
+  if time() - granimation_time > 1 then
+   granimation_time=time()
+   granimation+=4
+   if granimation>136 then granimation = 128 end
+  end
+  ----
+
   --update sale period counters for jams
   for jam in all(scene.stock) do
    if not jam.sale_period_counter then jam.sale_period_counter=0 end
@@ -427,10 +436,11 @@ function new_store_scene()
   map(scene.background.x,scene.background.y,0,0,16,16)
 
   --ely futsin here--
-  granimation=128
-  gran_x=1
-  gran_y=3
-  spr(granimation,gran_x,gran_y)
+  
+  gran_x=20
+  gran_y=24
+  spr(granimation,gran_x,gran_y,4,4)
+  ----
 
   --draw stock list--
   local column=0
