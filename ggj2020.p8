@@ -177,7 +177,7 @@ function new_store_scene()
  local s=new_scene()
  s.name="store"
  s.background.x=32
- s.unlocked=true
+ s.unlocked=false
  s.icon.x=56
  s.icon.y=32
  return s
@@ -192,7 +192,7 @@ function new_hr_scene()
  local s=new_scene()
  s.name="hr"
  s.background.x=48
- s.unlocked=true
+ s.unlocked=false
  s.icon.x=88
  s.icon.y=32
  return s
@@ -302,7 +302,18 @@ function new_farm_scene()
    end
    if btnp(4) then
     for bush in all(scene.planted_bushes) do
-
+     if bush.harvest_counter > bush.template.harvest_time then
+      bush.harvest_counter=0.0
+      if not screen.active_scenes[2] then
+       screen.active_scenes[2]=screen.scenes[2]
+       screen.active_scenes[2].unlocked=true
+      end
+      bush.template.produce.quantity+=1
+      if not bush.template.produce.unlocked then
+       add(screen.active_scenes[2].available_ingredients, bush.template.produce)
+       bush.template.produce.unlocked=true
+      end
+     end
     end
    end
   end
@@ -330,14 +341,15 @@ function new_farm_scene()
    if (bush.template.harvest_time >= bush.harvest_counter) icon=emptybush_icon
    spr(icon,bush.x,bush.y)
   end
+
  end
 
  return s
 end
 
-function unlock_kitchen(s)
- s.active_scenes[2]=s.scenes[2]
- s.active_scenes[2].unlocked=true
+function unlock_kitchen()
+ screen.active_scenes[2]=screen.scenes[2]
+ screen.active_scenes[2].unlocked=true
 end
 
 function new_kitchen_scene()
@@ -353,22 +365,11 @@ function new_kitchen_scene()
  s.process_mix=false
  s.mix_complete=false
  s.mixer_contents={}
-
- s.all_ingredients={}
- add(s.all_ingredients, strawberry)
- add(s.all_ingredients, blueberry)
- add(s.all_ingredients, manberry)
- add(s.all_ingredients, globerry)
- add(s.all_ingredients, bigberry)
- add(s.all_ingredients, bangberry)
- add(s.all_ingredients, darkberry)
- add(s.all_ingredients, galactiberry)
- s.selected_ingredient=1
  s.available_ingredients={}
- for i in all(s.all_ingredients) do
-  if (i.unlocked) add(s.available_ingredients, i)
- end
-
+ add(s.available_ingredients, strawberry)
+ add(s.available_ingredients, blueberry)
+ add(s.available_ingredients, manberry)
+ s.selected_ingredient=1
 
  s.update=function(scene)
   if scene.mix_complete then
@@ -450,55 +451,6 @@ function new_kitchen_scene()
 
  return s
 end
-
--->8
---manufacturing
-emptybush_icon=51
-
-strawberry_bush={
- icon=48,
- price=10,
- produce=strawberry,
- harvest_time=10.0,
- unlocked=true,
- quantity=0
-}
-
-function unlock_blueberry(farm_scene)
- blueberry_bush.unlocked=true
- add(farm_scene.bushes, blueberry_bush)
-end
-
-function first_blueberry_complete(kitchen_scene)
- blueberry.unlocked=true
- add(kitchen_scene.available_ingredients, blueberry)
-end
-
-blueberry_bush={
- icon=52,
- price=10,
- produce=blueberry,
- harvest_time=10,
- unlocked=false,
- quantity=0
-}
-
-function unlock_factory(farm_scene)
- factory.unlocked=true
-end
-
-function first_factory_complete(game_screen)
- unlock_factories()
-end
-
-factory={
- icon=49,
- price=10,
- product=nil,
- harvest_time=10,
- unlocked=false,
- quantity=0
-}
 
 -->8
 --ingredients--
@@ -655,6 +607,55 @@ manberrytrijam={
 
 
 -->8
+--manufacturing
+emptybush_icon=51
+
+strawberry_bush={
+ icon=48,
+ price=10,
+ produce=strawberry,
+ harvest_time=1.0,
+ unlocked=true,
+ quantity=0
+}
+
+function unlock_blueberry(farm_scene)
+ blueberry_bush.unlocked=true
+ add(farm_scene.bushes, blueberry_bush)
+end
+
+function first_blueberry_complete(kitchen_scene)
+ blueberry.unlocked=true
+ add(kitchen_scene.available_ingredients, blueberry)
+end
+
+blueberry_bush={
+ icon=52,
+ price=10,
+ produce=blueberry,
+ harvest_time=10,
+ unlocked=false,
+ quantity=0
+}
+
+function unlock_factory(farm_scene)
+ factory.unlocked=true
+end
+
+function first_factory_complete(game_screen)
+ unlock_factories()
+end
+
+factory={
+ icon=49,
+ price=10,
+ product=nil,
+ harvest_time=10,
+ unlocked=false,
+ quantity=0
+}
+
+-->8
 --recipes--
 function lookup_recipe(mixer_contents)
  local output=false
@@ -728,7 +729,7 @@ recipes={
  },
  --strawtriberry jam--
  {
-  inputs={ 
+  inputs={
    strawberry,
    strawberry,
    strawberry
