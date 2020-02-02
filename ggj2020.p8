@@ -703,14 +703,9 @@ strawberry_bush={
  quantity=0
 }
 
-function unlock_blueberry(farm_scene)
+function unlock_blueberry()
  blueberry_bush.unlocked=true
- add(farm_scene.bushes, blueberry_bush)
-end
-
-function first_blueberry_complete(kitchen_scene)
- blueberry.unlocked=true
- add(kitchen_scene.available_ingredients, blueberry)
+ add(screen.active_scenes[1].bushes, blueberry_bush)
 end
 
 blueberry_bush={
@@ -972,7 +967,7 @@ recipes={
  },
 --bluetriberry jam--
  {
-  inputs={ 
+  inputs={
    blueberry,
    blueberry,
    blueberry
@@ -1157,7 +1152,7 @@ recipes={
  },
  --mantriberry jam--
  {
-  inputs={ 
+  inputs={
    manberry,
    manberry,
    manberry
