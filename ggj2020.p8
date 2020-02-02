@@ -148,7 +148,7 @@ function new_gameover_screen()
   print("you have returned all to",0,16)
   print("the primardial jam",0,24)
   sspr(8,32,8,8,48,48,32,32)
-  local score="score: "..jam_timer
+  local score="score: "..(32767-jam_timer)
   print(score,64-(4*(#score/2)),82)
  end
 
