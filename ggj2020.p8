@@ -8,9 +8,9 @@ cash_symbols[2]="\x99"
 cash_symbols[3]="\x8e"
 cash_symbols[4]="\x85"
 cash_money={}
-cash_money[1]=100
-cash_money[2]=0
-cash_money[3]=0
+cash_money[1]=32767
+cash_money[2]=32767
+cash_money[3]=32767
 cash_money[4]=0
 
 function add_money(value, scale)
@@ -217,21 +217,6 @@ function new_scene()
  return s
 end
 
-function unlock_hr(s)
- s.active_scenes[4]=s.scenes[4]
- s.active_scenes[4].unlocked=true
-end
-
-function new_hr_scene()
- local s=new_scene()
- s.name="hr"
- s.background.x=48
- s.unlocked=false
- s.icon.x=88
- s.icon.y=32
- return s
-end
-
 function unlock_factories(s)
  s.active_scenes[1]=s.scenes[5]
  s.active_scenes[1].unlocked=true
@@ -293,7 +278,69 @@ function new_universal_scene()
 end
 
 -->8
--- store -- kitchen -- farm--
+-- hr -- store -- kitchen -- farm--
+function unlock_hr(s)
+ s.active_scenes[4]=s.scenes[4]
+ s.active_scenes[4].unlocked=true
+end
+
+function new_hr_scene()
+ local s=new_scene()
+ s.name="hr"
+ s.background.x=48
+ s.unlocked=true
+ s.icon.x=88
+ s.icon.y=32
+
+ s.available_upgrades={}
+ add(s.available_upgrades, accountant)
+ add(s.available_upgrades, banker)
+ add(s.available_upgrades, blockchain)
+ s.purchased_upgrades={}
+ s.selected_upgrade=1
+
+ s.update=function(scene)
+  if scene.active and #scene.available_upgrades>0 then
+   if btnp(2) then
+    scene.selected_upgrade=max(scene.selected_upgrade-1, 1)
+   end
+   if btnp(3) then
+    scene.selected_upgrade=min(scene.selected_upgrade+1, #scene.available_upgrades)
+   end
+
+   local selected=scene.available_upgrades[scene.selected_upgrade]
+   if btnp(5) and can_spend(selected.price, selected.scale) and selected.quantity < selected.max_quantity then
+    selected.quantity+=1
+    if selected.quantity == selected.max_quantity then
+     del(s.available_upgrades, selected)
+    end
+   end
+
+  end
+ end
+
+ s.draw=function(scene)
+  map(scene.background.x,scene.background.y,0,0,16,16)
+
+
+  for i=1,#scene.available_upgrades,1 do
+   local upgrade = scene.available_upgrades[i]
+   local icon=upgrade.icon
+   local x_pix=(icon*8)%128
+   local y_pix=flr(abs(icon/16))*8
+   local x_target=72
+   local y_target=(i-1)*8
+   local price=cash_symbols[upgrade.scale]..upgrade.price
+
+   sspr(x_pix,y_pix,8,8,x_target,y_target,16,16)
+   print(price,x_target,y_target+16)
+   if (i==scene.selected_upgrade) rect(x_target-1,y_target-1,x_target+16,y_target+16,7)
+  end
+ end
+
+ return s
+end
+
 function unlock_store(s)
  s.active_scenes[3]=s.scenes[3]
  s.active_scenes[3].unlocked=true
@@ -303,7 +350,7 @@ function new_store_scene()
  local s=new_scene()
  s.name="store"
  s.background.x=32
- s.unlocked=false
+ s.unlocked=true
  s.icon.x=56
  s.icon.y=32
 
@@ -2130,6 +2177,40 @@ recipes={
 
 
 
+-->8
+-- upgrades --
+accountant={
+ name="accountant",
+ description="converts "..cash_symbols[1].." into "..cash_symbols[2],
+ unlocked=false,
+ price=32767,
+ scale=1,
+ quantity=0,
+ max_quantity=1,
+ icon=1
+}
+
+banker={
+ name="banker",
+ description="converts "..cash_symbols[2].." into "..cash_symbols[3],
+ unlocked=false,
+ price=32767,
+ scale=2,
+ quantity=0,
+ max_quantity=1,
+ icon=1,
+}
+
+blockchain={
+ name="blochchain",
+ description="converts "..cash_symbols[3].." into "..cash_symbols[4],
+ unlocked=false,
+ price=32767,
+ scale=3,
+ quantity=0,
+ max_quantity=1,
+ icon=1
+}
 __gfx__
 00000000555555555555555555555555555555555555555555555555555555555555555555555555555555555555555500bbbbbbbbbbbbbbbbbbbbbbbbbbbb00
 000000000628826006d11d600633326006000060067777600628d1600628776006d14460069aa96006777760067799600bbbbbbbbbbbbbbbbbbbbbbbbbbbbbb0
@@ -2258,18 +2339,18 @@ ffffeeeee2222888888222222eeeefffffffeeeee2222888888222222eeeefffffffeeeee2222888
 00000007777777777777777770000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 00000000077777777777777000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 __map__
-ddddddddddddddddddddddddddddddddd4d4d4d4d4d4d4ccdfdfdfdfdfdfdfdfccccccccccccccccdfdfdfdfdfdfdfdfcecececececececececececececececed4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4c9c9cfcfcfcfcfcfcfcfcfcfcfcfc9c9dadadadac9c9c9c9c9c9c9c9c9c9c9c9d4d4d4cacecad4cacacaceced4d4caca
-dddddddddddddddddddddddddddddddd28292a292a292bccdfdfdfdfdfdfdfdfccdac5c6c7c8daccdfdfdfdfdfdfdfdfcecececececececececececececececed4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4c9dddddddddddddddddddddddddddcc9dadadac9c9c9c9c9c9c9c9c9c9c9c9c9d4cacaceced4d4cad4cacad4d4cacad4
-dddddddddddddddddddddddddddddddd2e2c2f2c2f2c2dccdfdfdfdfdfdfdfdfccdad5d6d7d8daccdfdfdfdfdfdfdfdfcecececececececececececececececed4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4dddddcdddddddddddddddddddddddcdcdadac9cec9c9c9c9c9c9c9c9dbdbc9c9cacacad4cad4cacacecacecacacacaca
-ddddddddddddddddddddddddddddddddd4cd373637cdd4ccdfdfdfdfdfdfdfdfccdadadadadadaccdfdfdfdfdfdfdfdfcecececececececececececececececed4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4dddddcdddddcdddddddcdcdcdddddcdcdac9c9c9c9c9c4c9c9c9c9c9dbdbc9c9cacececacacecacacececacad4cacece
-23232323232323232323232323232323d4d4d435d4d4d4ccdfdfdfdfdfdfdfdfccdadadadadadaccdfdfdfdfdfdfdfdfcececececececececececececececece23232323232323232323232323232323dddddcdddddcdcdddcdcdcdcdcddddddc9c9c9cdc9c9c9c9c9dadac9c9c9c9c9cad4cecad4cecac4caced4cacacacace
-23232323232323232323232323232323d4d4d435d4d4d4ccdfdfdfdfdfdfdfdfccdadadadadadaccdfdfdfdfdfdfdfdfcececececececececececececececece23232323232323232323232323232323dddcdddddddcdcdddddddcdcddddddddc9c9c9c9c9c9d9c9c9dadac9c9c9c9c9cacacad4d4cacacacaced4d4cecacaca
-23232323232323232323232323232323d4d4d42cd4d4d4ccdfdfdfdfdfdfdfdfccdadadadadadaccdfdfdfdfdfdfdfdfcececececececececececececececece23232323232323232323232323232323dddddddddddddcdddddddddddddddcdcc9c9c9c9c9c9c9c9c9c9c9c9c9c9c9ddcad4cacacacececad4cacad4cecad4ca
-23232323232323232323232323232323d4d4d4d4d4d4d4ccdfdfdfdfdfdfdfdfccccccccccccccccdfdfdfdfdfdfdfdfcececececececececececececececece23232323232323232323232323232323c9dddddddddddddddddddddddddddcc9c9c9c9c9c9c9c9c9c9c9c9c9ddc9c9c9ced4cad4caced4cad4d4cacad4cacaca
-23232323232323232323232323232323d4d4d4d4d4d4d4ccdfdfdfdfdfdfdfdfccdfdfdfdfdfdfccdfdfdfdfdfdfdfdfcececececececececececececececece23232323232323232323232323232323c9c9cfcfcfcfcfcfcfcfcfcfcfcfc9c9c9c9c9c9c9c9c9c9c9c9c9c9c9c9c9cfcececacaced4cacacad4cacecececad4
-cccccccccccccccccccccccccccccccccecececececececcdfdfdfdfdfdfdfdfccdfdfdfdfdfdfccdfdfdfdfdfdfdfdfcececececececececececececececececccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
-cccccccccccccccccccccccccccccccccecececececececcdfdfdfdfdfdfdfdfccdfdfdfdfdfdfccdfdfdfdfdfdfdfdfcececececececececececececececececccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
-cccccccccccccccccccccccccccccccccecececececececcdfdfdfdfdfdfdfdfccdfdfdfdfdfdfccdfdfdfdfdfdfdfdfcececececececececececececececececccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+ddddddddddddddddddddddddddddddddd4d4d4d4d4d4d4ccdfdfdfdfdfdfdfdfccccccccccccccccdfdfdfdfdfdfdfdfcecececececececccccececececececed4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4c9c9cfcfcfcfcfcfcfcfcfcfcfcfc9c9dadadadac9c9c9c9c9c9c9c9c9c9c9c9d4d4d4cacecad4cacacaceced4d4caca
+dddddddddddddddddddddddddddddddd28292a292a292bccdfdfdfdfdfdfdfdfccdac5c6c7c8daccdfdfdfdfdfdfdfdfcecececececececccccececececececed4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4c9dddddddddddddddddddddddddddcc9dadadac9c9c9c9c9c9c9c9c9c9c9c9c9d4cacaceced4d4cad4cacad4d4cacad4
+dddddddddddddddddddddddddddddddd2e2c2f2c2f2c2dccdfdfdfdfdfdfdfdfccdad5d6d7d8daccdfdfdfdfdfdfdfdfcecececececececccccececececececed4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4dddddcdddddddddddddddddddddddcdcdadac9cec9c9c9c9c9c9c9c9dbdbc9c9cacacad4cad4cacacecacecacacacaca
+ddddddddddddddddddddddddddddddddd4cd373637cdd4ccdfdfdfdfdfdfdfdfccdadadadadadaccdfdfdfdfdfdfdfdfcecececececececccccececececececed4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4dddddcdddddcdddddddcdcdcdddddcdcdac9c9c9c9c9c4c9c9c9c9c9dbdbc9c9cacececacacecacacececacad4cacece
+23232323232323232323232323232323d4d4d435d4d4d4ccdfdfdfdfdfdfdfdfccdadadadadadaccdfdfdfdfdfdfdfdfcecececececececccccecececececece23232323232323232323232323232323dddddcdddddcdcdddcdcdcdcdcddddddc9c9c9cdc9c9c9c9c9dadac9c9c9c9c9cad4cecad4cecac4caced4cacacacace
+23232323232323232323232323232323d4d4d435d4d4d4ccdfdfdfdfdfdfdfdfccdadadadadadaccdfdfdfdfdfdfdfdfcecececececececccccecececececece23232323232323232323232323232323dddcdddddddcdcdddddddcdcddddddddc9c9c9c9c9c9d9c9c9dadac9c9c9c9c9cacacad4d4cacacacaced4d4cecacaca
+23232323232323232323232323232323d4d4d42cd4d4d4ccdfdfdfdfdfdfdfdfccdadadadadadaccdfdfdfdfdfdfdfdfcecececececececccccecececececece23232323232323232323232323232323dddddddddddddcdddddddddddddddcdcc9c9c9c9c9c9c9c9c9c9c9c9c9c9c9ddcad4cacacacececad4cacad4cecad4ca
+23232323232323232323232323232323d4d4d4d4d4d4d4ccdfdfdfdfdfdfdfdfccccccccccccccccdfdfdfdfdfdfdfdfcecececececececccccecececececece23232323232323232323232323232323c9dddddddddddddddddddddddddddcc9c9c9c9c9c9c9c9c9c9c9c9c9ddc9c9c9ced4cad4caced4cad4d4cacad4cacaca
+23232323232323232323232323232323d4d4d4d4d4d4d4ccdfdfdfdfdfdfdfdfccdfdfdfdfdfdfccdfdfdfdfdfdfdfdfcecececececececccccecececececece23232323232323232323232323232323c9c9cfcfcfcfcfcfcfcfcfcfcfcfc9c9c9c9c9c9c9c9c9c9c9c9c9c9c9c9c9cfcececacaced4cacacad4cacecececad4
+cccccccccccccccccccccccccccccccccecececececececcdfdfdfdfdfdfdfdfccdfdfdfdfdfdfccdfdfdfdfdfdfdfdfcecececececececccccecececececececccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+cccccccccccccccccccccccccccccccccecececececececcdfdfdfdfdfdfdfdfccdfdfdfdfdfdfccdfdfdfdfdfdfdfdfcecececececececccccecececececececccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+cccccccccccccccccccccccccccccccccecececececececcdfdfdfdfdfdfdfdfccdfdfdfdfdfdfccdfdfdfdfdfdfdfdfcecececececececccccecececececececccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
 cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
 cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
 cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
