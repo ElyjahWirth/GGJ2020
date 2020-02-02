@@ -948,7 +948,7 @@ globerryjam={
  demand_rate=0.007,
  gen=3,
  demand=1,
-scale=1
+scale=2
 }
 
 globduoberryjam={
@@ -961,7 +961,7 @@ globduoberryjam={
  demand_rate=0.007,
  gen=3,
  demand=1,
-scale=1
+scale=2
 }
 
 globnanaberryjam={
@@ -974,7 +974,7 @@ globnanaberryjam={
  demand_rate=0.007,
  gen=3,
  demand=1,
-scale=1
+scale=2
 }
 
 globlueberryjam={
@@ -987,7 +987,7 @@ globlueberryjam={
  demand_rate=0.007,
  gen=3,
  demand=1,
-scale=1
+scale=2
 }
 
 globstrawberryjam={
@@ -1000,7 +1000,7 @@ globstrawberryjam={
  demand_rate=0.007,
  gen=3,
  demand=1,
-scale=1
+scale=2
 }
 
 globmanberryjam={
@@ -1013,7 +1013,7 @@ globmanberryjam={
  demand_rate=0.007,
  gen=3,
  demand=1,
-scale=1
+scale=2
 }
 
 globluestrawberryjam={
@@ -1026,7 +1026,7 @@ globluestrawberryjam={
  demand_rate=0.007,
  gen=3,
  demand=1,
-scale=1
+scale=2
 }
 
 globluemanberryjam={
@@ -1039,7 +1039,7 @@ globluemanberryjam={
  demand_rate=0.007,
  gen=3,
  demand=1,
-scale=1
+scale=2
 }
 
 globstrawmanberryjam={
@@ -1052,7 +1052,7 @@ globstrawmanberryjam={
  demand_rate=0.007,
  gen=3,
  demand=1,
-scale=1
+scale=2
 }
 
 galactijam={
@@ -1065,7 +1065,7 @@ galactijam={
  demand_rate=0.007,
  gen=3,
  demand=1,
-scale=1
+scale=3
 }
 
 galactiduojam={
@@ -1078,7 +1078,7 @@ galactiduojam={
  demand_rate=0.007,
  gen=3,
  demand=1,
-scale=1
+scale=3
 }
 
 galactilactilactijam={
@@ -1091,7 +1091,7 @@ galactilactilactijam={
  demand_rate=0.007,
  gen=3,
  demand=1,
-scale=1
+scale=3
 }
 
 galactinanajam={
@@ -1104,7 +1104,7 @@ galactinanajam={
  demand_rate=0.007,
  gen=3,
  demand=1,
-scale=1
+scale=3
 }
 
 glactiblueberryjam={
@@ -1117,7 +1117,7 @@ glactiblueberryjam={
  demand_rate=0.007,
  gen=3,
  demand=1,
-scale=1
+scale=3
 }
 
 glactistrawberryjam={
@@ -1130,7 +1130,7 @@ glactistrawberryjam={
  demand_rate=0.007,
  gen=3,
  demand=1,
-scale=1
+scale=3
 }
 
 galactimanberryjam={
@@ -1143,7 +1143,7 @@ galactimanberryjam={
  demand_rate=0.007,
  gen=3,
  demand=1,
-scale=1
+scale=3
 }
 
 galactigloberryjam={
@@ -1156,7 +1156,7 @@ galactigloberryjam={
  demand_rate=0.007,
  gen=3,
  demand=1,
-scale=1
+scale=3
 }
 
 galactibluestrawberryjam={
@@ -1169,7 +1169,7 @@ galactibluestrawberryjam={
  demand_rate=0.007,
  gen=3,
  demand=1,
-scale=1
+scale=3
 }
 
 galactibluemanberryjam={
@@ -1182,7 +1182,7 @@ galactibluemanberryjam={
  demand_rate=0.007,
  gen=3,
  demand=1,
-scale=1
+scale=3
 }
 
 galactibluegloberryjam={
@@ -1195,7 +1195,7 @@ galactibluegloberryjam={
  demand_rate=0.007,
  gen=3,
  demand=1,
-scale=1
+scale=3
 }
 
 galactistrawmanberryjam={
@@ -1208,7 +1208,7 @@ galactistrawmanberryjam={
  demand_rate=0.007,
  gen=3,
  demand=1,
-scale=1
+scale=3
 }
 
 galctistawgloberryjam={
@@ -1221,7 +1221,7 @@ galctistawgloberryjam={
  demand_rate=0.007,
  gen=3,
  demand=1,
-scale=1
+scale=3
 }
 
 galactiglobemanberryjam={
@@ -1234,7 +1234,7 @@ galactiglobemanberryjam={
  demand_rate=0.007,
  gen=3,
  demand=1,
-scale=1
+scale=3
 }
 
 darkjam={
@@ -1247,7 +1247,7 @@ darkjam={
  demand_rate=0.007,
  gen=3,
  demand=1,
-scale=1
+scale=4
 }
 
 darkduojam={
@@ -1260,7 +1260,7 @@ darkduojam={
  demand_rate=0.007,
  gen=3,
  demand=1,
-scale=1
+scale=4
 }
 
 darktrijam={
@@ -1273,7 +1273,7 @@ darktrijam={
  demand_rate=0.007,
  gen=3,
  demand=1,
-scale=1
+scale=4
 }
 
 bigberryjam={
@@ -1286,7 +1286,7 @@ bigberryjam={
  demand_rate=0.007,
  gen=3,
  demand=1,
-scale=1
+scale=4
 }
 
 bigduoberryjam={
@@ -1299,7 +1299,7 @@ bigduoberryjam={
  demand_rate=0.007,
  gen=3,
  demand=1,
-scale=1
+scale=4
 }
 
 bigtriberryjam={
@@ -1312,7 +1312,7 @@ bigtriberryjam={
  demand_rate=0.007,
  gen=3,
  demand=1,
-scale=1
+scale=4
 }
 
 bignanaberryjam={
@@ -1325,7 +1325,7 @@ bignanaberryjam={
  demand_rate=0.007,
  gen=3,
  demand=1,
-scale=1
+scale=4
 }
 
 bangberryjam={
@@ -1338,7 +1338,7 @@ bangberryjam={
  demand_rate=0.007,
  gen=3,
  demand=1,
-scale=1
+scale=4
 }
 
 bangduoberryjam={
@@ -1351,7 +1351,7 @@ bangduoberryjam={
  demand_rate=0.007,
  gen=3,
  demand=1,
-scale=1
+scale=4
 }
 
 bangtriberryjam={
@@ -1364,7 +1364,7 @@ bangtriberryjam={
  demand_rate=0.007,
  gen=3,
  demand=1,
-scale=1
+scale=4
 }
 
 bangnanaberryjam={
@@ -1377,7 +1377,7 @@ bangnanaberryjam={
  demand_rate=0.007,
  gen=3,
  demand=1,
-scale=1
+scale=4
 }
 
 chaosjam={
@@ -1390,7 +1390,7 @@ chaosjam={
  demand_rate=0.007,
  gen=3,
  demand=1,
-scale=1
+scale=4
 }
 
 badjam={
@@ -1468,7 +1468,7 @@ primordialjam={
  demand_rate=0.007,
  gen=3,
  demand=1,
-scale=1
+scale=4
 }
 
 -->8
