@@ -168,21 +168,6 @@ function new_scene()
  return s
 end
 
-function unlock_store(s)
- s.active_scenes[3]=s.scenes[3]
- s.active_scenes[3].unlocked=true
-end
-
-function new_store_scene()
- local s=new_scene()
- s.name="store"
- s.background.x=32
- s.unlocked=true
- s.icon.x=56
- s.icon.y=32
- return s
-end
-
 function unlock_hr(s)
  s.active_scenes[4]=s.scenes[4]
  s.active_scenes[4].unlocked=true
@@ -259,7 +244,43 @@ function new_universal_scene()
 end
 
 -->8
---kitchen & farm--
+-- store -- kitchen -- farm--
+function unlock_store(s)
+ s.active_scenes[3]=s.scenes[3]
+ s.active_scenes[3].unlocked=true
+end
+
+function new_store_scene()
+ local s=new_scene()
+ s.name="store"
+ s.background.x=32
+ s.unlocked=false
+ s.icon.x=56
+ s.icon.y=32
+
+ s.stock={}
+ s.selected_stock=1
+
+ s.update=function(scene)
+  --stock list selected--
+  if scene.active and #scene.stock>0 then
+   if btnp(2) then
+    scene.selected_stock=max(scene.selected_stock-1, 1)
+   end
+   if btnp(3) then
+    scene.selected_stock=min(scene.selected_stock+1, #scene.stock)
+   end
+   if btnp(5) and scene.stock[scene.selected_stock].quantity > 0 then
+    scene.stock[scene.selected_stock].quantity-=1
+    cash_money+=get_price_for(scene.stock[scene.selected_stock])
+   end
+
+  end
+ end
+
+ return s
+end
+
 function new_farm_scene()
  local s=new_scene()
  s.name="farm"
@@ -384,6 +405,10 @@ function new_kitchen_scene()
    if not scene.current_output.unlocked then
     scene.current_output.unlocked=true
     add(scene.available_ingredients, scene.current_output)
+    if not screen.active_scenes[3] then
+     screen.active_scenes[3]=screen.scenes[3]
+     screen.active_scenes[3].unlocked=true
+    end
    end
    scene.current_output={}
 
@@ -460,6 +485,10 @@ end
 
 -->8
 --ingredients--
+function get_price_for(jam)
+ return 100
+end
+
 strawberry={
  name="strawberry",
  shortname="strawberry",
