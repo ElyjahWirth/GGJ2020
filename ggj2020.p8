@@ -535,6 +535,7 @@ end
 --ingredients--
 jam_sale_constants={
  sale_period_length=1.0,
+ global_demand_weight=1.0,
 }
 
 function get_price_for(jam)
@@ -542,8 +543,6 @@ function get_price_for(jam)
 end
 
 function get_demand_for(jam)
- if not jam.demand then jam.demand=1 end
- if not jam.demand_rate then jam.demand_rate=0.01 end
  return jam.demand
 end
 
