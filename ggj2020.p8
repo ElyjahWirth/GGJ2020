@@ -638,7 +638,8 @@ badjam={
  quantity=100,
  base_price=1,
  demand_rate=0.01,
- gen=1
+ gen=1,
+ demand=1
 }
 
 
@@ -650,7 +651,8 @@ strawberryjam={
  quantity=100,
  base_price=1,
  demand_rate=0.01,
- gen=1
+  gen=1,
+ demand=1
 }
 
 strawberryduojam={
@@ -661,7 +663,8 @@ strawberryduojam={
  quantity=100,
  base_price=1,
  demand_rate=0.01,
- gen=1
+  gen=1,
+ demand=1
 }
 
 strawberrytrijam={
@@ -672,7 +675,8 @@ strawberrytrijam={
  quantity=100,
  base_price=1,
  demand_rate=0.01,
- gen=1
+  gen=1,
+ demand=1
 }
 
 strawberrynanajam={
@@ -683,7 +687,8 @@ strawberrynanajam={
  quantity=100,
  base_price=1,
  demand_rate=0.01,
- gen=1
+  gen=1,
+ demand=1
 }
 
 bananaberryjam={
@@ -694,7 +699,8 @@ bananaberryjam={
  quantity=100,
  base_price=1,
  demand_rate=0.01,
- gen=1
+  gen=1,
+ demand=1
 }
 
 bananaberryduojam={
@@ -705,7 +711,8 @@ bananaberryduojam={
  quantity=100,
  base_price=1,
  demand_rate=0.01,
- gen=1
+  gen=1,
+ demand=1
 }
 
 bananaberrytrijam={
@@ -716,7 +723,8 @@ bananaberrytrijam={
  quantity=100,
  base_price=1,
  demand_rate=0.01,
- gen=1
+  gen=1,
+ demand=1
 }
 
 bananaberrynanajam={
@@ -727,7 +735,8 @@ bananaberrynanajam={
  quantity=100,
  base_price=1,
  demand_rate=0.01,
- gen=1
+  gen=1,
+ demand=1
 }
 
 blueberryjam={
@@ -738,7 +747,8 @@ blueberryjam={
  quantity=100,
  base_price=1,
  demand_rate=0.01,
- gen=1
+  gen=1,
+ demand=1
 }
 
 blueberryduojam={
@@ -749,7 +759,8 @@ blueberryduojam={
  quantity=100,
  base_price=1,
  demand_rate=0.01,
- gen=1
+  gen=1,
+ demand=1
 }
 
 blueberrytrijam={
@@ -760,7 +771,8 @@ blueberrytrijam={
  quantity=100,
  base_price=1,
  demand_rate=0.01,
- gen=1
+  gen=1,
+ demand=1
 }
 
 blueberrynanajam={
@@ -771,7 +783,8 @@ blueberrynanajam={
  quantity=100,
  base_price=1,
  demand_rate=0.01,
- gen=1
+  gen=1,
+ demand=1
 }
 
 manberryjam={
@@ -782,7 +795,8 @@ manberryjam={
  quantity=100,
  base_price=1,
  demand_rate=0.01,
- gen=1
+  gen=1,
+ demand=1
 }
 
 manberryduojam={
@@ -793,7 +807,8 @@ manberryduojam={
  quantity=100,
  base_price=1,
  demand_rate=0.01,
- gen=1
+  gen=1,
+ demand=1
 }
 
 manberrytrijam={
@@ -804,7 +819,8 @@ manberrytrijam={
  quantity=100,
  base_price=1,
  demand_rate=0.01,
- gen=1
+  gen=1,
+ demand=1
 }
 
 manberrynanajam={
@@ -815,7 +831,8 @@ manberrynanajam={
  quantity=100,
  base_price=1,
  demand_rate=0.01,
- gen=1
+  gen=1,
+ demand=1
 }
 
 bluemanberryjam={
@@ -826,7 +843,8 @@ bluemanberryjam={
  quantity=100,
  base_price=1,
  demand_rate=0.01,
- gen=1
+  gen=1,
+ demand=1
 }
 
 strawmanberryjam={
@@ -837,7 +855,8 @@ strawmanberryjam={
  quantity=100,
  base_price=1,
  demand_rate=0.01,
- gen=1
+  gen=1,
+ demand=1
 }
 
 bluemanstrawberyjam={
@@ -848,7 +867,8 @@ bluemanstrawberyjam={
  quantity=100,
  base_price=111,
  demand_rate=0.007,
- gen=3
+ gen=3,
+ demand=1
 }
 
 -->8
