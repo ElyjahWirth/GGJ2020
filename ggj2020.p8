@@ -8,9 +8,9 @@ cash_symbols[2]="\x99"
 cash_symbols[3]="\x8e"
 cash_symbols[4]="\x85"
 cash_money={}
-cash_money[1]=32767
-cash_money[2]=32767
-cash_money[3]=32767
+cash_money[1]=50
+cash_money[2]=0
+cash_money[3]=0
 cash_money[4]=0
 --[[
  stage 1 = farm
@@ -232,7 +232,7 @@ function new_hr_scene()
  local s=new_scene()
  s.name="hr"
  s.background.x=48
- s.unlocked=true
+ s.unlocked=false
  s.icon.x=88
  s.icon.y=32
 
@@ -326,11 +326,11 @@ function new_store_scene()
  local s=new_scene()
  s.name="store"
  s.background.x=32
- s.unlocked=true
+ s.unlocked=false
  s.icon.x=56
  s.icon.y=32
-granimation=128
-granimation_time=0
+ granimation=128
+ granimation_time=0
 
  s.stock={}
  s.selected_stock=1
@@ -428,7 +428,6 @@ function new_farm_scene()
  s.bushes={}
  s.planted_bushes={}
  add(s.bushes, strawberry_bush)
- add(s.bushes, blueberry_bush)
 
  s.selected=1
 
@@ -509,7 +508,7 @@ function new_kitchen_scene()
  local s=new_scene()
  s.name="kitchen"
  s.background.x=16
- s.unlocked=true
+ s.unlocked=false
  s.icon={
   x=24,
   y=32
@@ -607,7 +606,7 @@ jam_sale_constants={
  global_sales_efficiency=1.0,
  global_demand_loss=0.01,
  global_demand_loss_modifier=1.0,
- global_harvest_mod=1,
+ global_harvest_speed=1.0,
  global_cook_speed=1.0,
 }
 
@@ -1396,11 +1395,88 @@ strawberry_bush={
 blueberry_bush={
  name="blueberry bush",
  icon=52,
- price=10,
+ price=100,
  scale=1,
  produce=blueberry,
- harvest_time=10,
- unlocked=true,
+ harvest_time=3,
+ unlocked=false,
+ quantity=0
+}
+
+bananaberry_bush={
+ name="bananaberry bush",
+ icon=62,
+ price=10000,
+ scale=2,
+ produce=bananaberry,
+ harvest_time=100.0,
+ unlocked=false,
+ quantity=0
+}
+
+manberry_bush={
+ name="manberry bush",
+ icon=49,
+ price=10,
+ scale=2,
+ produce=manberry,
+ harvest_time=100.0,
+ unlocked=false,
+ quantity=0
+}
+
+globerry_bush={
+ name="globerry bush",
+ icon=229,
+ price=1,
+ scale=3,
+ produce=globerry,
+ harvest_time=100.0,
+ unlocked=false,
+ quantity=0
+}
+
+bigberry_bush={
+ name="bigberry bush",
+ icon=230,
+ price=100,
+ scale=2,
+ produce=bigberry,
+ harvest_time=50.0,
+ unlocked=false,
+ quantity=0
+}
+
+bangberry_bush={
+ name="bangberry bush",
+ icon=231,
+ price=1,
+ scale=3,
+ produce=bangberry,
+ harvest_time=1.0,
+ unlocked=false,
+ quantity=0
+}
+
+darkberry_bush={
+ name="darkberry bush",
+ icon=232,
+ price=100,
+ scale=3,
+ produce=darkberry,
+ harvest_time=10.0,
+ unlocked=false,
+ quantity=0
+}
+
+galactiberry_bush={
+ name="galactiberry bush",
+ icon=233,
+ price=10000,
+ scale=3,
+ produce=galactiberry,
+ harvest_time=10.0,
+ unlocked=false,
  quantity=0
 }
 
@@ -1488,14 +1564,14 @@ function lookup_recipe(mixer_contents)
    local used2= false
 
    if recipecheck.inputs[1] == mixer_contents[1] then
-    used1=true 
+    used1=true
     goto twoinputsecondcheck
    end
    if recipecheck.inputs[1] == mixer_contents[2] then used2=true end
    ::twoinputsecondcheck::
 
-   if recipecheck.inputs[2] == mixer_contents[1] then 
-    used1=true 
+   if recipecheck.inputs[2] == mixer_contents[1] then
+    used1=true
     goto twoinputend
    end
    if recipecheck.inputs[2] == mixer_contents[2] then used2=true end
@@ -1521,7 +1597,7 @@ function lookup_recipe(mixer_contents)
    end
 
    if recipecheck.inputs[1] == mixer_contents[2] then
-    used2=true 
+    used2=true
     goto threeinputsecondcheck
    end
     if recipecheck.inputs[1] == mixer_contents[3] then
@@ -1556,7 +1632,7 @@ function lookup_recipe(mixer_contents)
    if recipecheck.inputs[3] == mixer_contents[3] and not used3 then used3=true end
 
    ::threeinputend::
-   
+
    if used1 and used2 and used3 then
     add(matches3,recipecheck)
    end
@@ -2165,10 +2241,50 @@ recipes={
 -->8
 -- upgrades --
 function check_for_unlocks(scene)
+
+ if cash_money[1]>=100 and not blueberry_bush.unlocked then
+  blueberry_bush.unlocked=true
+  add(screen.active_scenes[1].bushes, blueberry_bush)
+ end
+
+ if cash_money[2]>=10000 and not bananaberry_bush.unlocked then
+  bananaberry_bush.unlocked=true
+  add(screen.active_scenes[1].bushes, bananaberry_bush)
+ end
+
+ if cash_money[2]>=10 and not manberry_bush.unlocked then
+  manberry_bush.unlocked=true
+  add(screen.active_scenes[1].bushes, manberry_bush)
+ end
+
+ if cash_money[3]>=1 and not globerry_bush.unlocked then
+  globerry_bush.unlocked=true
+  add(screen.active_scenes[1].bushes, globerry_bush)
+ end
+
+ if cash_money[2]>=100 and not bigberry_bush.unlocked then
+  bigberry_bush.unlocked=true
+  add(screen.active_scenes[1].bushes, bigberry_bush)
+ end
+
+ if cash_money[4]>=1 and not bangberry_bush.unlocked then
+  bangberry_bush.unlocked=true
+  add(screen.active_scenes[1].bushes, bangberry_bush)
+ end
+
+ if cash_money[3]>=100 and not darkberry_bush.unlocked then
+  darkberry_bush.unlocked=true
+  add(screen.active_scenes[1].bushes, darkberry_bush)
+ end
+
+ if cash_money[3]>=10000 and not galactiberry_bush.unlocked then
+  galactiberry_bush.unlocked=true
+  add(screen.active_scenes[1].bushes, galactiberry_bush)
+ end
+
  if cash_money[1]==32767 and not accountant.unlocked then
   accountant.unlocked=true
   add(scene.available_upgrades, accountant)
-  accountant.on_unlock(scene)
  end
 
  if cash_money[2]==32767 and not banker.unlocked then
@@ -2187,6 +2303,8 @@ function check_for_unlocks(scene)
   farmer.unlocked=true
   add(scene.available_upgrades, farmer)
   farmer.on_unlock(scene)
+  screen.active_scenes[4]=screen.scenes[4]
+  screen.active_scenes[4].unlocked=true
  end
 
  if cash_money[1]>=1000 and not cook.unlocked then
@@ -2212,11 +2330,13 @@ cook={
   cook.countdown+=1/30
   if cook.countdown > jam_sale_constants.global_cook_speed then
    cook.countdown=0.0
+   local can_cook=true
    for i=1,cook.quantity,1 do
     for recipe in all(known_good_recipes) do
-     if has_ingredients(recipe) then
+     if can_cook and has_ingredients(recipe) then
       spend_ingredients(recipe)
       gain_jam(recipe.output)
+      can_cook=false
      end
     end
    end
@@ -2233,10 +2353,15 @@ farmer={
  quantity=0,
  max_quantity=32767,
  icon=188,
+ countdown=0.0,
  on_purchase=function(scene) end,
  on_unlock=function(scene) end,
  update=function(scene)
-  harvest(screen.active_scenes[1], jam_sale_constants.global_harvest_mod)
+  farmer.countdown+=1/30
+  if farmer.countdown > jam_sale_constants.global_harvest_speed then
+   farmer.countdown=0.0
+   harvest(screen.active_scenes[1], farmer.quantity)
+  end
  end
 }
 
