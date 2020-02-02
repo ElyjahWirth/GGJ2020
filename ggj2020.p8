@@ -636,8 +636,8 @@ badjam={
  unlocked=false,
  icon=function() return 3 end,
  quantity=100,
- baseprice=1,
- demandrate=0.01,
+ base_price=1,
+ demand_rate=0.01,
  gen=1
 }
 
@@ -648,8 +648,8 @@ strawberryjam={
  unlocked=false,
  icon=function() return 1 end,
  quantity=100,
- baseprice=1,
- demandrate=0.01,
+ base_price=1,
+ demand_rate=0.01,
  gen=1
 }
 
@@ -659,8 +659,8 @@ strawberryduojam={
  unlocked=false,
  icon=function() return 1 end,
  quantity=100,
- baseprice=1,
- demandrate=0.01,
+ base_price=1,
+ demand_rate=0.01,
  gen=1
 }
 
@@ -670,8 +670,8 @@ strawberrytrijam={
  unlocked=false,
  icon=function() return 1 end,
  quantity=100,
- baseprice=1,
- demandrate=0.01,
+ base_price=1,
+ demand_rate=0.01,
  gen=1
 }
 
@@ -681,8 +681,8 @@ strawberrynanajam={
  unlocked=false,
  icon=function() return 1 end,
  quantity=100,
- baseprice=1,
- demandrate=0.01,
+ base_price=1,
+ demand_rate=0.01,
  gen=1
 }
 
@@ -692,8 +692,8 @@ bananaberryjam={
  unlocked=false,
  icon=function() return 9 end,
  quantity=100,
- baseprice=1,
- demandrate=0.01,
+ base_price=1,
+ demand_rate=0.01,
  gen=1
 }
 
@@ -703,8 +703,8 @@ bananaberryduojam={
  unlocked=false,
  icon=function() return 9 end,
  quantity=100,
- baseprice=1,
- demandrate=0.01,
+ base_price=1,
+ demand_rate=0.01,
  gen=1
 }
 
@@ -714,8 +714,8 @@ bananaberrytrijam={
  unlocked=false,
  icon=function() return 9 end,
  quantity=100,
- baseprice=1,
- demandrate=0.01,
+ base_price=1,
+ demand_rate=0.01,
  gen=1
 }
 
@@ -725,8 +725,8 @@ bananaberrynanajam={
  unlocked=false,
  icon=function() return 9 end,
  quantity=100,
- baseprice=1,
- demandrate=0.01,
+ base_price=1,
+ demand_rate=0.01,
  gen=1
 }
 
@@ -736,8 +736,8 @@ blueberryjam={
  unlocked=false,
  icon=function() return 2 end,
  quantity=100,
- baseprice=1,
- demandrate=0.01,
+ base_price=1,
+ demand_rate=0.01,
  gen=1
 }
 
@@ -747,8 +747,8 @@ blueberryduojam={
  unlocked=false,
  icon=function() return 2 end,
  quantity=100,
- baseprice=1,
- demandrate=0.01,
+ base_price=1,
+ demand_rate=0.01,
  gen=1
 }
 
@@ -758,8 +758,8 @@ blueberrytrijam={
  unlocked=false,
  icon=function() return 2 end,
  quantity=100,
- baseprice=1,
- demandrate=0.01,
+ base_price=1,
+ demand_rate=0.01,
  gen=1
 }
 
@@ -769,8 +769,8 @@ blueberrynanajam={
  unlocked=false,
  icon=function() return 2 end,
  quantity=100,
- baseprice=1,
- demandrate=0.01,
+ base_price=1,
+ demand_rate=0.01,
  gen=1
 }
 
@@ -780,8 +780,8 @@ manberryjam={
  unlocked=false,
  icon=function() return 5 end,
  quantity=100,
- baseprice=1,
- demandrate=0.01,
+ base_price=1,
+ demand_rate=0.01,
  gen=1
 }
 
@@ -791,8 +791,8 @@ manberryduojam={
  unlocked=false,
  icon=function() return 98 end,
  quantity=100,
- baseprice=1,
- demandrate=0.01,
+ base_price=1,
+ demand_rate=0.01,
  gen=1
 }
 
@@ -802,8 +802,8 @@ manberrytrijam={
  unlocked=false,
  icon=function() return 11 end,
  quantity=100,
- baseprice=1,
- demandrate=0.01,
+ base_price=1,
+ demand_rate=0.01,
  gen=1
 }
 
@@ -813,8 +813,8 @@ manberrynanajam={
  unlocked=false,
  icon=function() return 64 end,
  quantity=100,
- baseprice=1,
- demandrate=0.01,
+ base_price=1,
+ demand_rate=0.01,
  gen=1
 }
 
@@ -824,8 +824,8 @@ bluemanberryjam={
  unlocked=false,
  icon=function() return 8 end,
  quantity=100,
- baseprice=1,
- demandrate=0.01,
+ base_price=1,
+ demand_rate=0.01,
  gen=1
 }
 
@@ -835,8 +835,8 @@ strawmanberryjam={
  unlocked=false,
  icon=function() return 7 end,
  quantity=100,
- baseprice=1,
- demandrate=0.01,
+ base_price=1,
+ demand_rate=0.01,
  gen=1
 }
 
@@ -846,8 +846,8 @@ bluemanstrawberyjam={
  unlocked=false,
  icon=function() return 10 end,
  quantity=100,
- baseprice=111,
- demandrate=0.007,
+ base_price=111,
+ demand_rate=0.007,
  gen=3
 }
 
