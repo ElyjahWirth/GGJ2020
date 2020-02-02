@@ -12,6 +12,14 @@ cash_money[1]=32767
 cash_money[2]=32767
 cash_money[3]=32767
 cash_money[4]=0
+--[[
+ stage 1 = farm
+ stage 2 = factoruy
+ stage 3 = globe
+ stage 4 = galaxy
+ stage 5 = universe
+]]--
+stage=1
 
 function add_money(value, scale)
  if scale==nil then scale=1 end
@@ -419,7 +427,7 @@ function new_store_scene()
 
  s.draw=function(scene)
   map(scene.background.x,scene.background.y,0,0,16,16)
-  
+
   --draw stock list--
   local column=0
   local row=0
@@ -498,20 +506,7 @@ function new_farm_scene()
     end
    end
    if btnp(4) then
-    for bush in all(scene.planted_bushes) do
-     if bush.harvest_counter > bush.template.harvest_time then
-      bush.harvest_counter=0.0
-      if not screen.active_scenes[2] then
-       screen.active_scenes[2]=screen.scenes[2]
-       screen.active_scenes[2].unlocked=true
-      end
-      bush.template.produce.quantity+=1
-      if not bush.template.produce.unlocked then
-       add(screen.active_scenes[2].available_ingredients, bush.template.produce)
-       bush.template.produce.unlocked=true
-      end
-     end
-    end
+    harvest(scene)
    end
   end
  end
@@ -1579,6 +1574,23 @@ scale=4
 
 -->8
 --manufacturing
+function harvest(scene)
+ for bush in all(scene.planted_bushes) do
+  if bush.harvest_counter > bush.template.harvest_time then
+   bush.harvest_counter=0.0
+   if not screen.active_scenes[2] then
+    screen.active_scenes[2]=screen.scenes[2]
+    screen.active_scenes[2].unlocked=true
+   end
+   bush.template.produce.quantity+=1
+   if not bush.template.produce.unlocked then
+    add(screen.active_scenes[2].available_ingredients, bush.template.produce)
+    bush.template.produce.unlocked=true
+   end
+  end
+ end
+end
+
 emptybush_icon=51
 
 strawberry_bush={
@@ -2706,7 +2718,29 @@ function check_for_unlocks(scene)
   add(scene.available_upgrades, blockchain)
   blockchain.on_unlock(scene)
  end
+
+ if cash_money[1]>=1000 and not farmer.unlocked then
+  farmer.unlocked=true
+  add(scene.available_upgrades, farmer)
+  farmer.on_unlock(scene)
+ end
 end
+
+farmer={
+ name="farmer",
+ description="automatically harvests berries",
+ unlocked=false,
+ price=1000,
+ scale=1,
+ quantity=0,
+ max_quantity=100,
+ icon=1,
+ on_purchase=function(scene) end,
+ on_unlock=function(scene) end,
+ update=function(scene)
+  if (stage==1) harvest(screen.active_scenes[1])
+ end
+}
 
 accountant={
  name="accountant",
