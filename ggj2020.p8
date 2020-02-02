@@ -349,9 +349,9 @@ function new_store_scene()
    if not jam.sale_period_counter then jam.sale_period_counter=0 end
    jam.sale_period_counter+=1/30
    if jam.sale_period_counter > jam_sale_constants.sale_period_length then
-    if not jam.demand then jam.demand=1 end
-    if not jam.demand_rate then jam.demand_rate=0.01 end
-    jam.demand+=jam.demand_rate
+    local temp_demand = jam.demand+jam.demand_rate
+    if (temp_demand < 0) then temp_demand=32767
+    jam.demand_rate=temp_demand
     jam.sale_period_counter=0.0
    end
   end
