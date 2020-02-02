@@ -368,7 +368,13 @@ function new_kitchen_scene()
  s.available_ingredients={}
  add(s.available_ingredients, strawberry)
  add(s.available_ingredients, blueberry)
+ add(s.available_ingredients, bananaberry)
  add(s.available_ingredients, manberry)
+ add(s.available_ingredients, globerry)
+ add(s.available_ingredients, bigberry)
+ add(s.available_ingredients, bangberry)
+ add(s.available_ingredients, darkberry)
+ add(s.available_ingredients, galacitberry)
  s.selected_ingredient=1
 
  s.update=function(scene)
@@ -459,7 +465,7 @@ strawberry={
  shortname="strawberry",
  unlocked=true,
  icon=function() return 16 end,
- quantity=10
+ quantity=100
 }
 
 blueberry={
@@ -467,7 +473,15 @@ blueberry={
  shortname="blueberry",
  unlocked=true,
  icon=function() return 17 end,
- quantity=10
+ quantity=100
+}
+
+bananaberry={
+ name="bananaberry",
+ shortname="bananaberry",
+ unlocked=true,
+ icon=function() return 63 end,
+ quantity=100
 }
 
 manberry={
@@ -480,7 +494,7 @@ manberry={
  update_icon=function()
   manberry.current_icon=flr(rnd(#manberry.icon_options)+1)
  end,
- quantity=10
+ quantity=100
 }
 
 globerry={
@@ -488,7 +502,7 @@ globerry={
  shortname="globerry",
  unlocked=false,
  icon=function() return 23 end,
- quantity=0
+ quantity=100
 }
 
 bigberry={
@@ -496,7 +510,7 @@ bigberry={
  shortname="bigberry",
  unlocked=false,
  icon=function() return 24 end,
- quantity=0
+ quantity=100
 }
 
 bangberry={
@@ -504,7 +518,7 @@ bangberry={
  shortname="bangberry",
  unlocked=false,
  icon=function() return 25 end,
- quantity=0
+ quantity=100
 }
 
 darkberry={
@@ -512,7 +526,7 @@ darkberry={
  shortname="darkberry",
  unlocked=false,
  icon=function() return 26 end,
- quantity=0
+ quantity=100
 }
 
 galactiberry={
@@ -520,7 +534,7 @@ galactiberry={
  shortname="galactiberry",
  unlocked=false,
  icon=function() return 27 end,
- quantity=0
+ quantity=100
 }
 
 badjam={
@@ -528,7 +542,7 @@ badjam={
  shortname="bad jam",
  unlocked=false,
  icon=function() return 3 end,
- quantity=0
+ quantity=100
 }
 
 
@@ -537,7 +551,7 @@ strawberryjam={
  shortname="strawberry jam",
  unlocked=false,
  icon=function() return 1 end,
- quantity=0
+ quantity=100
 }
 
 strawberryduojam={
@@ -545,7 +559,7 @@ strawberryduojam={
  shortname="s.duobery jam",
  unlocked=false,
  icon=function() return 1 end,
- quantity=0
+ quantity=100
 }
 
 strawberrytrijam={
@@ -553,7 +567,47 @@ strawberrytrijam={
  shortname="s.tribery jam",
  unlocked=false,
  icon=function() return 1 end,
- quantity=0
+ quantity=100
+}
+
+strawberrynanajam={
+ name="strawnanaberry jam",
+ shortname="s.nanabery jam",
+ unlocked=false,
+ icon=function() return 1 end,
+ quantity=100
+}
+
+bananaberryjam={
+ name="bananaberry jam",
+ shortname="bananajama",
+ unlocked=false,
+ icon=function() return 9 end,
+ quantity=100
+}
+
+bananaberryduojam={
+ name="bananaduoberry jam",
+ shortname="bananaduojama",
+ unlocked=false,
+ icon=function() return 9 end,
+ quantity=100
+}
+
+bananaberrytrijam={
+ name="bananatriberry jam",
+ shortname="bananatrijama",
+ unlocked=false,
+ icon=function() return 9 end,
+ quantity=100
+}
+
+bananaberrynanajam={
+ name="bananananaberry jam",
+ shortname="bananananajama",
+ unlocked=false,
+ icon=function() return 9 end,
+ quantity=100
 }
 
 blueberryjam={
@@ -561,7 +615,7 @@ blueberryjam={
  shortname="blueberry jam",
  unlocked=false,
  icon=function() return 2 end,
- quantity=0
+ quantity=100
 }
 
 blueberryduojam={
@@ -569,7 +623,7 @@ blueberryduojam={
  shortname="b.duobery jam",
  unlocked=false,
  icon=function() return 2 end,
- quantity=0
+ quantity=100
 }
 
 blueberrytrijam={
@@ -577,7 +631,15 @@ blueberrytrijam={
  shortname="b.tribery jam",
  unlocked=false,
  icon=function() return 2 end,
- quantity=0
+ quantity=100
+}
+
+blueberrynanajam={
+ name="bluenanaberry jam",
+ shortname="b.nanabery jam",
+ unlocked=false,
+ icon=function() return 2 end,
+ quantity=100
 }
 
 manberryjam={
@@ -585,7 +647,7 @@ manberryjam={
  shortname="manberry jam",
  unlocked=false,
  icon=function() return 5 end,
- quantity=0
+ quantity=100
 }
 
 manberryduojam={
@@ -593,7 +655,7 @@ manberryduojam={
  shortname="m.duoberry jam",
  unlocked=false,
  icon=function() return 98 end,
- quantity=0
+ quantity=100
 }
 
 manberrytrijam={
@@ -601,10 +663,32 @@ manberrytrijam={
  shortname="m.triberry jam",
  unlocked=false,
  icon=function() return 11 end,
- quantity=0
+ quantity=100
 }
 
+manberrynanajam={
+ name="mannanaberry jam",
+ shortname="mananabery jam",
+ unlocked=false,
+ icon=function() return 64 end,
+ quantity=100
+}
 
+bluemanberryjam={
+ name="bluemanberry jam",
+ shortname="blumanbery jam",
+ unlocked=false,
+ icon=function() return 8 end,
+ quantity=100
+}
+
+strawmanberryjam={
+ name="strawmanberry jam",
+ shortname="s.manberry jam",
+ unlocked=false,
+ icon=function() return 7 end,
+ quantity=100
+}
 
 -->8
 --manufacturing
@@ -681,10 +765,19 @@ end
 if #mixer_contents>=2 then
  local matches2 = {}
  for recipecheck in all(matches) do
-  for ingrediantcheck in all (recipecheck.inputs) do
-   if ingrediantcheck==mixer_contents[2] then
+  local found1=false
+  local found2=false
+  if recipecheck.inputs[1] == mixer_contents[1] or 
+    recipecheck.inputs[1] == mixer_contents[2] then
+    found1=true
+  end
+  if recipecheck.inputs[2] == mixer_contents[1] or 
+    recipecheck.inputs[2] == mixer_contents[2] then
+    found2=true
+  end
+ 
+  if found1 and found2 then
    add(matches2,recipecheck)
-   end
   end
  end
 matches=matches2
@@ -694,10 +787,26 @@ end
 if #mixer_contents==3 then
  local matches3 = {}
  for recipecheck in all(matches) do
-  for ingrediantcheck in all (recipecheck.inputs) do
-   if ingrediantcheck==mixer_contents[3] then
+  local found1=false
+  local found2=false
+  local found3=false
+  if recipecheck.inputs[1] == mixer_contents[1] or 
+    recipecheck.inputs[1] == mixer_contents[2] or
+    recipecheck.inputs[1] == mixer_contents[3] then
+    found1=true
+  end
+  if recipecheck.inputs[2] == mixer_contents[1] or 
+    recipecheck.inputs[2] == mixer_contents[2] or
+    recipecheck.inputs[2] == mixer_contents[3] then
+    found2=true
+  end
+ if recipecheck.inputs[3] == mixer_contents[1] or 
+    recipecheck.inputs[3] == mixer_contents[2] or
+    recipecheck.inputs[3] == mixer_contents[3] then
+    found3=true
+  end
+  if found1 and found2 and found3 then
    add(matches3,recipecheck)
-   end
   end
  end
 matches=matches3
@@ -719,11 +828,33 @@ recipes={
   },
   output=strawberryjam
  },
+ {
+  inputs={
+   strawberryjam
+  },
+  output=strawberryjam
+ },
  --strawduoberry jam--
  {
   inputs={
    strawberry,
    strawberry
+  },
+  output=strawberryduojam
+ },
+ --strawduoberry jam--
+ {
+  inputs={
+   strawberryjam,
+   strawberry
+  },
+  output=strawberryduojam
+ },
+ --strawduoberry jam--
+ {
+  inputs={
+   strawberryjam,
+   strawberryjam
   },
   output=strawberryduojam
  },
@@ -736,10 +867,84 @@ recipes={
   },
   output=strawberrytrijam
  },
+
+ --strawtriberry jam--
+ {
+  inputs={
+   strawberryjam,
+   strawberry,
+   strawberry
+  },
+  output=strawberrytrijam
+ },
+
+ --strawtriberry jam--
+ {
+  inputs={
+   strawberryjam,
+   strawberryjam,
+   strawberry
+  },
+  output=strawberrytrijam
+ },
+
+ --strawtriberry jam--
+ {
+  inputs={
+   strawberryjam,
+   strawberryjam,
+   strawberryjam
+  },
+  output=strawberrytrijam
+ },
+ --strawnanaberry jam--
+ {
+  inputs={
+   strawberrytrijam,
+   strawberrytrijam,
+   strawberrytrijam,
+  },
+  output=strawberrynanajam
+ },
+ {
+  inputs={
+   strawberryjam,
+   bananaberryjam,
+  },
+  output=strawberrynanajam
+ },
+ {
+  inputs={
+   strawberryjam,
+   bananaberry
+  },
+  output=strawberrynanajam
+ },
+ {
+  inputs={
+   strawberry,
+   bananaberryjam
+  },
+  output=strawberrynanajam
+ },
+ {
+  inputs={
+   strawberry,
+   bananaberry
+  },
+  output=strawberrynanajam
+ },
+
  --blueberry jam--
  {
   inputs={
    blueberry
+  },
+  output=blueberryjam
+ },
+ {
+  inputs={
+   blueberryjam
   },
   output=blueberryjam
  },
@@ -748,6 +953,20 @@ recipes={
   inputs={
    blueberry,
    blueberry
+  },
+  output=blueberryduojam
+ },
+ {
+  inputs={
+   blueberryjam,
+   blueberry
+  },
+  output=blueberryduojam
+ },
+ {
+  inputs={
+   blueberryjam,
+   blueberryjam
   },
   output=blueberryduojam
  },
@@ -760,10 +979,157 @@ recipes={
   },
   output=blueberrytrijam
  },
+ {
+  inputs={ 
+   blueberryjam,
+   blueberry,
+   blueberry
+  },
+  output=blueberrytrijam
+ },
+ {
+  inputs={ 
+   blueberryjam,
+   blueberryjam,
+   blueberry
+  },
+  output=blueberrytrijam
+ },
+ {
+  inputs={ 
+   blueberryjam,
+   blueberryjam,
+   blueberryjam
+  },
+  output=blueberrytrijam
+ },
+ --bluenanaberry jam--
+ {
+  inputs={
+   blueberrytrijam,
+   blueberrytrijam,
+   blueberrytrijam,
+  },
+  output=blueberrynanajam
+ },
+ {
+  inputs={
+   blueberryjam,
+   bananaberryjam,
+  },
+  output=blueberrynanajam
+ },
+ {
+  inputs={
+   blueberryjam,
+   bananaberry
+  },
+  output=blueberrynanajam
+ },
+ {
+  inputs={
+   blueberry,
+   bananaberryjam
+  },
+  output=blueberrynanajam
+ },
+ {
+  inputs={
+   blueberry,
+   bananaberry
+  },
+  output=blueberrynanajam
+ },
+--bananaberry jam--
+ {
+  inputs={
+   bananaberry
+  },
+  output=bananaberryjam
+ },
+ {
+  inputs={
+   bananaberryjam
+  },
+  output=bananaberryjam
+ },
+ --bananaduoberry jam--
+ {
+  inputs={
+   bananaberry,
+   bananaberry
+  },
+  output=bananaberryduojam
+ },
+ {
+  inputs={
+   bananaberryjam,
+   bananaberry
+  },
+  output=bananaberryduojam
+ },
+ {
+  inputs={
+   bananaberryjam,
+   bananaberryjam
+  },
+  output=bananaberryduojam
+ },
+--bananatriberry jam--
+ {
+  inputs={ 
+   bananaberry,
+   bananaberry,
+   bananaberry
+  },
+  output=bananaberrytrijam
+ },
+ {
+  inputs={ 
+   bananaberryjam,
+   bananaberry,
+   bananaberry
+  },
+  output=bananaberrytrijam
+ },
+ {
+  inputs={ 
+   bananaberryjam,
+   bananaberryjam,
+   bananaberry
+  },
+  output=bananaberrytrijam
+ },
+ {
+  inputs={ 
+   bananaberryjam,
+   bananaberryjam,
+   bananaberryjam
+  },
+  output=bananaberrytrijam
+ },
+ --bananananaberry jam--
+ {
+  inputs={
+   bananaberrytrijam,
+   bananaberrytrijam,
+   bananaberrytrijam,
+  },
+  output=bananaberrynanajam
+ },
+ 
+
+
 --manberry jam--
  {
   inputs={
    manberry
+  },
+  output=manberryjam
+ },
+ {
+  inputs={
+   manberryjam
   },
   output=manberryjam
  },
@@ -775,6 +1141,20 @@ recipes={
   },
   output=manberryduojam
  },
+ {
+  inputs={
+   manberryjam,
+   manberry
+  },
+  output=manberryduojam
+ },
+ {
+  inputs={
+   manberryjam,
+   manberryjam
+  },
+  output=manberryduojam
+ },
  --mantriberry jam--
  {
   inputs={ 
@@ -783,7 +1163,125 @@ recipes={
    manberry
   },
   output=manberrytrijam
- }
+ },
+ {
+  inputs={ 
+   manberryjam,
+   manberry,
+   manberry
+  },
+  output=manberrytrijam
+ },
+ {
+  inputs={ 
+   manberryjam,
+   manberryjam,
+   manberry
+  },
+  output=manberrytrijam
+ },{
+  inputs={ 
+   manberryjam,
+   manberryjam,
+   manberryjam
+  },
+  output=manberrytrijam
+ },
+ --mananaberry jam
+ {
+  inputs={ 
+   manberrytrijam,
+   manberrytrijam,
+   manberrytrijam
+  },
+  output=manberrynanajam
+ },
+ {
+  inputs={
+   manberryjam,
+   bananaberryjam,
+  },
+  output=manberrynanajam
+ },
+ {
+  inputs={
+   manberryjam,
+   bananaberry
+  },
+  output=manberrynanajam
+ },
+ {
+  inputs={
+   manberry,
+   bananaberryjam
+  },
+  output=manberrynanajam
+ },
+ {
+  inputs={
+   manberry,
+   bananaberry
+  },
+  output=manberrynanajam
+ },
+ --bluemanbery jam
+ {
+  inputs={ 
+   blueberry,
+   manberry,
+  },
+  output=bluemanberryjam
+ },
+  {
+  inputs={ 
+   blueberryjam,
+   manberry,
+  },
+  output=bluemanberryjam
+ },
+  {
+  inputs={ 
+   blueberry,
+   manberryjam,
+  },
+  output=bluemanberryjam
+ },
+  {
+  inputs={ 
+   blueberryjam,
+   manberryjam,
+  },
+  output=bluemanberryjam
+ },
+ --strawmanbery jam
+ {
+  inputs={ 
+   strawberry,
+   manberry,
+  },
+  output=strawmanberryjam
+ },
+  {
+  inputs={ 
+   strawberryjam,
+   manberry,
+  },
+  output=strawmanberryjam
+ },
+  {
+  inputs={ 
+   strawberry,
+   manberryjam,
+  },
+  output=strawmanberryjam
+ },
+  {
+  inputs={ 
+   strawberryjam,
+   manberryjam,
+  },
+  output=strawmanberryjam
+ },
 }
 
 __gfx__
