@@ -2,6 +2,48 @@ pico-8 cartridge // http://www.pico-8.com
 version 18
 __lua__
 --globals--
+cash_symbols={}
+cash_symbols[1]="\x98"
+cash_symbols[2]="\x99"
+cash_symbols[3]="\x8e"
+cash_symbols[4]="\x85"
+cash_money={}
+cash_money[1]=32767
+cash_money[2]=32767
+cash_money[3]=32767
+cash_money[4]=32767
+
+function add_money(value, scale)
+ if scale==nil then scale=1 end
+ if cash_money[scale]==nil then cash_money[scale]=0 end
+ if cash_money[scale]+value < cash_money[scale] then
+  cash_money[scale]=32767
+ else
+  cash_money[scale]+=value
+ end
+end
+
+function lose_money(value, scale)
+ if scale==nil then scale=1 end
+ if cash_money[scale]==nil then cash_money[scale]=0 end
+ if cash_money[scale]-value < 0 or cash_money[scale]-value > cash_money[scale] then
+  cash_money[scale]=0
+ else
+  cash_money[scale]-=value
+ end
+end
+
+function can_spend(value, scale)
+ if scale==nil then scale=1 end
+ if cash_money[scale]==nil then cash_money[scale]=0 end
+ if cash_money[scale]-value < 0 or cash_money[scale]-value > cash_money[scale] then
+  return false
+ else
+  return true
+ end
+end
+
+
 function _init()
  screen = new_start_screen()
 end
@@ -85,7 +127,6 @@ function new_game_screen()
  local s={}
 
  s.init=function(s)
-  cash_money=1000
   s.draw_systems={}
   s.update_systems={}
   s.scenes={}
@@ -139,7 +180,13 @@ function new_game_screen()
   local xpos=(s.current_scene-1)*32
   local ypos=104
   rect(xpos-1,ypos,xpos+32,ypos+15,7)
-  print("$"..cash_money, 0, 15*8+2)
+
+  local dollar_x=0
+  for i=1,#cash_money,1 do
+   local price=cash_symbols[i]..cash_money[i]
+   print(price, dollar_x, 122)
+   dollar_x+=(#price*4)+8
+  end
  end
 
  s:init()
@@ -291,7 +338,7 @@ function new_store_scene()
  s.draw=function(scene)
   map(scene.background.x,scene.background.y,0,0,16,16)
 
-  --draw ingredient list--
+  --draw stock list--
   local column=0
   local row=0
   local page=flr(abs(scene.selected_stock-1)/12)
@@ -315,8 +362,8 @@ function new_store_scene()
 
   if #scene.stock > 0 then
    local name=scene.stock[scene.selected_stock].shortname
-   local price="$"..get_price_for(scene.stock[scene.selected_stock])
-   local demand=""..get_demand_for(scene.stock[scene.selected_stock]).."*"
+   local price=cash_symbols[scene.stock[scene.selected_stock].scale]..flr(get_price(scene.stock[scene.selected_stock]))
+   local demand=""..get_demand(scene.stock[scene.selected_stock]).."*"
    print(name, 0, 1)
    print("sale price:",8,64)
    print(price, 56-(#price*4), 72)
@@ -356,7 +403,7 @@ function new_farm_scene()
    end
    if btnp(5) then
     local desired_bush=scene.bushes[scene.selected]
-    if cash_money-desired_bush.price >= 0 then
+    if can_spend(desired_bush.price, desired_bush.scale) then
      local new_bush={
       x=rnd(16*8),
       y=rnd(4*8)+4*8,
@@ -364,7 +411,7 @@ function new_farm_scene()
       harvest_counter=0.0
      }
      add(scene.planted_bushes, new_bush)
-     cash_money-=desired_bush.price
+     lose_money(desired_bush.price, desired_bush.scale)
      desired_bush.quantity+=1
     end
    end
@@ -535,22 +582,36 @@ end
 --ingredients--
 jam_sale_constants={
  sale_period_length=1.0,
+ global_demand_weight=1.0,
+ global_base_price_weight=1.0,
+ global_generation_weight=1.0,
+ global_quality_weight=1.0,
+ global_sales_efficiency=1.0,
+ global_demand_loss=0.01,
+ global_demand_loss_modifier=1.0,
 }
 
-function get_price_for(jam)
- return 1000
+function get_price(jam)
+ return get_base_price(jam) * get_generatoin_modifier(jam) * get_demand(jam) * jam_sale_constants.global_sales_efficiency
 end
 
-function get_demand_for(jam)
- if not jam.demand then jam.demand=1 end
- if not jam.demand_rate then jam.demand_rate=0.01 end
- return jam.demand
+function get_generatoin_modifier(jam)
+ return jam.gen*jam_sale_constants.global_generation_weight
+end
+
+function get_base_price(jam)
+ return jam.base_price * jam_sale_constants.global_base_price_weight * jam_sale_constants.global_quality_weight
+end
+
+function get_demand(jam)
+ return jam.demand*jam_sale_constants.global_demand_weight
 end
 
 function sold(jam)
  jam.quantity-=1
- cash_money+=get_price_for(jam)
+ add_money(get_price(jam), jam.scale)
  jam.sale_period_counter=0
+ jam.demand = max(jam.demand-jam_sale_constants.global_demand_loss*jam_sale_constants.global_demand_loss_modifier, 0.01)
 end
 
 strawberry={
