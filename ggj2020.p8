@@ -140,17 +140,14 @@ function new_gameover_screen()
  s.update=function(s)
   if btnp(4) or btnp(5) then s.back=true else s.back=false end
 
-  if s.back then
-   screen=new_start_screen()
-  end
+  if (s.back) screen=new_start_screen()
  end
 
  s.draw=function(s)
   cls()
-  print("you have repaired the universe")
-  print("you have returned all to")
-  print("the primardial jam")
-  print("global jam game", 60, 20)
+  print("you have repaired the universe",0,8)
+  print("you have returned all to",0,16)
+  print("the primardial jam",0,24)
  end
 
  s:init()
@@ -343,11 +340,6 @@ function new_hr_scene()
  return s
 end
 
-function unlock_store(s)
- s.active_scenes[3]=s.scenes[3]
- s.active_scenes[3].unlocked=true
-end
-
 function new_store_scene()
  local s=new_scene()
  s.name="store"
@@ -366,7 +358,7 @@ function new_store_scene()
   if time() - granimation_time > 1 then
    granimation_time=time()
    granimation+=4
-   if granimation>136 then granimation = 128 end
+   if (granimation>136) granimation = 128
   end
   ----
 
@@ -376,7 +368,7 @@ function new_store_scene()
    jam.sale_period_counter+=1/30
    if jam.sale_period_counter > jam_sale_constants.sale_period_length then
     local temp_demand = jam.demand+jam.demand_rate
-    if (temp_demand < 0) then temp_demand=32767
+    if (temp_demand < 0) temp_demand=32767
     jam.demand_rate=temp_demand
     jam.sale_period_counter=0.0
    end
