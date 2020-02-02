@@ -303,6 +303,7 @@ function new_hr_scene()
 
   if #scene.available_upgrades>0 then
    print(scene.available_upgrades[scene.selected_upgrade].name, 0, 1)
+   print(scene.available_upgrades[scene.selected_upgrade].description, 0, 96)
   end
 
  end
@@ -576,12 +577,6 @@ function new_kitchen_scene()
    local name = scene.available_ingredients[scene.selected_ingredient].shortname
    print(name,0,0)
   end
-
-  print(#known_good_recipes,0,8)
-  print(input1,0,16)
-  print(input2,0,24)
-  print(input3,0,32)
-  print(test,0,40)
  end
 
  return s
@@ -2836,7 +2831,6 @@ function check_for_unlocks(scene)
  end
 end
 
-test=""
 cook={
  name="cook",
  description="automatically makes known jams",
@@ -2856,11 +2850,8 @@ cook={
    for i=1,cook.quantity,1 do
     for recipe in all(known_good_recipes) do
      if has_ingredients(recipe) then
-      test="true"
       spend_ingredients(recipe)
       gain_jam(recipe.output)
-     else
-      test="false"
      end
     end
    end
