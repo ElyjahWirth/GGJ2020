@@ -143,10 +143,6 @@ function new_game_screen()
   add(s.scenes, new_kitchen_scene())
   add(s.scenes, new_store_scene())
   add(s.scenes, new_hr_scene())
-  add(s.scenes, new_factories_scene())
-  add(s.scenes, new_global_scene())
-  add(s.scenes, new_galactic_scene())
-  add(s.scenes, new_universal_scene())
   s.active_scenes={}
   for scene in all(s.scenes) do
    if (scene.unlocked) add(s.active_scenes,scene)
@@ -205,7 +201,7 @@ function new_game_screen()
 end
 
 -->8
---scenes--
+-- hr -- store -- kitchen -- farm--
 function new_scene()
  local s={}
  s.active=false
@@ -226,68 +222,7 @@ function new_scene()
  return s
 end
 
-function unlock_factories(s)
- s.active_scenes[1]=s.scenes[5]
- s.active_scenes[1].unlocked=true
-end
 
-function new_factories_scene()
- local s=new_scene()
- s.name="factories"
- s.background.x=64
- s.unlocked=false
- s.icon.x=24
- s.icon.y=48
- return s
-end
-
-function unlock_global(s)
- s.active_scenes[1]=s.scenes[6]
- s.active_scenes[1].unlocked=true
-end
-
-function new_global_scene()
- local s=new_scene()
- s.name="global"
- s.background.x=80
- s.unlocked=false
- s.icon.x=56
- s.icon.y=48
- return s
-end
-
-function unlock_galactic(s)
- s.active_scenes[1]=s.scenes[7]
- s.active_scenes[1].unlocked=true
-end
-
-function new_galactic_scene()
- local s=new_scene()
- s.name="galactic"
- s.background.x=96
- s.unlocked=false
- s.icon.x=88
- s.icon.y=48
- return s
-end
-
-function unlock_universal(s)
- s.active_scenes[1]=s.scenes[8]
- s.active_scenes[1].unlocked=true
-end
-
-function new_universal_scene()
- local s=new_scene()
- s.name="universal"
- s.background.x=112
- s.unlocked=false
- s.icon.x=96
- s.icon.y=44
- return s
-end
-
--->8
--- hr -- store -- kitchen -- farm--
 function unlock_hr(s)
  s.active_scenes[4]=s.scenes[4]
  s.active_scenes[4].unlocked=true
@@ -333,12 +268,7 @@ function new_hr_scene()
      s.selected_upgrade=1
     end
    end
-
   end
-
-
-
-
  end
 
  s.draw=function(scene)
@@ -491,6 +421,7 @@ function new_farm_scene()
  s.bushes={}
  s.planted_bushes={}
  add(s.bushes, strawberry_bush)
+ add(s.bushes, blueberry_bush)
 
  s.selected=1
 
@@ -643,8 +574,14 @@ function new_kitchen_scene()
   if (scene.mixer_contents[3]) spr(scene.mixer_contents[3].icon(),40,8)
   if #scene.available_ingredients > 0 then
    local name = scene.available_ingredients[scene.selected_ingredient].shortname
-   print(name, 0, 1)
+   print(name,0,0)
   end
+
+  print(#known_good_recipes,0,8)
+  print(input1,0,16)
+  print(input2,0,24)
+  print(input3,0,32)
+  print(test,0,40)
  end
 
  return s
@@ -691,7 +628,7 @@ end
 strawberry={
  name="strawberry",
  shortname="strawberry",
- unlocked=true,
+ unlocked=false,
  icon=function() return 16 end,
  quantity=0
 }
@@ -699,7 +636,7 @@ strawberry={
 blueberry={
  name="blueberry",
  shortname="blueberry",
- unlocked=true,
+ unlocked=false,
  icon=function() return 17 end,
  quantity=0
 }
@@ -707,7 +644,7 @@ blueberry={
 bananaberry={
  name="bananaberry",
  shortname="bananaberry",
- unlocked=true,
+ unlocked=false,
  icon=function() return 63 end,
  quantity=0
 }
@@ -715,7 +652,7 @@ bananaberry={
 manberry={
  name="manberry",
  shortname="manberry",
- unlocked=true,
+ unlocked=false,
  icon_options={18,19,20,21,22},
  current_icon=1,
  icon=function() return manberry.icon_options[manberry.current_icon] end,
@@ -1618,45 +1555,33 @@ blueberry_bush={
  scale=1,
  produce=blueberry,
  harvest_time=10,
- unlocked=false,
- quantity=0
-}
-
-function unlock_factory(farm_scene)
- factory.unlocked=true
-end
-
-function first_factory_complete(game_screen)
- unlock_factories()
-end
-
-factory={
- icon=49,
- price=1,
- scale=2,
- product=nil,
- harvest_time=10,
- unlocked=false,
+ unlocked=true,
  quantity=0
 }
 
 -->8
 --recipes--
 function has_ingredients(recipe)
- local input1=0
- local input2=0
- local input3=0
+ input1=0
+ input2=0
+ input3=0
  if #recipe.inputs==1 then
+  if (recipe.inputs[1].quantity==0) return false
   input1 = recipe.inputs[1].quantity-1
  end
 
  if #recipe.inputs==2 then
+  if (recipe.inputs[1].quantity==0) return false
+  if (recipe.inputs[2].quantity==0) return false
   input1 = recipe.inputs[1].quantity-1
   input2 = recipe.inputs[2].quantity-1
   if recipe.inputs[1]==recipe.inputs[2] then input2-=1 end
  end
 
  if #recipe.inputs==3 then
+  if (recipe.inputs[1].quantity==0) return false
+  if (recipe.inputs[2].quantity==0) return false
+  if (recipe.inputs[3].quantity==0) return false
   input1 = recipe.inputs[1].quantity-1
   input2 = recipe.inputs[2].quantity-1
   input3 = recipe.inputs[3].quantity-1
@@ -1760,7 +1685,7 @@ function lookup_recipe(mixer_contents)
   --return the only remaining recipe
  if #matches > 0 then
   output=matches[1]
-  if not outut.discovered then
+  if not output.discovered then
    output.discovered=true
    add(known_good_recipes, output)
   end
@@ -2911,6 +2836,7 @@ function check_for_unlocks(scene)
  end
 end
 
+test=""
 cook={
  name="cook",
  description="automatically makes known jams",
@@ -2930,8 +2856,11 @@ cook={
    for i=1,cook.quantity,1 do
     for recipe in all(known_good_recipes) do
      if has_ingredients(recipe) then
+      test="true"
       spend_ingredients(recipe)
       gain_jam(recipe.output)
+     else
+      test="false"
      end
     end
    end
