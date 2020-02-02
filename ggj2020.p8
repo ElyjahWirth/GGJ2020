@@ -371,12 +371,12 @@ function new_store_scene()
 
   --update sale period counters for jams
   for jam in all(scene.stock) do
-   if not jam.sale_period_counter then jam.sale_period_counter=0 end
+   if jam.sale_period_counter==nil then jam.sale_period_counter=0 end
    jam.sale_period_counter+=1/30
    if jam.sale_period_counter > jam_sale_constants.sale_period_length then
     local temp_demand = jam.demand+jam.demand_rate
     if (temp_demand < 0) temp_demand=32767
-    jam.demand_rate=temp_demand
+    jam.demand=temp_demand
     jam.sale_period_counter=0.0
    end
   end
