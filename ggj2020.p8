@@ -339,7 +339,7 @@ function new_store_scene()
 
  s.draw=function(scene)
   map(scene.background.x,scene.background.y,0,0,16,16)
-
+  
   --draw stock list--
   local column=0
   local row=0
@@ -2440,7 +2440,7 @@ recipes={
   },
   output=darktrijam
  },
- --darktri jam--
+ --darknana jam--
  {
   inputs={
    darktrijam,
@@ -2455,6 +2455,152 @@ recipes={
    bananaberry
   },
   output=darknanajam
+ },
+ --big jam--
+ {
+  inputs={
+   bigberry,
+  },
+  output=bigberryjam
+ },
+ --bigduo jam--
+ {
+  inputs={
+   bigberry,
+   bigberry,
+  },
+  output=bigduoberryjam
+ },
+ --bigtri jam--
+ {
+  inputs={
+   bigberry,
+   bigberry,
+   bigberry,
+  },
+  output=bigtriberryjam
+ },
+ --bignana jam--
+ {
+  inputs={
+   bigtrijam,
+   bigtrijam,
+   bigtrijam,
+  },
+  output=bignanaberryjam
+ },
+ {
+  inputs={
+   bigberry,
+   bananaberry
+  },
+  output=bignanaberryjam
+ },
+
+ --bang jam--
+ {
+  inputs={
+   bangberry,
+  },
+  output=bangberryjam
+ },
+ --bangduo jam--
+ {
+  inputs={
+   bangberry,
+   bangberry,
+  },
+  output=bangduoberryjam
+ },
+ --bigtri jam--
+ {
+  inputs={
+   bangberry,
+   bangberry,
+   bangberry,
+  },
+  output=bangtriberryjam
+ },
+ --bangnana jam--
+ {
+  inputs={
+   bangtrijam,
+   bangtrijam,
+   bangtrijam,
+  },
+  output=bangnanaberryjam
+ },
+ {
+  inputs={
+   bangberry,
+   bananaberry
+  },
+  output=bangnanaberryjam
+ },
+ --chaos jam--
+ {
+  inputs={
+   bigberry,
+   badjam,
+  },
+  output=chaosjam
+ },
+ {
+  inputs={
+   darkberry,
+   badjam,
+  },
+  output=chaosjam
+ },
+ {
+  inputs={
+   badjam,
+   bangberry,
+  },
+  output=chaosjam
+ },
+ --badduo jam--
+ {
+  inputs={
+   badjam,
+   badjam,
+  },
+  output=badduojam
+ },
+ --badduo jam--
+ {
+  inputs={
+   badjam,
+   badjam,
+   badjam,
+  },
+  output=badtrijam
+ },
+ --badduo jam--
+ {
+  inputs={
+   badtrijam,
+   badtrijam,
+   badtrijam,
+  },
+  output=badnanajam
+ },
+ --bigbang jam--
+ {
+  inputs={
+   bigberry,
+   bangberry,
+  },
+  output=bigbangjam
+ },
+ --primordial jam--
+ {
+  inputs={
+   bigbangjam,
+   darknanajam,
+   galactinanajam,
+  },
+  output=primordialjam
  },
 }
 
