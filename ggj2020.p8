@@ -192,7 +192,7 @@ function new_game_screen()
   local dollar_x=0
   for i=1,#cash_money,1 do
    if cash_money[i] > 0 then
-    local price=cash_symbols[i]..cash_money[i]
+    local price=cash_symbols[i]..flr(cash_money[i])
     print(price, dollar_x, 122)
     dollar_x+=(#price*4)+8
    end
@@ -301,9 +301,6 @@ function new_hr_scene()
  s.icon.y=32
 
  s.available_upgrades={}
- add(s.available_upgrades, accountant)
- add(s.available_upgrades, banker)
- add(s.available_upgrades, blockchain)
  s.purchased_upgrades={}
  s.selected_upgrade=1
 
@@ -325,7 +322,7 @@ function new_hr_scene()
    if btnp(5) and can_spend(selected.price, selected.scale) and selected.quantity < selected.max_quantity then
     if selected.quantity==0 then
      add(s.purchased_upgrades, selected)
-     selected.on_unlock(scene)
+
     end
     selected.quantity+=1
     selected.on_purchase(scene)
@@ -352,7 +349,7 @@ function new_hr_scene()
    local icon=upgrade.icon
    local x_pix=(icon*8)%128
    local y_pix=flr(abs(icon/16))*8
-   local x_target=72
+   local x_target=73
    local y_target=8+((i-1)*24)
    local price=cash_symbols[upgrade.scale]..upgrade.price
 
@@ -366,11 +363,11 @@ function new_hr_scene()
    local icon=upgrade.icon
    local x_pix=(icon*8)%128
    local y_pix=flr(abs(icon/16))*8
-   local x_target=0
-   local y_target=8+((i-1)*24)
+   local x_target=1
+   local y_target=8+((i-1)*18)
 
    sspr(x_pix,y_pix,8,8,x_target,y_target,16,16)
-   print(upgrade.quantity,x_target,y_target+17)
+   print(upgrade.quantity,x_target+17,y_target)
   end
 
   if #scene.available_upgrades>0 then
@@ -1605,7 +1602,7 @@ strawberry_bush={
  price=10,
  scale=1,
  produce=strawberry,
- harvest_time=1.0,
+ harvest_time=10.0,
  unlocked=true,
  quantity=0
 }
@@ -2737,11 +2734,11 @@ farmer={
  name="farmer",
  description="automatically harvests berries",
  unlocked=false,
- price=1000,
+ price=100,
  scale=1,
  quantity=0,
- max_quantity=100,
- icon=1,
+ max_quantity=1,
+ icon=188,
  on_purchase=function(scene) end,
  on_unlock=function(scene) end,
  update=function(scene)
