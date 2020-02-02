@@ -262,6 +262,17 @@ function new_store_scene()
  s.selected_stock=1
 
  s.update=function(scene)
+  --update sale period counters for jams
+  for jam in all(scene.stock) do
+   if not jam.sale_period_counter then jam.sale_period_counter=0 end
+   jam.sale_period_counter+=1/30
+   if jam.sale_period_counter > jam_sale_constants.sale_period_length then
+    if not jam.demand then jam.demand=1 end
+    if not jam.demand_rate then jam.demand_rate=0.01 end
+    jam.demand+=jam.demand_rate
+    jam.sale_period_counter=0.0
+   end
+  end
   --stock list selected--
   if scene.active and #scene.stock>0 then
    if btnp(2) then
@@ -522,17 +533,24 @@ end
 
 -->8
 --ingredients--
+jam_sale_constants={
+ sale_period_length=1.0,
+}
+
 function get_price_for(jam)
  return 1000
 end
 
 function get_demand_for(jam)
- return 1.1
+ if not jam.demand then jam.demand=1 end
+ if not jam.demand_rate then jam.demand_rate=0.01 end
+ return jam.demand
 end
 
 function sold(jam)
  jam.quantity-=1
  cash_money+=get_price_for(jam)
+ jam.sale_period_counter=0
 end
 
 strawberry={
