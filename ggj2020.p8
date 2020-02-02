@@ -689,7 +689,6 @@ function sold(jam)
 end
 
 strawberry={
- name="strawberry",
  shortname="strawberry",
  unlocked=true,
  icon=function() return 16 end,
@@ -697,7 +696,6 @@ strawberry={
 }
 
 blueberry={
- name="blueberry",
  shortname="blueberry",
  unlocked=true,
  icon=function() return 17 end,
@@ -705,7 +703,6 @@ blueberry={
 }
 
 bananaberry={
- name="bananaberry",
  shortname="bananaberry",
  unlocked=true,
  icon=function() return 63 end,
@@ -713,7 +710,6 @@ bananaberry={
 }
 
 manberry={
- name="manberry",
  shortname="manberry",
  unlocked=true,
  icon_options={18,19,20,21,22},
@@ -726,7 +722,6 @@ manberry={
 }
 
 globerry={
- name="globerry",
  shortname="globerry",
  unlocked=false,
  icon=function() return 23 end,
@@ -734,7 +729,6 @@ globerry={
 }
 
 bigberry={
- name="bigberry",
  shortname="bigberry",
  unlocked=false,
  icon=function() return 24 end,
@@ -742,7 +736,6 @@ bigberry={
 }
 
 bangberry={
- name="bangberry",
  shortname="bangberry",
  unlocked=false,
  icon=function() return 25 end,
@@ -750,7 +743,6 @@ bangberry={
 }
 
 darkberry={
- name="darkberry",
  shortname="darkberry",
  unlocked=false,
  icon=function() return 26 end,
@@ -758,7 +750,6 @@ darkberry={
 }
 
 galactiberry={
- name="galactiberry",
  shortname="galactiberry",
  unlocked=false,
  icon=function() return 27 end,
@@ -766,7 +757,6 @@ galactiberry={
 }
 
 strawberryjam={
- name="strawberry jam",
  shortname="strawberry jam",
  unlocked=false,
  icon=function() return 1 end,
@@ -778,21 +768,9 @@ strawberryjam={
 scale=1
 }
 
-strawberryduojam={
- name="strawduoberry jam",
- shortname="s.duobery jam",
- unlocked=false,
- icon=function() return 1 end,
- quantity=0,
- base_price=1,
- demand_rate=0.01,
-  gen=1,
- demand=1,
-scale=1
-}
+
 
 strawberrytrijam={
- name="strawtriberry jam",
  shortname="s.tribery jam",
  unlocked=false,
  icon=function() return 1 end,
@@ -805,7 +783,6 @@ scale=1
 }
 
 strawberrynanajam={
- name="strawnanaberry jam",
  shortname="s.nanabery jam",
  unlocked=false,
  icon=function() return 1 end,
@@ -818,7 +795,6 @@ scale=1
 }
 
 bananaberryjam={
- name="bananaberry jam",
  shortname="bananajama",
  unlocked=false,
  icon=function() return 9 end,
@@ -830,21 +806,8 @@ bananaberryjam={
 scale=1
 }
 
-bananaberryduojam={
- name="bananaduoberry jam",
- shortname="bananaduojama",
- unlocked=false,
- icon=function() return 9 end,
- quantity=0,
- base_price=1,
- demand_rate=0.01,
-  gen=1,
- demand=1,
-scale=1
-}
 
 bananaberrytrijam={
- name="bananatriberry jam",
  shortname="bananatrijama",
  unlocked=false,
  icon=function() return 9 end,
@@ -857,7 +820,6 @@ scale=1
 }
 
 bananaberrynanajam={
- name="bananananaberry jam",
  shortname="bananananajama",
  unlocked=false,
  icon=function() return 9 end,
@@ -870,7 +832,6 @@ scale=1
 }
 
 blueberryjam={
- name="blueberry jam",
  shortname="blueberry jam",
  unlocked=false,
  icon=function() return 2 end,
@@ -882,21 +843,9 @@ blueberryjam={
 scale=1
 }
 
-blueberryduojam={
- name="blueduoberry jam",
- shortname="b.duobery jam",
- unlocked=false,
- icon=function() return 2 end,
- quantity=0,
- base_price=1,
- demand_rate=0.01,
-  gen=1,
- demand=1,
-scale=1
-}
+
 
 blueberrytrijam={
- name="bluetriberry jam",
  shortname="b.tribery jam",
  unlocked=false,
  icon=function() return 2 end,
@@ -909,7 +858,6 @@ scale=1
 }
 
 blueberrynanajam={
- name="bluenanaberry jam",
  shortname="b.nanabery jam",
  unlocked=false,
  icon=function() return 2 end,
@@ -922,7 +870,6 @@ scale=1
 }
 
 manberryjam={
- name="manberry jam",
  shortname="manberry jam",
  unlocked=false,
  icon=function() return 5 end,
@@ -934,21 +881,9 @@ manberryjam={
 scale=1
 }
 
-manberryduojam={
- name="manberry jam",
- shortname="m.duoberry jam",
- unlocked=false,
- icon=function() return 98 end,
- quantity=100,
- base_price=1,
- demand_rate=0.01,
-  gen=1,
- demand=1,
-scale=1
-}
+
 
 manberrytrijam={
- name="bluetriberry jam",
  shortname="m.triberry jam",
  unlocked=false,
  icon=function() return 11 end,
@@ -961,7 +896,6 @@ scale=1
 }
 
 manberrynanajam={
- name="mannanaberry jam",
  shortname="mananabery jam",
  unlocked=false,
  icon=function() return 64 end,
@@ -974,7 +908,6 @@ scale=1
 }
 
 bluemanberryjam={
- name="bluemanberry jam",
  shortname="blumanbery jam",
  unlocked=false,
  icon=function() return 8 end,
@@ -987,7 +920,6 @@ scale=1
 }
 
 strawmanberryjam={
- name="strawmanberry jam",
  shortname="s.manberry jam",
  unlocked=false,
  icon=function() return 7 end,
@@ -999,8 +931,19 @@ strawmanberryjam={
 scale=1
 }
 
+bluestrawberyjam={
+ shortname="b.s.berry jam",
+ unlocked=false,
+ icon=function() return 6 end,
+ quantity=100,
+ base_price=111,
+ demand_rate=0.007,
+ gen=3,
+ demand=1,
+scale=1
+}
+
 bluemanstrawberyjam={
- name="bluemanstrawberry jam",
  shortname="b.m.s.bery jam",
  unlocked=false,
  icon=function() return 10 end,
@@ -1013,7 +956,6 @@ scale=1
 }
 
 globerryjam={
- name="globerry jam",
  shortname="globerry jam",
  unlocked=false,
  icon=function() return 33 end,
@@ -1025,21 +967,9 @@ globerryjam={
 scale=2
 }
 
-globduoberryjam={
- name="globduoberry jam",
- shortname="g.duoberry jam",
- unlocked=false,
- icon=function() return 33 end,
- quantity=100,
- base_price=111,
- demand_rate=0.007,
- gen=3,
- demand=1,
-scale=2
-}
+
 
 globtriberryjam={
- name="globduoberry jam",
  shortname="g.triberry jam",
  unlocked=false,
  icon=function() return 33 end,
@@ -1052,7 +982,6 @@ scale=2
 }
 
 globnanaberryjam={
- name="globtriberry jam",
  shortname="g.nanabery jam",
  unlocked=false,
  icon=function() return 33 end,
@@ -1065,7 +994,6 @@ scale=2
 }
 
 globlueberryjam={
- name="globlueberry jam",
  shortname="g.b.berry jam",
  unlocked=false,
  icon=function() return 34 end,
@@ -1078,7 +1006,6 @@ scale=2
 }
 
 globstrawberryjam={
- name="globstrawberry jam",
  shortname="g.s.berry jam",
  unlocked=false,
  icon=function() return 36 end,
@@ -1091,7 +1018,6 @@ scale=2
 }
 
 globmanberryjam={
- name="globmanberry jam",
  shortname="g.manberry jam",
  unlocked=false,
  icon=function() return 37 end,
@@ -1104,7 +1030,6 @@ scale=2
 }
 
 globluestrawberryjam={
- name="globluestrawberry jam",
  shortname="g.b.s.bery jam",
  unlocked=false,
  icon=function() return 38 end,
@@ -1117,7 +1042,6 @@ scale=2
 }
 
 globluemanberryjam={
- name="globluemanberry jam",
  shortname="g.b.m.bery jam",
  unlocked=false,
  icon=function() return 39 end,
@@ -1130,7 +1054,6 @@ scale=2
 }
 
 globstrawmanberryjam={
- name="globstrawmanberry jam",
  shortname="g.s.m.bery jam",
  unlocked=false,
  icon=function() return 56 end,
@@ -1143,7 +1066,6 @@ scale=2
 }
 
 galactijam={
- name="galactijam",
  shortname="globerry jam",
  unlocked=false,
  icon=function() return 66 end,
@@ -1155,21 +1077,9 @@ galactijam={
 scale=3
 }
 
-galactiduojam={
- name="galactiduojam",
- shortname="galactiduojam",
- unlocked=false,
- icon=function() return 66 end,
- quantity=100,
- base_price=111,
- demand_rate=0.007,
- gen=3,
- demand=1,
-scale=3
-}
+
 
 galactilactilactijam={
- name="galactrijam",
  shortname="galactrijam",
  unlocked=false,
  icon=function() return 66 end,
@@ -1182,7 +1092,6 @@ scale=3
 }
 
 galactinanajam={
- name="galactinanajam",
  shortname="galactinanajam",
  unlocked=false,
  icon=function() return 66 end,
@@ -1195,7 +1104,6 @@ scale=3
 }
 
 glactiblueberryjam={
- name="glactiblueberry jam",
  shortname="glactib. jam",
  unlocked=false,
  icon=function() return 112 end,
@@ -1208,7 +1116,6 @@ scale=3
 }
 
 glactistrawberryjam={
- name="glactistrawberry jam",
  shortname="glactis. jam",
  unlocked=false,
  icon=function() return 113 end,
@@ -1221,7 +1128,6 @@ scale=3
 }
 
 galactimanberryjam={
- name="galactimanberry jam",
  shortname="galactim. jam",
  unlocked=false,
  icon=function() return 114 end,
@@ -1234,7 +1140,6 @@ scale=3
 }
 
 galactigloberryjam={
- name="galactig. jam",
  shortname="galactig. jam",
  unlocked=false,
  icon=function() return 57 end,
@@ -1247,7 +1152,6 @@ scale=3
 }
 
 galactibluestrawberryjam={
- name="galactib.s.jam",
  shortname="galactib.s.jam",
  unlocked=false,
  icon=function() return 58 end,
@@ -1260,7 +1164,6 @@ scale=3
 }
 
 galactibluemanberryjam={
- name="galactibluemanberry jam",
  shortname="galactib.m.jam",
  unlocked=false,
  icon=function() return 59 end,
@@ -1273,7 +1176,6 @@ scale=3
 }
 
 galactibluegloberryjam={
- name="galactib.g.jam",
  shortname="galactib.g.jam",
  unlocked=false,
  icon=function() return 79 end,
@@ -1286,7 +1188,6 @@ scale=3
 }
 
 galactistrawmanberryjam={
- name="galactistrawmanberry jam",
  shortname="galactis.m.jam",
  unlocked=false,
  icon=function() return 111 end,
@@ -1299,7 +1200,6 @@ scale=3
 }
 
 galctistawgloberryjam={
- name="galactis.g.jam",
  shortname="galactis.g.jam",
  unlocked=false,
  icon=function() return 95 end,
@@ -1312,7 +1212,6 @@ scale=3
 }
 
 galactiglobemanberryjam={
- name="galactiglobemanberry jam",
  shortname="galactig.m.jam",
  unlocked=false,
  icon=function() return 127 end,
@@ -1325,7 +1224,6 @@ scale=3
 }
 
 darkjam={
- name="dark jam",
  shortname="dark jam",
  unlocked=false,
  icon=function() return 80 end,
@@ -1337,21 +1235,9 @@ darkjam={
 scale=4
 }
 
-darkduojam={
- name="darkduo jam",
- shortname="darkduo jam",
- unlocked=false,
- icon=function() return 80 end,
- quantity=100,
- base_price=111,
- demand_rate=0.007,
- gen=3,
- demand=1,
-scale=4
-}
+
 
 darktrijam={
- name="darktri jam",
  shortname="darktri jam",
  unlocked=false,
  icon=function() return 80 end,
@@ -1363,7 +1249,6 @@ darktrijam={
 scale=4
 }
 darknanajam={
- name="darknana jam",
  shortname="darknana jam",
  unlocked=false,
  icon=function() return 80 end,
@@ -1375,7 +1260,6 @@ darknanajam={
 scale=4
 }
 bigberryjam={
- name="bigberry jam",
  shortname="bigberry jam",
  unlocked=false,
  icon=function() return 82 end,
@@ -1387,21 +1271,8 @@ bigberryjam={
 scale=4
 }
 
-bigduoberryjam={
- name="bigduoberry jam",
- shortname="bigduobery jam",
- unlocked=false,
- icon=function() return 82 end,
- quantity=100,
- base_price=111,
- demand_rate=0.007,
- gen=3,
- demand=1,
-scale=4
-}
 
 bigtriberryjam={
- name="bigtribery jam",
  shortname="bigtribery jam",
  unlocked=false,
  icon=function() return 82 end,
@@ -1414,7 +1285,6 @@ scale=4
 }
 
 bignanaberryjam={
- name="bignanaberry jam",
  shortname="biganabery jam",
  unlocked=false,
  icon=function() return 82 end,
@@ -1427,7 +1297,6 @@ scale=4
 }
 
 bangberryjam={
- name="bangberry jam",
  shortname="bangberry jam",
  unlocked=false,
  icon=function() return 96 end,
@@ -1439,21 +1308,9 @@ bangberryjam={
 scale=4
 }
 
-bangduoberryjam={
- name="globerry jam",
- shortname="globerry jam",
- unlocked=false,
- icon=function() return 96 end,
- quantity=100,
- base_price=111,
- demand_rate=0.007,
- gen=3,
- demand=1,
-scale=4
-}
+
 
 bangtriberryjam={
- name="bangtriberry jam",
  shortname="bangtriberyjam",
  unlocked=false,
  icon=function() return 96 end,
@@ -1466,7 +1323,6 @@ scale=4
 }
 
 bangnanaberryjam={
- name="bangnanabeyjam",
  shortname="bangnanabeyjam",
  unlocked=false,
  icon=function() return 96 end,
@@ -1479,7 +1335,6 @@ scale=4
 }
 
 chaosjam={
- name="chaos jam",
  shortname="chaos jam",
  unlocked=false,
  icon=function() return 172 end,
@@ -1492,7 +1347,6 @@ scale=4
 }
 
 badjam={
- name="badjam",
  shortname="bad jam",
  unlocked=false,
  icon=function() return 3 end,
@@ -1504,21 +1358,9 @@ badjam={
 scale=1
 }
 
-badduojam={
- name="badduo jam",
- shortname="badduo jam",
- unlocked=false,
- icon=function() return 3 end,
- quantity=100,
- base_price=111,
- demand_rate=0.007,
- gen=3,
- demand=1,
-scale=1
-}
+
 
 badtrijam={
- name="badtri jam",
  shortname="badtri jam",
  unlocked=false,
  icon=function() return 3 end,
@@ -1531,7 +1373,6 @@ scale=1
 }
 
 badnanajam={
- name="badnana jam",
  shortname="badnana jam",
  unlocked=false,
  icon=function() return 3 end,
@@ -1544,7 +1385,6 @@ scale=1
 }
 
 bigbangjam={
- name="bigbang jam",
  shortname="bigbang jam",
  unlocked=false,
  icon=function() return 81 end,
@@ -1557,7 +1397,6 @@ scale=1
 }
 
 primordialjam={
- name="primordial jam",
  shortname="primordial jam",
  unlocked=false,
  icon=function() return 65 end,
@@ -1778,40 +1617,6 @@ recipes={
   },
   output=strawberryjam
  },
- {
-  discovered=false,
-  inputs={
-   strawberryjam
-  },
-  output=strawberryjam
- },
- --strawduoberry jam--
- {
-  discovered=false,
-  inputs={
-   strawberry,
-   strawberry
-  },
-  output=strawberryduojam
- },
- --strawduoberry jam--
- {
-  discovered=false,
-  inputs={
-   strawberryjam,
-   strawberry
-  },
-  output=strawberryduojam
- },
- --strawduoberry jam--
- {
-  discovered=false,
-  inputs={
-   strawberryjam,
-   strawberryjam
-  },
-  output=strawberryduojam
- },
  --strawtriberry jam--
  {
   discovered=false,
@@ -1819,39 +1624,6 @@ recipes={
    strawberry,
    strawberry,
    strawberry
-  },
-  output=strawberrytrijam
- },
-
- --strawtriberry jam--
- {
-  discovered=false,
-  inputs={
-   strawberryjam,
-   strawberry,
-   strawberry
-  },
-  output=strawberrytrijam
- },
-
- --strawtriberry jam--
- {
-  discovered=false,
-  inputs={
-   strawberryjam,
-   strawberryjam,
-   strawberry
-  },
-  output=strawberrytrijam
- },
-
- --strawtriberry jam--
- {
-  discovered=false,
-  inputs={
-   strawberryjam,
-   strawberryjam,
-   strawberryjam
   },
   output=strawberrytrijam
  },
@@ -1862,30 +1634,6 @@ recipes={
    strawberrytrijam,
    strawberrytrijam,
    strawberrytrijam,
-  },
-  output=strawberrynanajam
- },
- {
-  discovered=false,
-  inputs={
-   strawberryjam,
-   bananaberryjam,
-  },
-  output=strawberrynanajam
- },
- {
-  discovered=false,
-  inputs={
-   strawberryjam,
-   bananaberry
-  },
-  output=strawberrynanajam
- },
- {
-  discovered=false,
-  inputs={
-   strawberry,
-   bananaberryjam
   },
   output=strawberrynanajam
  },
@@ -1906,38 +1654,6 @@ recipes={
   },
   output=blueberryjam
  },
- {
-  discovered=false,
-  inputs={
-   blueberryjam
-  },
-  output=blueberryjam
- },
- --blueduoberry jam--
- {
-  discovered=false,
-  inputs={
-   blueberry,
-   blueberry
-  },
-  output=blueberryduojam
- },
- {
-  discovered=false,
-  inputs={
-   blueberryjam,
-   blueberry
-  },
-  output=blueberryduojam
- },
- {
-  discovered=false,
-  inputs={
-   blueberryjam,
-   blueberryjam
-  },
-  output=blueberryduojam
- },
 --bluetriberry jam--
  {
   discovered=false,
@@ -1948,33 +1664,6 @@ recipes={
   },
   output=blueberrytrijam
  },
- {
-  discovered=false,
-  inputs={
-   blueberryjam,
-   blueberry,
-   blueberry
-  },
-  output=blueberrytrijam
- },
- {
-  discovered=false,
-  inputs={
-   blueberryjam,
-   blueberryjam,
-   blueberry
-  },
-  output=blueberrytrijam
- },
- {
-  discovered=false,
-  inputs={
-   blueberryjam,
-   blueberryjam,
-   blueberryjam
-  },
-  output=blueberrytrijam
- },
  --bluenanaberry jam--
  {
   discovered=false,
@@ -1982,30 +1671,6 @@ recipes={
    blueberrytrijam,
    blueberrytrijam,
    blueberrytrijam,
-  },
-  output=blueberrynanajam
- },
- {
-  discovered=false,
-  inputs={
-   blueberryjam,
-   bananaberryjam,
-  },
-  output=blueberrynanajam
- },
- {
-  discovered=false,
-  inputs={
-   blueberryjam,
-   bananaberry
-  },
-  output=blueberrynanajam
- },
- {
-  discovered=false,
-  inputs={
-   blueberry,
-   bananaberryjam
   },
   output=blueberrynanajam
  },
@@ -2025,38 +1690,6 @@ recipes={
   },
   output=bananaberryjam
  },
- {
-  discovered=false,
-  inputs={
-   bananaberryjam
-  },
-  output=bananaberryjam
- },
- --bananaduoberry jam--
- {
-  discovered=false,
-  inputs={
-   bananaberry,
-   bananaberry
-  },
-  output=bananaberryduojam
- },
- {
-  discovered=false,
-  inputs={
-   bananaberryjam,
-   bananaberry
-  },
-  output=bananaberryduojam
- },
- {
-  discovered=false,
-  inputs={
-   bananaberryjam,
-   bananaberryjam
-  },
-  output=bananaberryduojam
- },
 --bananatriberry jam--
  {
   discovered=false,
@@ -2064,33 +1697,6 @@ recipes={
    bananaberry,
    bananaberry,
    bananaberry
-  },
-  output=bananaberrytrijam
- },
- {
-  discovered=false,
-  inputs={
-   bananaberryjam,
-   bananaberry,
-   bananaberry
-  },
-  output=bananaberrytrijam
- },
- {
-  discovered=false,
-  inputs={
-   bananaberryjam,
-   bananaberryjam,
-   bananaberry
-  },
-  output=bananaberrytrijam
- },
- {
-  discovered=false,
-  inputs={
-   bananaberryjam,
-   bananaberryjam,
-   bananaberryjam
   },
   output=bananaberrytrijam
  },
@@ -2104,9 +1710,6 @@ recipes={
   },
   output=bananaberrynanajam
  },
-
-
-
 --manberry jam--
  {
   discovered=false,
@@ -2114,38 +1717,6 @@ recipes={
    manberry
   },
   output=manberryjam
- },
- {
-  discovered=false,
-  inputs={
-   manberryjam
-  },
-  output=manberryjam
- },
- --manduoberry jam--
- {
-  discovered=false,
-  inputs={
-   manberry,
-   manberry
-  },
-  output=manberryduojam
- },
- {
-  discovered=false,
-  inputs={
-   manberryjam,
-   manberry
-  },
-  output=manberryduojam
- },
- {
-  discovered=false,
-  inputs={
-   manberryjam,
-   manberryjam
-  },
-  output=manberryduojam
  },
  --mantriberry jam--
  {
@@ -2157,32 +1728,6 @@ recipes={
   },
   output=manberrytrijam
  },
- {
-  discovered=false,
-  inputs={
-   manberryjam,
-   manberry,
-   manberry
-  },
-  output=manberrytrijam
- },
- {
-  discovered=false,
-  inputs={
-   manberryjam,
-   manberryjam,
-   manberry
-  },
-  output=manberrytrijam
- },{
-  discovered=false,
-  inputs={
-   manberryjam,
-   manberryjam,
-   manberryjam
-  },
-  output=manberrytrijam
- },
  --mananaberry jam
  {
   discovered=false,
@@ -2190,30 +1735,6 @@ recipes={
    manberrytrijam,
    manberrytrijam,
    manberrytrijam
-  },
-  output=manberrynanajam
- },
- {
-  discovered=false,
-  inputs={
-   manberryjam,
-   bananaberryjam,
-  },
-  output=manberrynanajam
- },
- {
-  discovered=false,
-  inputs={
-   manberryjam,
-   bananaberry
-  },
-  output=manberrynanajam
- },
- {
-  discovered=false,
-  inputs={
-   manberry,
-   bananaberryjam
   },
   output=manberrynanajam
  },
@@ -2234,30 +1755,6 @@ recipes={
   },
   output=bluemanberryjam
  },
-  {
-  discovered=false,
-  inputs={
-   blueberryjam,
-   manberry,
-  },
-  output=bluemanberryjam
- },
-  {
-  discovered=false,
-  inputs={
-   blueberry,
-   manberryjam,
-  },
-  output=bluemanberryjam
- },
-  {
-  discovered=false,
-  inputs={
-   blueberryjam,
-   manberryjam,
-  },
-  output=bluemanberryjam
- },
  --strawmanbery jam
  {
   discovered=false,
@@ -2267,29 +1764,14 @@ recipes={
   },
   output=strawmanberryjam
  },
-  {
-  discovered=false,
-  inputs={
-   strawberryjam,
-   manberry,
-  },
-  output=strawmanberryjam
- },
-  {
+ --bluestrawbery jam
+ {
   discovered=false,
   inputs={
    strawberry,
-   manberryjam,
+   blueberry
   },
-  output=strawmanberryjam
- },
-  {
-  discovered=false,
-  inputs={
-   strawberryjam,
-   manberryjam,
-  },
-  output=strawmanberryjam
+  output=bluestrawberyjam
  },
 
 --bluemanstrawbery jam
@@ -2302,69 +1784,6 @@ recipes={
   },
   output=bluemanstrawberyjam
  },
-  {
-  discovered=false,
-  inputs={
-   strawberryjam,
-   manberry,
-   blueberry
-  },
-  output=bluemanstrawberyjam
- },
-  {
-  discovered=false,
-  inputs={
-   strawberry,
-   manberryjam,
-   blueberry
-  },
-  output=bluemanstrawberyjam
- },
-  {
-  discovered=false,
-  inputs={
-   strawberryjam,
-   manberryjam,
-   blueberry
-  },
-  output=bluemanstrawberyjam
- },
- {
-  discovered=false,
-  inputs={
-   strawberryjam,
-   manberryjam,
-   blueberryjam
-  },
-  output=bluemanstrawberyjam
- },
- {
-  discovered=false,
-  inputs={
-   strawberry,
-   manberryjam,
-   blueberryjam
-  },
-  output=bluemanstrawberyjam
- },
- {
-  discovered=false,
-  inputs={
-   strawberry,
-   manberry,
-   blueberryjam
-  },
-  output=bluemanstrawberyjam
- },
- {
-  discovered=false,
-  inputs={
-   strawberryjam,
-   manberry,
-   blueberryjam
-  },
-  output=bluemanstrawberyjam
- },
 --globerry jam--
  {
   discovered=false,
@@ -2373,38 +1792,6 @@ recipes={
   },
   output=globerryjam
  },
- {
-  discovered=false,
-  inputs={
-   globerryjam,
-  },
-  output=globerryjam
- },
---gloduoberry jam--
- {
-  discovered=false,
-  inputs={
-   globerry,
-   globerry,
-  },
-  output=globduoberryjam
- },
- {
-  discovered=false,
-  inputs={
-   globerry,
-   globerryjam,
-  },
-  output=globduoberryjam
- },
- {
-  discovered=false,
-  inputs={
-   globerryjam,
-   globerryjam,
-  },
-  output=globduoberryjam
- },
  --globtriberry jam--
  {
   discovered=false,
@@ -2412,33 +1799,6 @@ recipes={
    globerry,
    globerry,
    globerry,
-  },
-  output=globtriberryjam
- },
- {
-  discovered=false,
-  inputs={
-   globerry,
-   globerry,
-   globerryjam,
-  },
-  output=globtriberryjam
- },
- {
-  discovered=false,
-  inputs={
-   globerry,
-   globerryjam,
-   globerryjam,
-  },
-  output=globtriberryjam
- },
- {
-  discovered=false,
-  inputs={
-   globerryjam,
-   globerryjam,
-   globerryjam,
   },
   output=globtriberryjam
  },
@@ -2526,16 +1886,6 @@ recipes={
   },
   output=galactijam
  },
- --galactiduojam--
- {
-  discovered=false,
-  inputs={
-   galactiberry,
-   galactiberry,
-  },
-  output=galactiduojam
- },
-
  --galactrijam--
  {
   discovered=false,
@@ -2672,15 +2022,6 @@ recipes={
   },
   output=darkjam
  },
- --darkduo jam--
- {
-  discovered=false,
-  inputs={
-   darkberry,
-   darkberry,
-  },
-  output=darkduojam
- },
  --darktri jam--
  {
   discovered=false,
@@ -2717,15 +2058,7 @@ recipes={
   },
   output=bigberryjam
  },
- --bigduo jam--
- {
-  discovered=false,
-  inputs={
-   bigberry,
-   bigberry,
-  },
-  output=bigduoberryjam
- },
+
  --bigtri jam--
  {
   discovered=false,
@@ -2763,15 +2096,7 @@ recipes={
   },
   output=bangberryjam
  },
- --bangduo jam--
- {
-  discovered=false,
-  inputs={
-   bangberry,
-   bangberry,
-  },
-  output=bangduoberryjam
- },
+
  --bigtri jam--
  {
   discovered=false,
@@ -2825,16 +2150,8 @@ recipes={
   },
   output=chaosjam
  },
- --badduo jam--
- {
-  discovered=false,
-  inputs={
-   badjam,
-   badjam,
-  },
-  output=badduojam
- },
- --badduo jam--
+
+ --badtri jam--
  {
   discovered=false,
   inputs={
@@ -2844,7 +2161,7 @@ recipes={
   },
   output=badtrijam
  },
- --badduo jam--
+ --badnana jam--
  {
   discovered=false,
   inputs={
