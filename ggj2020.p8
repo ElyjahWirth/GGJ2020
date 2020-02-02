@@ -8,10 +8,10 @@ cash_symbols[2]="\x99"
 cash_symbols[3]="\x8e"
 cash_symbols[4]="\x85"
 cash_money={}
-cash_money[1]=32767
-cash_money[2]=32767
-cash_money[3]=32767
-cash_money[4]=32767
+cash_money[1]=100
+cash_money[2]=0
+cash_money[3]=0
+cash_money[4]=0
 
 function add_money(value, scale)
  if scale==nil then scale=1 end
@@ -183,9 +183,11 @@ function new_game_screen()
 
   local dollar_x=0
   for i=1,#cash_money,1 do
-   local price=cash_symbols[i]..cash_money[i]
-   print(price, dollar_x, 122)
-   dollar_x+=(#price*4)+8
+   if cash_money[i] > 0 then
+    local price=cash_symbols[i]..cash_money[i]
+    print(price, dollar_x, 122)
+    dollar_x+=(#price*4)+8
+   end
   end
  end
 
@@ -362,11 +364,11 @@ function new_store_scene()
 
   if #scene.stock > 0 then
    local name=scene.stock[scene.selected_stock].shortname
-   local price=cash_symbols[scene.stock[scene.selected_stock].scale]..flr(get_price(scene.stock[scene.selected_stock]))
+   local price=cash_symbols[scene.stock[scene.selected_stock].scale]..get_price(scene.stock[scene.selected_stock])
    local demand=""..get_demand(scene.stock[scene.selected_stock]).."*"
    print(name, 0, 1)
    print("sale price:",8,64)
-   print(price, 56-(#price*4), 72)
+   print(price, 56-(#price*4+4), 72)
    print("demand:",8,80)
    print(demand,56-(#demand*4),88)
   end
@@ -446,7 +448,7 @@ function new_farm_scene()
    local y_target=80
    sspr(x_pix,y_pix,8,8,x_target,y_target,16,16)
    print(ing.quantity,x_target+17,y_target+11)
-   print("$"..ing.price,x_target+17,y_target+2)
+   print(cash_symbols[ing.scale]..ing.price,x_target+17,y_target+2)
    if (i==scene.selected) rect(x_target-1,y_target-1,x_target+16,y_target+16,7)
   end
   column+=1
@@ -1478,6 +1480,7 @@ emptybush_icon=51
 strawberry_bush={
  icon=48,
  price=10,
+ scale=1,
  produce=strawberry,
  harvest_time=1.0,
  unlocked=true,
@@ -1492,6 +1495,7 @@ end
 blueberry_bush={
  icon=52,
  price=10,
+ scale=1,
  produce=blueberry,
  harvest_time=10,
  unlocked=false,
@@ -1508,7 +1512,8 @@ end
 
 factory={
  icon=49,
- price=10,
+ price=1,
+ scale=2,
  product=nil,
  harvest_time=10,
  unlocked=false,
