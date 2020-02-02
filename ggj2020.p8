@@ -274,22 +274,28 @@ function new_hr_scene()
  s.draw=function(scene)
   map(scene.background.x,scene.background.y,0,0,16,16)
 
+  local page=flr(abs(scene.selected_upgrade-1)/4)
+  local loop_start=(page*4)+1
+  local loop_end=min(loop_start+3, #scene.available_upgrades)
+  local row=0
 
-  for i=1,#scene.available_upgrades,1 do
+  for i=loop_start,loop_end,1 do
    local upgrade = scene.available_upgrades[i]
    local icon=upgrade.icon
    local x_pix=(icon*8)%128
    local y_pix=flr(abs(icon/16))*8
-   local x_target=73
-   local y_target=8+((i-1)*24)
+   local x_target=65
+   local y_target=(row*24)
    local price=cash_symbols[upgrade.scale]..upgrade.price
 
    sspr(x_pix,y_pix,8,8,x_target,y_target,16,16)
    print(price,x_target,y_target+17)
    if (i==scene.selected_upgrade) rect(x_target-1,y_target-1,x_target+16,y_target+16,7)
+   row+=1
+   if (row>4) row=0
   end
 
- for i=1,#scene.purchased_upgrades,1 do
+  for i=1,#scene.purchased_upgrades,1 do
    local upgrade = scene.purchased_upgrades[i]
    local icon=upgrade.icon
    local x_pix=(icon*8)%128
@@ -442,8 +448,8 @@ function new_farm_scene()
     local desired_bush=scene.bushes[scene.selected]
     if can_spend(desired_bush.price, desired_bush.scale) then
      local new_bush={
-      x=rnd(16*8),
-      y=rnd(4*8)+4*8,
+      x=rnd(48),
+      y=rnd(50)+40,
       template=desired_bush,
       harvest_counter=0.0
      }
@@ -460,20 +466,28 @@ function new_farm_scene()
 
  s.draw=function(scene)
   map(scene.background.x,scene.background.y,0,0,16,16)
-  column=1
-  for i=1,#scene.bushes,1 do
-   local ing=scene.bushes[i]
-   local icon=ing.icon
+  local page=flr(abs(scene.selected-1)/4)
+  local loop_start=(page*4)+1
+  local loop_end=min(loop_start+3, #scene.bushes)
+  local row=0
+
+  for i=loop_start,loop_end,1 do
+   local bush = scene.bushes[i]
+   local icon=bush.icon
    local x_pix=(icon*8)%128
    local y_pix=flr(abs(icon/16))*8
-   local x_target=8+((i-1)*(40))
-   local y_target=80
+   local x_target=65
+   local y_target=(row*24)
+   local price=cash_symbols[bush.scale]..bush.price
+
    sspr(x_pix,y_pix,8,8,x_target,y_target,16,16)
-   print(ing.quantity,x_target+17,y_target+11)
-   print(cash_symbols[ing.scale]..ing.price,x_target+17,y_target+2)
+   print(price,x_target,y_target+17)
    if (i==scene.selected) rect(x_target-1,y_target-1,x_target+16,y_target+16,7)
+   row+=1
+   if (row>4) row=0
+   print(scene.bushes[scene.selected].name, 0, 96)
+
   end
-  column+=1
 
   for bush in all(scene.planted_bushes) do
    local icon=bush.template.icon
@@ -1369,6 +1383,7 @@ end
 emptybush_icon=51
 
 strawberry_bush={
+ name="strawberry bush",
  icon=48,
  price=10,
  scale=1,
@@ -1378,12 +1393,8 @@ strawberry_bush={
  quantity=0
 }
 
-function unlock_blueberry()
- blueberry_bush.unlocked=true
- add(screen.active_scenes[1].bushes, blueberry_bush)
-end
-
 blueberry_bush={
+ name="blueberry bush",
  icon=52,
  price=10,
  scale=1,
