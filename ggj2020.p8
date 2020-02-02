@@ -305,7 +305,8 @@ function new_farm_scene()
      if bush.harvest_counter > bush.template.harvest_time then
       bush.harvest_counter=0.0
       if not screen.active_scenes[2] then
-       unlock_kitchen()
+       screen.active_scenes[2]=screen.scenes[2]
+       screen.active_scenes[2].unlocked=true
       end
       bush.template.produce.quantity+=1
       if not bush.template.produce.unlocked then
@@ -346,16 +347,16 @@ function new_farm_scene()
  return s
 end
 
-function unlock_kitchen(s)
- s.active_scenes[2]=s.scenes[2]
- s.active_scenes[2].unlocked=true
+function unlock_kitchen()
+ screen.active_scenes[2]=screen.scenes[2]
+ screen.active_scenes[2].unlocked=true
 end
 
 function new_kitchen_scene()
  local s=new_scene()
  s.name="kitchen"
  s.background.x=16
- s.unlocked=false
+ s.unlocked=true
  s.icon={
   x=24,
   y=32
@@ -365,6 +366,9 @@ function new_kitchen_scene()
  s.mix_complete=false
  s.mixer_contents={}
  s.available_ingredients={}
+ add(s.available_ingredients, strawberry)
+ add(s.available_ingredients, blueberry)
+ add(s.available_ingredients, manberry)
  s.selected_ingredient=1
 
  s.update=function(scene)
@@ -440,7 +444,7 @@ function new_kitchen_scene()
   if (scene.mixer_contents[2]) spr(scene.mixer_contents[2].icon(),24,8)
   if (scene.mixer_contents[3]) spr(scene.mixer_contents[3].icon(),40,8)
   if #scene.available_ingredients > 0 then
-   local name = scene.available_ingredients[scene.selected_ingredient].name
+   local name = scene.available_ingredients[scene.selected_ingredient].shortname
    print(name, 0, 1)
   end
  end
@@ -452,28 +456,28 @@ end
 --ingredients--
 strawberry={
  name="strawberry",
- unlocked=false,
+ unlocked=true,
  icon=function() return 16 end,
- quantity=0
+ quantity=10
 }
 
 blueberry={
  name="blueberry",
- unlocked=false,
+ unlocked=true,
  icon=function() return 17 end,
- quantity=0
+ quantity=10
 }
 
 manberry={
  name="manberry",
- unlocked=false,
+ unlocked=true,
  icon_options={18,19,20,21,22},
  current_icon=1,
  icon=function() return manberry.icon_options[manberry.current_icon] end,
  update_icon=function()
   manberry.current_icon=flr(rnd(#manberry.icon_options)+1)
  end,
- quantity=0
+ quantity=10
 }
 
 globerry={
