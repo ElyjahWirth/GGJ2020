@@ -360,7 +360,7 @@ function new_store_scene()
    if jam.sale_period_counter==nil then jam.sale_period_counter=0 end
    jam.sale_period_counter=increment(jam.sale_period_counter,1/30)
    if jam.sale_period_counter > jam_sale_constants.sale_period_length then
-    local temp_demand = get_demand(jam)+jam.demand_rate
+    local temp_demand = get_demand(jam)+(jam.demand_rate*jam_sale_constants.global_demand_rate_mod)
     if (temp_demand < 0) temp_demand=32767
     jam.demand=temp_demand
     jam.sale_period_counter=0.0
@@ -611,6 +611,7 @@ end
 jam_sale_constants={
  sale_period_length=1.0,
  global_demand_weight=1.0,
+ global_demand_rate_mod=1.0,
  global_base_price_weight=1.0,
  global_generation_weight=1.0,
  global_quality_weight=1.0,
@@ -1409,8 +1410,8 @@ bangberry_bush={
 darkberry_bush={
  name="darkberry bush",
  icon=232,
- price=100,
- scale=3,
+ price=32767,
+ scale=4,
  produce=darkberry,
  harvest_time=10.0,
  unlocked=false,
@@ -2339,6 +2340,48 @@ blockchain={
    cash_money[3]=0
    add_money(1,4)
   end
+ end
+}
+
+sales={
+ name="sales person",
+ description="increases the number of jams sold",
+ unlocked=false,
+ price=1,
+ scale=3,
+ quantity=0,
+ max_quantity=32767,
+ icon=191,
+ on_purchase=function(scene)
+  jam_sale_constants.global_sale_volume=increment(jam_sale_constants.global_sale_volume)
+ end
+}
+
+marketing={
+ name="marketer",
+ description="increases rate of demand growth",
+ unlocked=false,
+ price=1,
+ scale=2,
+ quantity=0,
+ max_quantity=32767,
+ icon=190,
+ on_purchase=function(scene)
+  jam_sale_constants.global_demand_rate_mod=increment(jam_sale_constants.global_demand_rate_mod)
+ end
+}
+
+ceo={
+ name="ceo",
+ description="increases prices of all jams",
+ unlocked=false,
+ price=1,
+ scale=4,
+ quantity=0,
+ max_quantity=32767,
+ icon=228,
+ on_purchase=function(scene)
+  jam_sale_constants.global_marketing_efficiency=increment(jam_sale_constants.global_marketing_efficiency, 0.1)
  end
 }
 __gfx__
