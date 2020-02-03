@@ -8,10 +8,10 @@ cash_symbols[2]="\x93"
 cash_symbols[3]="\x88"
 cash_symbols[4]="\x85"
 cash_money={}
-cash_money[1]=32767
-cash_money[2]=32767
-cash_money[3]=32767
-cash_money[4]=32767
+cash_money[1]=50
+cash_money[2]=0
+cash_money[3]=0
+cash_money[4]=0
 known_good_recipes={}
 jam_timer=0
 game_over=false
@@ -208,9 +208,12 @@ function new_game_screen()
   rect(xpos-1,ypos,xpos+32,ypos+15,7)
 
   local dollar_x=0
-  for i=1,#cash_money,1 do
+  local price=cash_symbols[1]..flr(cash_money[1])
+  print(price, dollar_x, 122)
+  dollar_x+=(#price*4)+8
+  for i=2,#cash_money,1 do
    if cash_money[i] > 0 then
-    local price=cash_symbols[i]..flr(cash_money[i])
+    price=cash_symbols[i]..flr(cash_money[i])
     print(price, dollar_x, 122)
     dollar_x+=(#price*4)+8
    end
