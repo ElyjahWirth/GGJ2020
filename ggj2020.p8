@@ -2059,9 +2059,9 @@ recipes={
  {
   discovered=false,
   inputs={
-   bigtrijam,
-   bigtrijam,
-   bigtrijam,
+   bigtriberryjam,
+   bigtriberryjam,
+   bigtriberryjam,
   },
   output=bignanaberryjam
  },
@@ -2097,9 +2097,9 @@ recipes={
  {
   discovered=false,
   inputs={
-   bangtrijam,
-   bangtrijam,
-   bangtrijam,
+   bangtriberryjam,
+   bangtriberryjam,
+   bangtriberryjam,
   },
   output=bangnanaberryjam
  },
