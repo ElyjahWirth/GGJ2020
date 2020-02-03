@@ -243,12 +243,6 @@ function new_scene()
  return s
 end
 
-
-function unlock_hr(s)
- s.active_scenes[4]=s.scenes[4]
- s.active_scenes[4].unlocked=true
-end
-
 function new_hr_scene()
  local s=new_scene()
  s.name="hr"
@@ -338,10 +332,6 @@ function new_hr_scene()
  return s
 end
 
-function unlock_store(s)
- s.active_scenes[3]=s.scenes[3]
- s.active_scenes[3].unlocked=true
-end
 
 function new_store_scene()
  local s=new_scene()
@@ -519,11 +509,6 @@ function new_farm_scene()
  return s
 end
 
-function unlock_kitchen()
- screen.active_scenes[2]=screen.scenes[2]
- screen.active_scenes[2].unlocked=true
-end
-
 function new_kitchen_scene()
  local s=new_scene()
  s.name="kitchen"
@@ -543,7 +528,7 @@ function new_kitchen_scene()
  s.update=function(scene)
   if scene.mix_complete then
    gain_jam(scene.current_output)
-   scene.current_output={}
+   scene.current_output=nil
    scene.mixer_contents={}
    scene.mix_complete=false
    scene.process_mix=false
@@ -565,10 +550,12 @@ function new_kitchen_scene()
     add(scene.mixer_contents, scene.available_ingredients[scene.selected_ingredient])
     scene.available_ingredients[scene.selected_ingredient].quantity = decrement(scene.available_ingredients[scene.selected_ingredient].quantity)
    end
-   if btnp(4) and #scene.mixer_contents!=0 then
-    scene.process_mix=true
+   if #scene.mixer_contents!=0 then
     recipe = lookup_recipe(scene.mixer_contents)
     if recipe and recipe.output then scene.current_output=recipe.output else scene.current_output=badjam end
+    if btnp(4) then
+     scene.process_mix=true
+    end
    end
   end
  end
@@ -610,6 +597,10 @@ function new_kitchen_scene()
    local name = scene.available_ingredients[scene.selected_ingredient].shortname
    print(name,0,0)
   end
+  local icon=4
+  if (scene.current_output) icon=scene.current_output.icon()
+  sspr((icon*8)%128,flr(abs(icon/16))*8,8,8,16,48,24,24)
+
  end
 
  return s
@@ -1505,7 +1496,7 @@ function lookup_recipe(mixer_contents)
  if #mixer_contents==1 then
   for recipecheck in all(temp_recipes) do
    local used1=false
-   if (recipecheck.inputs[1] == mixer_contents[1]) add(matches,recipecheck)
+   if (recipecheck.inputs[1] == mixer_contents[1]) add(final_matches,recipecheck)
   end
  end
 
@@ -1532,7 +1523,7 @@ function lookup_recipe(mixer_contents)
    ::twoinputend::
    if (used1 and used2) add(temp_matches,recipecheck)
   end
-  matches=temp_matches
+  final_matches=temp_matches
  end
 
   --filter out recupes that don't contain element 3
@@ -1579,12 +1570,12 @@ function lookup_recipe(mixer_contents)
    ::threeinputend::
    if (used1 and used2 and used3) add(temp_matches,recipecheck)
   end
-  matches=temp_matches
+  final_matches=temp_matches
  end
 
   --return the only remaining recipe
- if #matches > 0 then
-  output=matches[1]
+ if #final_matches > 0 then
+  output=final_matches[1]
   if not output.discovered then
    output.discovered=true
    add(known_good_recipes, output)
@@ -2611,9 +2602,9 @@ ddddddddddddddccdfdfdfdfdfdfdfdfd4d4d435d4d4d4ccdfdfdfdfdfdfdfdfccdadadadadadacc
 23232323232323ccdfdfdfdfdfdfdfdfd4d4d42cd4d4d4ccdfdfdfdfdfdfdfdfccdadadadadadaccdfdfdfdfdfdfdfdfcecececececececccececececececece00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 23232323232323ccdfdfdfdfdfdfdfdfd4d4d4d4d4d4d4ccdfdfdfdfdfdfdfdfccccccccccccccccdfdfdfdfdfdfdfdfcecececececececccececececececece00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 23232323232323ccdfdfdfdfdfdfdfdfd4d4d4d4d4d4d4ccdfdfdfdfdfdfdfdfccdfdfdfdfdfdfccdfdfdfdfdfdfdfdfcecececececececccececececececece00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-23232323232323ccdfdfdfdfdfdfdfdfcecececececececcdfdfdfdfdfdfdfdfccdfdfdfdfdfdfccdfdfdfdfdfdfdfdfcecececececececccececececececece00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-23232323232323ccdfdfdfdfdfdfdfdfcecececececececcdfdfdfdfdfdfdfdfccdfdfdfdfdfdfccdfdfdfdfdfdfdfdfcecececececececccececececececece00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-23232323232323ccdfdfdfdfdfdfdfdfcecececececececcdfdfdfdfdfdfdfdfccdfdfdfdfdfdfccdfdfdfdfdfdfdfdfcecececececececccececececececece00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+23232323232323ccdfdfdfdfdfdfdfdfcdcdcdcdcdcdcdccdfdfdfdfdfdfdfdfccdfdfdfdfdfdfccdfdfdfdfdfdfdfdfcecececececececccececececececece00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+23232323232323ccdfdfdfdfdfdfdfdfcdcdcdcdcdcdcdccdfdfdfdfdfdfdfdfccdfdfdfdfdfdfccdfdfdfdfdfdfdfdfcecececececececccececececececece00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+23232323232323ccdfdfdfdfdfdfdfdfcdcdcdcdcdcdcdccdfdfdfdfdfdfdfdfccdfdfdfdfdfdfccdfdfdfdfdfdfdfdfcecececececececccececececececece00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
