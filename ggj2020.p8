@@ -559,6 +559,10 @@ function new_kitchen_scene()
     if recipe and recipe.output then scene.current_output=recipe.output else scene.current_output=badjam end
     if btnp(4) then
      scene.process_mix=true
+     if not scene.current_output.discovered then
+      scene.current_output.discovered=true
+      add(known_good_recipes, scene.current_output)
+     end
     end
    end
   end
@@ -1585,10 +1589,6 @@ function lookup_recipe(mixer_contents)
   --return the only remaining recipe
  if #final_matches > 0 then
   output=final_matches[1]
-  if not output.discovered then
-   output.discovered=true
-   add(known_good_recipes, output)
-  end
  end
 
   return output
@@ -2370,7 +2370,7 @@ sales={
  description="increases the number of jams sold",
  unlocked=false,
  price=1,
- scale=3,
+ scale=2,
  quantity=0,
  max_quantity=32767,
  icon=191,
@@ -2384,7 +2384,7 @@ marketer={
  description="increases rate of demand growth",
  unlocked=false,
  price=1,
- scale=2,
+ scale=3,
  quantity=0,
  max_quantity=32767,
  icon=190,
