@@ -370,7 +370,7 @@ function new_store_scene()
    if jam.sale_period_counter==nil then jam.sale_period_counter=0 end
    jam.sale_period_counter=increment(jam.sale_period_counter,1/30)
    if jam.sale_period_counter > jam_sale_constants.sale_period_length then
-    local temp_demand = jam.demand+jam.demand_rate
+    local temp_demand = get_demand(jam)+jam.demand_rate
     if (temp_demand < 0) temp_demand=32767
     jam.demand=temp_demand
     jam.sale_period_counter=0.0
@@ -463,7 +463,7 @@ function new_farm_scene()
     if can_spend(desired_bush.price, desired_bush.scale) then
      local new_bush={
       x=rnd(48),
-      y=rnd(50)+40,
+      y=rnd(49)+40,
       template=desired_bush,
       harvest_counter=0.0
      }
@@ -504,12 +504,16 @@ function new_farm_scene()
 
   end
 
-  for bush in all(scene.planted_bushes) do
+
+  local l=#scene.planted_bushes
+  local l_min=max(l-100,1)
+  local l_max=min(l,l_min+100)
+  for i=l_min,l_max,1 do
+   local bush=scene.planted_bushes[i]
    local icon=bush.template.icon
    if (bush.template.harvest_time >= bush.harvest_counter) icon=emptybush_icon
    spr(icon,bush.x,bush.y)
   end
-
  end
 
  return s
@@ -722,9 +726,9 @@ galactiberry={
 
 strawberryjam={
  shortname="strawberry jam",
- unlocked=true,
+ unlocked=false,
  icon=function() return 1 end,
- quantity=32767,
+ quantity=0,
  base_price=2,
  demand_rate=0.01,
  gen=1,
