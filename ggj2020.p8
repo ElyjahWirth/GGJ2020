@@ -8,9 +8,9 @@ cash_symbols[2]="\x93"
 cash_symbols[3]="\x88"
 cash_symbols[4]="\x85"
 cash_money={}
-cash_money[1]=50
-cash_money[2]=0
-cash_money[3]=0
+cash_money[1]=32767
+cash_money[2]=32767
+cash_money[3]=32767
 cash_money[4]=0
 known_good_recipes={}
 jam_timer=0
@@ -262,7 +262,7 @@ function new_hr_scene()
   check_for_unlocks(scene)
 
   for upgrade in all(scene.purchased_upgrades) do
-   if(upgrade.update) upgrade.update(scene)
+   if (upgrade.update) upgrade.update(scene)
   end
   if scene.active and #scene.available_upgrades>0 then
    if btnp(2) then
@@ -274,11 +274,7 @@ function new_hr_scene()
 
    local selected=scene.available_upgrades[scene.selected_upgrade]
    if btnp(5) and can_spend(selected.price, selected.scale) and selected.quantity < selected.max_quantity then
-    if selected.quantity==0 then
-     if not (selected==banker or selected==accountant or selected==blockchain) then
-      add(s.purchased_upgrades, selected)
-     end
-    end
+    if (selected.quantity==0) add(s.purchased_upgrades, selected)
     selected.quantity=increment(selected.quantity)
     if(selected.on_purchase) selected.on_purchase(scene)
     lose_money(selected.price, selected.scale)
@@ -316,14 +312,16 @@ function new_hr_scene()
 
   for i=1,#scene.purchased_upgrades,1 do
    local upgrade = scene.purchased_upgrades[i]
-   local icon=upgrade.icon
-   local x_pix=(icon*8)%128
-   local y_pix=flr(abs(icon/16))*8
-   local x_target=1
-   local y_target=8+((i-1)*18)
+   if not (upgrade==banker or upgrade==accountant or upgrade==blockchain) then
+    local icon=upgrade.icon
+    local x_pix=(icon*8)%128
+    local y_pix=flr(abs(icon/16))*8
+    local x_target=1
+    local y_target=8+((i-1)*18)
 
-   sspr(x_pix,y_pix,8,8,x_target,y_target,16,16)
-   print(upgrade.quantity,x_target+17,y_target)
+    sspr(x_pix,y_pix,8,8,x_target,y_target,16,16)
+    print(upgrade.quantity,x_target+17,y_target)
+   end
   end
 
   if #scene.available_upgrades>0 then
