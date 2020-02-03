@@ -827,7 +827,7 @@ manberryjam={
  icon=function() return 5 end,
  quantity=0,
  base_price=100,
- demand_rate=0.001,
+ demand_rate=0.01,
  gen=1,
  scale=1
 }
@@ -838,7 +838,7 @@ manberrytrijam={
  icon=function() return 11 end,
  quantity=0,
  base_price=300,
- demand_rate=0.001,
+ demand_rate=0.03,
  gen=1,
  scale=1
 }
@@ -849,7 +849,7 @@ manberrynanajam={
  icon=function() return 64 end,
  quantity=0,
  base_price=900,
- demand_rate=0.009,
+ demand_rate=0.09,
  gen=1,
  scale=1
 }
@@ -860,7 +860,7 @@ bluemanberryjam={
  icon=function() return 8 end,
  quantity=0,
  base_price=110,
- demand_rate=0.003,
+ demand_rate=0.03,
  gen=1,
  scale=1
 }
@@ -871,7 +871,7 @@ strawmanberryjam={
  icon=function() return 7 end,
  quantity=0,
  base_price=102,
- demand_rate=0.001,
+ demand_rate=0.01,
  gen=1,
  scale=1
 }
@@ -893,7 +893,7 @@ bluemanstrawberyjam={
  icon=function() return 10 end,
  quantity=0,
  base_price=112,
- demand_rate=0.007,
+ demand_rate=0.07,
  gen=3,
  scale=1
 }
@@ -904,7 +904,7 @@ globerryjam={
  icon=function() return 33 end,
  quantity=0,
  base_price=1,
- demand_rate=0.0001,
+ demand_rate=0.01,
  gen=1,
  scale=2
 }
@@ -915,7 +915,7 @@ globtriberryjam={
  icon=function() return 33 end,
  quantity=0,
  base_price=3,
- demand_rate=0.0003,
+ demand_rate=0.03,
  gen=1,
  demand=1,
  scale=2
@@ -927,7 +927,7 @@ globnanaberryjam={
  icon=function() return 33 end,
  quantity=0,
  base_price=9,
- demand_rate=0.001,
+ demand_rate=0.01,
  gen=2,
  scale=2
 }
@@ -938,7 +938,7 @@ globlueberryjam={
  icon=function() return 34 end,
  quantity=0,
  base_price=15,
- demand_rate=0.002,
+ demand_rate=0.02,
  gen=2,
  scale=2
 }
@@ -949,7 +949,7 @@ globstrawberryjam={
  icon=function() return 36 end,
  quantity=0,
  base_price=10,
- demand_rate=0.007,
+ demand_rate=0.07,
  gen=2,
  scale=2
 }
@@ -960,7 +960,7 @@ globmanberryjam={
  icon=function() return 37 end,
  quantity=0,
  base_price=20,
- demand_rate=0.0001,
+ demand_rate=0.01,
  gen=2,
  scale=2
 }
@@ -971,7 +971,7 @@ globluestrawberryjam={
  icon=function() return 38 end,
  quantity=0,
  base_price=20,
- demand_rate=0.003,
+ demand_rate=0.03,
  gen=3,
  scale=2
 }
@@ -982,7 +982,7 @@ globluemanberryjam={
  icon=function() return 39 end,
  quantity=0,
  base_price=30,
- demand_rate=0.002,
+ demand_rate=0.02,
  gen=3,
  scale=2
 }
@@ -993,7 +993,7 @@ globstrawmanberryjam={
  icon=function() return 56 end,
  quantity=0,
  base_price=25,
- demand_rate=0.001,
+ demand_rate=0.01,
  gen=3,
  scale=2
 }
@@ -1004,7 +1004,7 @@ galactijam={
  icon=function() return 66 end,
  quantity=0,
  base_price=1,
- demand_rate=0.0001,
+ demand_rate=0.01,
  gen=1,
  scale=3
 }
@@ -1015,7 +1015,7 @@ galactilactilactijam={
  icon=function() return 66 end,
  quantity=0,
  base_price=3,
- demand_rate=0.0002,
+ demand_rate=0.02,
  gen=1,
  scale=3
 }
@@ -1026,7 +1026,7 @@ galactinanajam={
  icon=function() return 66 end,
  quantity=0,
  base_price=10,
- demand_rate=0.0005,
+ demand_rate=0.05,
  gen=2,
  scale=3
 }
@@ -1037,7 +1037,7 @@ glactiblueberryjam={
  icon=function() return 112 end,
  quantity=0,
  base_price=3,
- demand_rate=0.001,
+ demand_rate=0.01,
  gen=3,
  scale=3
 }
@@ -1048,7 +1048,7 @@ glactistrawberryjam={
  icon=function() return 113 end,
  quantity=0,
  base_price=2,
- demand_rate=0.007,
+ demand_rate=0.07,
  gen=2,
  scale=3
 }
@@ -1059,7 +1059,7 @@ galactimanberryjam={
  icon=function() return 114 end,
  quantity=0,
  base_price=20,
- demand_rate=0.0005,
+ demand_rate=0.05,
  gen=2,
  scale=3
 }
@@ -1070,7 +1070,7 @@ galactigloberryjam={
  icon=function() return 57 end,
  quantity=0,
  base_price=30,
- demand_rate=0.001,
+ demand_rate=0.01,
  gen=3,
  scale=3
 }
@@ -1092,7 +1092,7 @@ galactibluemanberryjam={
  icon=function() return 59 end,
  quantity=0,
  base_price=11,
- demand_rate=0.002,
+ demand_rate=0.02,
  gen=3,
  scale=3
 }
@@ -1114,7 +1114,7 @@ galactistrawmanberryjam={
  icon=function() return 111 end,
  quantity=0,
  base_price=11,
- demand_rate=0.001,
+ demand_rate=0.01,
  gen=3,
  scale=3
 }
@@ -1136,7 +1136,7 @@ galactiglobemanberryjam={
  icon=function() return 127 end,
  quantity=0,
  base_price=100,
- demand_rate=0.0001,
+ demand_rate=0.01,
  gen=3,
  scale=3
 }
@@ -1147,7 +1147,7 @@ darkjam={
  icon=function() return 80 end,
  quantity=0,
  base_price=1,
- demand_rate=0.001,
+ demand_rate=0.01,
  gen=1,
  scale=4
 }
@@ -1158,7 +1158,7 @@ darktrijam={
  icon=function() return 80 end,
  quantity=0,
  base_price=3,
- demand_rate=0.002,
+ demand_rate=0.02,
  gen=1,
  scale=4
 }
@@ -1169,7 +1169,7 @@ darknanajam={
  icon=function() return 80 end,
  quantity=0,
  base_price=9,
- demand_rate=0.003,
+ demand_rate=0.03,
  gen=2,
  scale=4
 }
@@ -1213,7 +1213,7 @@ bangberryjam={
  icon=function() return 96 end,
  quantity=0,
  base_price=5,
- demand_rate=0.001,
+ demand_rate=0.01,
  gen=1,
  scale=4
 }
@@ -1224,7 +1224,7 @@ bangtriberryjam={
  icon=function() return 96 end,
  quantity=0,
  base_price=15,
- demand_rate=0.001,
+ demand_rate=0.01,
  gen=1,
  scale=4
 }
@@ -1235,7 +1235,7 @@ bangnanaberryjam={
  icon=function() return 96 end,
  quantity=0,
  base_price=30,
- demand_rate=0.007,
+ demand_rate=0.07,
  gen=2,
  scale=4
 }
@@ -1246,7 +1246,7 @@ chaosjam={
  icon=function() return 172 end,
  quantity=0,
  base_price=100,
- demand_rate=0.001,
+ demand_rate=0.01,
  gen=3,
  scale=4
 }
@@ -1257,7 +1257,7 @@ badjam={
  icon=function() return 3 end,
  quantity=0,
  base_price=1,
- demand_rate=0.0001,
+ demand_rate=0.01,
  gen=1,
  scale=1
 }
@@ -1268,7 +1268,7 @@ badtrijam={
  icon=function() return 3 end,
  quantity=0,
  base_price=3,
- demand_rate=0.005,
+ demand_rate=0.05,
  gen=1,
  scale=1
 }
@@ -1279,7 +1279,7 @@ badnanajam={
  icon=function() return 3 end,
  quantity=0,
  base_price=10,
- demand_rate=0.001,
+ demand_rate=0.01,
  gen=2,
  scale=1
 }
@@ -1290,7 +1290,7 @@ bigbangjam={
  icon=function() return 81 end,
  quantity=0,
  base_price=100,
- demand_rate=0.001,
+ demand_rate=0.01,
  gen=2,
  scale=4
 }
