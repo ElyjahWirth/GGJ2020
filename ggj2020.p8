@@ -17,33 +17,29 @@ jam_timer=0
 game_over=false
 
 function add_money(value, scale)
- if scale==nil then scale=1 end
- if cash_money[scale]==nil then cash_money[scale]=0 end
- if cash_money[scale]+value < cash_money[scale] then
-  cash_money[scale]=32767
- else
-  cash_money[scale]+=value
- end
+  cash_money[scale]=increment(cash_money[scale],value)
 end
 
 function lose_money(value, scale)
- if scale==nil then scale=1 end
- if cash_money[scale]==nil then cash_money[scale]=0 end
- if cash_money[scale]-value < 0 or cash_money[scale]-value > cash_money[scale] then
-  cash_money[scale]=0
- else
-  cash_money[scale]-=value
- end
+  cash_money[scale]=decrement(cash_money[scale],value)
 end
 
 function can_spend(value, scale)
- if scale==nil then scale=1 end
- if cash_money[scale]==nil then cash_money[scale]=0 end
  if cash_money[scale]-value < 0 or cash_money[scale]-value > cash_money[scale] then
   return false
  else
   return true
  end
+end
+
+function increment(value, num)
+ if (num==nil) num=1
+ if value+num<0 then return 32767 else return value+num end
+end
+
+function decrement(value, num)
+ if (num==nil) num=1
+ if value-num<0 then return 0 else return value-num end
 end
 
 
@@ -56,7 +52,7 @@ function _draw()
 end
 
 function _update()
- if(not game_over) jam_timer+=1/30
+ if(not game_over) jam_timer=increment(jam_timer,1/30)
  screen:update()
 end
 
@@ -285,7 +281,7 @@ function new_hr_scene()
      add(s.purchased_upgrades, selected)
 
     end
-    selected.quantity+=1
+    selected.quantity=increment(selected.quantity)
     selected.on_purchase(scene)
     lose_money(selected.price, selected.scale)
     if selected.quantity == selected.max_quantity then
@@ -372,7 +368,7 @@ function new_store_scene()
   --update sale period counters for jams
   for jam in all(scene.stock) do
    if jam.sale_period_counter==nil then jam.sale_period_counter=0 end
-   jam.sale_period_counter+=1/30
+   jam.sale_period_counter=increment(jam.sale_period_counter,1/30)
    if jam.sale_period_counter > jam_sale_constants.sale_period_length then
     local temp_demand = jam.demand+jam.demand_rate
     if (temp_demand < 0) temp_demand=32767
@@ -452,7 +448,7 @@ function new_farm_scene()
 
  s.update=function(scene)
   for bush in all(scene.planted_bushes) do
-   bush.harvest_counter+=(1/30)
+   bush.harvest_counter=increment(bush.harvest_counter,1/30)
   end
 
   if scene.active then
@@ -473,7 +469,7 @@ function new_farm_scene()
      }
      add(scene.planted_bushes, new_bush)
      lose_money(desired_bush.price, desired_bush.scale)
-     desired_bush.quantity+=1
+     desired_bush.quantity=increment(desired_bush.quantity)
     end
    end
    if btnp(4) then
@@ -562,7 +558,7 @@ function new_kitchen_scene()
    end
    if btnp(5) and #scene.mixer_contents<3 and scene.available_ingredients[scene.selected_ingredient].quantity > 0 then
     add(scene.mixer_contents, scene.available_ingredients[scene.selected_ingredient])
-    scene.available_ingredients[scene.selected_ingredient].quantity-=1
+    scene.available_ingredients[scene.selected_ingredient].quantity = decrement(scene.available_ingredients[scene.selected_ingredient].quantity)
    end
    if btnp(4) and #scene.mixer_contents!=0 then
     scene.process_mix=true
@@ -648,7 +644,7 @@ function get_demand(jam)
 end
 
 function sold(jam)
- jam.quantity-=1
+ jam.quantity=decrement(jam.quantity)
  add_money(get_price(jam), jam.scale)
  jam.sale_period_counter=0
  jam.demand = max(jam.demand-jam_sale_constants.global_demand_loss*jam_sale_constants.global_demand_loss_modifier, 0.01)
@@ -724,14 +720,14 @@ galactiberry={
 
 strawberryjam={
  shortname="strawberry jam",
- unlocked=false,
+ unlocked=true,
  icon=function() return 1 end,
- quantity=0,
+ quantity=32767,
  base_price=2,
  demand_rate=0.01,
-  gen=1,
+ gen=1,
  demand=1,
-scale=1
+ scale=1
 }
 
 
@@ -743,9 +739,9 @@ strawberrytrijam={
  quantity=0,
  base_price=6,
  demand_rate=0.01,
-  gen=1,
+ gen=1,
  demand=1,
-scale=1
+ scale=1
 }
 
 strawberrynanajam={
@@ -755,9 +751,9 @@ strawberrynanajam={
  quantity=0,
  base_price=18,
  demand_rate=0.01,
-  gen=1,
+ gen=1,
  demand=1,
-scale=1
+ scale=1
 }
 
 bananaberryjam={
@@ -767,9 +763,9 @@ bananaberryjam={
  quantity=0,
  base_price=1000,
  demand_rate=0.01,
-  gen=1,
+ gen=1,
  demand=1,
-scale=1
+ scale=1
 }
 
 
@@ -780,9 +776,9 @@ bananaberrytrijam={
  quantity=0,
  base_price=3000,
  demand_rate=0.01,
-  gen=1,
+ gen=1,
  demand=1,
-scale=1
+ scale=1
 }
 
 bananaberrynanajam={
@@ -792,9 +788,9 @@ bananaberrynanajam={
  quantity=0,
  base_price=9000,
  demand_rate=0.01,
-  gen=1,
+ gen=1,
  demand=1,
-scale=1
+ scale=1
 }
 
 blueberryjam={
@@ -804,9 +800,9 @@ blueberryjam={
  quantity=0,
  base_price=10,
  demand_rate=0.01,
-  gen=1,
+ gen=1,
  demand=1,
-scale=1
+ scale=1
 }
 
 
@@ -818,9 +814,9 @@ blueberrytrijam={
  quantity=0,
  base_price=30,
  demand_rate=0.01,
-  gen=1,
+ gen=1,
  demand=1,
-scale=1
+ scale=1
 }
 
 blueberrynanajam={
@@ -830,9 +826,9 @@ blueberrynanajam={
  quantity=0,
  base_price=90,
  demand_rate=0.01,
-  gen=1,
+ gen=1,
  demand=1,
-scale=1
+ scale=1
 }
 
 manberryjam={
@@ -842,9 +838,9 @@ manberryjam={
  quantity=0,
  base_price=100,
  demand_rate=0.001,
-  gen=1,
+ gen=1,
  demand=1,
-scale=1
+ scale=1
 }
 
 
@@ -856,9 +852,9 @@ manberrytrijam={
  quantity=0,
  base_price=300,
  demand_rate=0.001,
-  gen=1,
+ gen=1,
  demand=1,
-scale=1
+ scale=1
 }
 
 manberrynanajam={
@@ -868,9 +864,9 @@ manberrynanajam={
  quantity=0,
  base_price=900,
  demand_rate=0.009,
-  gen=1,
+ gen=1,
  demand=1,
-scale=1
+ scale=1
 }
 
 bluemanberryjam={
@@ -880,9 +876,9 @@ bluemanberryjam={
  quantity=0,
  base_price=110,
  demand_rate=0.003,
-  gen=1,
+ gen=1,
  demand=1,
-scale=1
+ scale=1
 }
 
 strawmanberryjam={
@@ -892,9 +888,9 @@ strawmanberryjam={
  quantity=0,
  base_price=102,
  demand_rate=0.001,
-  gen=1,
+ gen=1,
  demand=1,
-scale=1
+ scale=1
 }
 
 bluestrawberyjam={
@@ -906,7 +902,7 @@ bluestrawberyjam={
  demand_rate=0.03,
  gen=3,
  demand=1,
-scale=1
+ scale=1
 }
 
 bluemanstrawberyjam={
@@ -918,7 +914,7 @@ bluemanstrawberyjam={
  demand_rate=0.007,
  gen=3,
  demand=1,
-scale=1
+ scale=1
 }
 
 globerryjam={
@@ -928,7 +924,7 @@ globerryjam={
  quantity=0,
  base_price=1,
  demand_rate=0.0001,
- gen=1,
+gen=1,
  demand=1,
 scale=2
 }
@@ -942,7 +938,7 @@ globtriberryjam={
  quantity=0,
  base_price=3,
  demand_rate=0.0003,
- gen=1,
+gen=1,
  demand=1,
 scale=2
 }
@@ -1038,7 +1034,7 @@ galactijam={
  quantity=0,
  base_price=1,
  demand_rate=0.0001,
- gen=1,
+gen=1,
  demand=1,
 scale=3
 }
@@ -1052,7 +1048,7 @@ galactilactilactijam={
  quantity=0,
  base_price=3,
  demand_rate=0.0002,
- gen=1,
+gen=1,
  demand=1,
 scale=3
 }
@@ -1196,7 +1192,7 @@ darkjam={
  quantity=0,
  base_price=1,
  demand_rate=0.001,
- gen=1,
+gen=1,
  demand=1,
 scale=4
 }
@@ -1210,7 +1206,7 @@ darktrijam={
  quantity=0,
  base_price=3,
  demand_rate=0.002,
- gen=1,
+gen=1,
  demand=1,
 scale=4
 }
@@ -1232,7 +1228,7 @@ bigberryjam={
  quantity=0,
  base_price=10,
  demand_rate=0.02,
- gen=1,
+gen=1,
  demand=1,
 scale=2
 }
@@ -1245,7 +1241,7 @@ bigtriberryjam={
  quantity=0,
  base_price=30,
  demand_rate=0.01,
- gen=1,
+gen=1,
  demand=1,
 scale=2
 }
@@ -1269,7 +1265,7 @@ bangberryjam={
  quantity=0,
  base_price=5,
  demand_rate=0.001,
- gen=1,
+gen=1,
  demand=1,
 scale=4
 }
@@ -1283,7 +1279,7 @@ bangtriberryjam={
  quantity=0,
  base_price=15,
  demand_rate=0.001,
- gen=1,
+gen=1,
  demand=1,
 scale=4
 }
@@ -1319,9 +1315,9 @@ badjam={
  quantity=0,
  base_price=1,
  demand_rate=0.01,
- gen=1,
+gen=1,
  demand=1,
-scale=1
+ scale=1
 }
 
 
@@ -1333,9 +1329,9 @@ badtrijam={
  quantity=0,
  base_price=3,
  demand_rate=0.005,
- gen=1,
+gen=1,
  demand=1,
-scale=1
+ scale=1
 }
 
 badnanajam={
@@ -1347,7 +1343,7 @@ badnanajam={
  demand_rate=0.001,
  gen=2,
  demand=1,
-scale=1
+ scale=1
 }
 
 bigbangjam={
@@ -1393,7 +1389,7 @@ function harvest_bush(bush)
   screen.active_scenes[2]=screen.scenes[2]
   screen.active_scenes[2].unlocked=true
  end
- bush.template.produce.quantity+=1
+ bush.template.produce.quantity=increment(bush.template.produce.quantity)
  if not bush.template.produce.unlocked then
   add(screen.active_scenes[2].available_ingredients, bush.template.produce)
   bush.template.produce.unlocked=true
@@ -1406,7 +1402,7 @@ strawberry_bush={
  name="strawberry bush",
  icon=48,
  price=10,
- scale=1,
+  scale=1,
  produce=strawberry,
  harvest_time=10.0,
  unlocked=true,
@@ -1417,7 +1413,7 @@ blueberry_bush={
  name="blueberry bush",
  icon=52,
  price=100,
- scale=1,
+  scale=1,
  produce=blueberry,
  harvest_time=3,
  unlocked=false,
@@ -1517,7 +1513,7 @@ function has_ingredients(recipe)
   if (recipe.inputs[2].quantity==0) return false
   input1 = recipe.inputs[1].quantity-1
   input2 = recipe.inputs[2].quantity-1
-  if recipe.inputs[1]==recipe.inputs[2] then input2-=1 end
+  if (recipe.inputs[1]==recipe.inputs[2]) input2=decrement(input2)
  end
 
  if #recipe.inputs==3 then
@@ -1527,9 +1523,9 @@ function has_ingredients(recipe)
   input1 = recipe.inputs[1].quantity-1
   input2 = recipe.inputs[2].quantity-1
   input3 = recipe.inputs[3].quantity-1
-  if recipe.inputs[1]==recipe.inputs[2] then input2-=1 end
-  if recipe.inputs[1]==recipe.inputs[3] then input3-=1 end
-  if recipe.inputs[2]==recipe.inputs[3] then input3-=1 end
+  if (recipe.inputs[1]==recipe.inputs[2]) input2=decrement(input2)
+  if (recipe.inputs[1]==recipe.inputs[3]) input3=decrement(input3)
+  if (recipe.inputs[2]==recipe.inputs[3]) input3=decrement(input3)
  end
 
  if input1<0 or input2<0 or input3<0 then return false else return true end
@@ -1537,14 +1533,14 @@ end
 
 function spend_ingredients(recipe)
  for input in all(recipe.inputs) do
-  input.quantity-=1
+  input.quantity=decrement(input.quantity)
  end
 end
 
 function gain_jam(jam)
  kitchen=screen.active_scenes[2]
  store=screen.active_scenes[3]
- jam.quantity += 1
+ jam.quantity=increment(jam.quantity)
  if not jam.unlocked then
   jam.unlocked=true
   add(kitchen.available_ingredients, jam)
@@ -2341,7 +2337,7 @@ cook={
  description="automatically makes known jams",
  unlocked=false,
  price=1000,
- scale=1,
+  scale=1,
  quantity=0,
  max_quantity=32767,
  icon=188,
@@ -2349,7 +2345,7 @@ cook={
  on_purchase=function(scene) end,
  on_unlock=function(scene) end,
  update=function(scene)
-  cook.countdown+=1/30
+  cook.countdown=increment(cook.countdown,1/30)
   if cook.countdown > jam_sale_constants.global_cook_speed then
    cook.countdown=0.0
    for i=1,cook.quantity,1 do
@@ -2371,7 +2367,7 @@ farmer={
  description="automatically harvests berries",
  unlocked=false,
  price=100,
- scale=1,
+  scale=1,
  quantity=0,
  max_quantity=32767,
  icon=188,
@@ -2379,7 +2375,7 @@ farmer={
  on_purchase=function(scene) end,
  on_unlock=function(scene) end,
  update=function(scene)
-  farmer.countdown+=1/30
+  farmer.countdown=increment(farmer.countdown,1/30)
   if farmer.countdown > jam_sale_constants.global_harvest_speed then
    farmer.countdown=0.0
    harvest(screen.active_scenes[1], farmer.quantity)
@@ -2392,7 +2388,7 @@ accountant={
  description="converts "..cash_symbols[1].." into "..cash_symbols[2],
  unlocked=false,
  price=32767,
- scale=1,
+  scale=1,
  quantity=0,
  max_quantity=1,
  icon=173,
@@ -2401,7 +2397,7 @@ accountant={
  update=function(scene)
   if cash_money[1]==32767 then
    cash_money[1]=0
-   cash_money[2]+=1
+   add_money(1, 2)
   end
  end
 }
@@ -2420,7 +2416,7 @@ banker={
  update=function(scene)
  if cash_money[2]==32767 then
    cash_money[2]=0
-   cash_money[3]+=1
+   add_money(1,3)
   end
  end
 }
@@ -2439,7 +2435,7 @@ blockchain={
  update=function(scene)
   if cash_money[3]==32767 then
    cash_money[3]=0
-   cash_money[4]+=1
+   add_money(1,4)
   end
  end
 }
