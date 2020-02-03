@@ -643,10 +643,14 @@ function get_demand(jam)
 end
 
 function sold(jam)
- jam.quantity=decrement(jam.quantity, jam_sale_constants.global_sale_volume)
- add_money(get_price(jam)*jam_sale_constants.global_sale_volume, jam.scale)
+ local new_quantity=decrement(jam.quantity, jam_sale_constants.global_sale_volume)
+ local volume_actually_sold=jam.quantity-new_quantity
+ jam.quantity=new_quantity
+ for i=1,volume_actually_sold,1 do
+  add_money(get_price(jam)*jam_sale_constants.global_sale_volume, jam.scale)
+  jam.demand = max(decrement(jam.demand,jam_sale_constants.global_demand_loss*jam_sale_constants.global_demand_loss_modifier), 0.01)
+ end
  jam.sale_period_counter=0
- jam.demand = max(jam.demand-jam_sale_constants.global_demand_loss*jam_sale_constants.global_demand_loss_modifier, 0.01)
 end
 
 strawberry={
