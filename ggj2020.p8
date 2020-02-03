@@ -2226,9 +2226,24 @@ function check_for_unlocks(scene)
   add(scene.available_upgrades, accountant)
  end
 
+ if cash_money[2]==1 and not marketer.unlocked then
+  marketer.unlocked=true
+  add(scene.available_upgrades, marketer)
+ end
+
  if cash_money[2]==32767 and not banker.unlocked then
   banker.unlocked=true
   add(scene.available_upgrades, banker)
+ end
+
+ if cash_money[3]==1 and not sales.unlocked then
+  sales.unlocked=true
+  add(scene.available_upgrades, sales)
+ end
+
+ if cash_money[4]==1 and not ceo.unlocked then
+  ceo.unlocked=true
+  add(scene.available_upgrades, ceo)
  end
 
  if cash_money[3]==32767 and not blockchain.unlocked then
@@ -2361,7 +2376,7 @@ sales={
  end
 }
 
-marketing={
+marketer={
  name="marketer",
  description="increases rate of demand growth",
  unlocked=false,
