@@ -4,8 +4,8 @@ __lua__
 --globals--
 cash_symbols={}
 cash_symbols[1]="\x98"
-cash_symbols[2]="\x99"
-cash_symbols[3]="\x8e"
+cash_symbols[2]="\x93"
+cash_symbols[3]="\x88"
 cash_symbols[4]="\x85"
 cash_money={}
 cash_money[1]=50
@@ -623,15 +623,16 @@ jam_sale_constants={
  global_base_price_weight=1.0,
  global_generation_weight=1.0,
  global_quality_weight=1.0,
- global_sales_efficiency=1.0,
+ global_marketing_efficiency=1.0,
  global_demand_loss=0.01,
  global_demand_loss_modifier=1.0,
  global_harvest_speed=1.0,
  global_cook_speed=1.0,
+ global_sale_volume=1
 }
 
 function get_price(jam)
- local price=get_base_price(jam) * get_generatoin_modifier(jam) * get_demand(jam) * jam_sale_constants.global_sales_efficiency
+ local price=get_base_price(jam) * get_generatoin_modifier(jam) * get_demand(jam) * jam_sale_constants.global_marketing_efficiency
  if(price < 0) price=32767
  return price
 end
@@ -650,8 +651,8 @@ function get_demand(jam)
 end
 
 function sold(jam)
- jam.quantity=decrement(jam.quantity)
- add_money(get_price(jam), jam.scale)
+ jam.quantity=decrement(jam.quantity, jam_sale_constants.global_sale_volume)
+ add_money(get_price(jam)*jam_sale_constants.global_sale_volume, jam.scale)
  jam.sale_period_counter=0
  jam.demand = max(jam.demand-jam_sale_constants.global_demand_loss*jam_sale_constants.global_demand_loss_modifier, 0.01)
 end
