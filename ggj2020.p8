@@ -262,7 +262,7 @@ function new_hr_scene()
   check_for_unlocks(scene)
 
   for upgrade in all(scene.purchased_upgrades) do
-   if(upgrade.update!=nil) upgrade.update(scene)
+   if(upgrade.update) upgrade.update(scene)
   end
   if scene.active and #scene.available_upgrades>0 then
    if btnp(2) then
@@ -2237,11 +2237,11 @@ function check_for_unlocks(scene)
   add(scene.available_upgrades, banker)
  end
 
- if cash_money[2]>=1 and not marketer.unlocked then
+ if cash_money[3]>=1 and not marketer.unlocked then
   marketer.unlocked=true
   add(scene.available_upgrades, marketer)
  end
- if cash_money[3]>=1 and not sales.unlocked then
+ if cash_money[2]>=1 and not sales.unlocked then
   sales.unlocked=true
   add(scene.available_upgrades, sales)
  end
@@ -2343,7 +2343,7 @@ banker={
  max_quantity=1,
  icon=174,
  update=function(scene)
- if cash_money[2]==32767 then
+  if cash_money[2]==32767 then
    cash_money[2]=0
    add_money(1,3)
   end
