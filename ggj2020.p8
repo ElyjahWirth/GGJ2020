@@ -556,7 +556,7 @@ function new_kitchen_scene()
    end
    if #scene.mixer_contents!=0 then
     scene.current_recipe = lookup_recipe(scene.mixer_contents)
-    if scene.current_recipe and scene.current_recipe.output then scene.current_output=recipe.output else scene.current_output=badjam end
+    if scene.current_recipe and scene.current_recipe.output then scene.current_output=scene.current_recipe.output else scene.current_output=badjam end
     if btnp(4) then
      scene.process_mix=true
      if not scene.current_recipe.discovered then
