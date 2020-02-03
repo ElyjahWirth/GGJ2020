@@ -559,9 +559,11 @@ function new_kitchen_scene()
     if scene.current_recipe and scene.current_recipe.output then scene.current_output=scene.current_recipe.output else scene.current_output=badjam end
     if btnp(4) then
      scene.process_mix=true
-     if not scene.current_recipe.discovered then
-      scene.current_recipe.discovered=true
-      add(known_good_recipes, scene.current_recipe)
+     if scene.current_recipe then
+      if not scene.current_recipe.discovered then
+       scene.current_recipe.discovered=true
+       add(known_good_recipes, scene.current_recipe)
+      end
      end
     end
    end
