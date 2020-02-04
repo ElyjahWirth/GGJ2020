@@ -759,7 +759,7 @@ bananaberrytrijam={
  shortname="bananatrijama",
  unlocked=false,
  icon=function() return 9 end,
- base_price=30,
+ base_price=40,
  demand_rate=0.01,
  gen=1,
  scale=2
@@ -769,9 +769,9 @@ bananaberrynanajam={
  shortname="bananananajama",
  unlocked=false,
  icon=function() return 9 end,
- base_price=9000,
+ base_price=500,
  demand_rate=0.01,
- gen=1,
+ gen=2,
  scale=2
 }
 
@@ -801,7 +801,7 @@ blueberrynanajam={
  icon=function() return 2 end,
  base_price=90,
  demand_rate=0.01,
- gen=1,
+ gen=2,
  scale=1
 }
 
@@ -809,8 +809,8 @@ manberryjam={
  shortname="manberry jam",
  unlocked=false,
  icon=function() return 5 end,
- base_price=100,
- demand_rate=0.01,
+ base_price=250,
+ demand_rate=0.02,
  gen=1,
  scale=1
 }
@@ -819,8 +819,8 @@ manberrytrijam={
  shortname="m.triberry jam",
  unlocked=false,
  icon=function() return 11 end,
- base_price=300,
- demand_rate=0.03,
+ base_price=500,
+ demand_rate=0.04,
  gen=1,
  scale=1
 }
@@ -829,9 +829,9 @@ manberrynanajam={
  shortname="mananabery jam",
  unlocked=false,
  icon=function() return 64 end,
- base_price=900,
- demand_rate=0.09,
- gen=1,
+ base_price=1000,
+ demand_rate=0.06,
+ gen=2,
  scale=1
 }
 
@@ -839,19 +839,19 @@ bluemanberryjam={
  shortname="blumanbery jam",
  unlocked=false,
  icon=function() return 8 end,
- base_price=110,
- demand_rate=0.03,
- gen=1,
- scale=1
+ base_price=1,
+ demand_rate=0.01,
+ gen=2,
+ scale=2
 }
 
 strawmanberryjam={
  shortname="s.manberry jam",
  unlocked=false,
  icon=function() return 7 end,
- base_price=102,
+ base_price=250,
  demand_rate=0.01,
- gen=1,
+ gen=2,
  scale=1
 }
 
@@ -859,7 +859,7 @@ bluestrawberyjam={
  shortname="b.s.berry jam",
  unlocked=false,
  icon=function() return 6 end,
- base_price=12,
+ base_price=20,
  demand_rate=0.03,
  gen=2,
  scale=1
@@ -869,18 +869,18 @@ bluemanstrawberyjam={
  shortname="b.m.s.bery jam",
  unlocked=false,
  icon=function() return 10 end,
- base_price=112,
- demand_rate=0.07,
+ base_price=1,
+ demand_rate=0.01,
  gen=3,
- scale=1
+ scale=2
 }
 
 globerryjam={
  shortname="globerry jam",
  unlocked=false,
  icon=function() return 33 end,
- base_price=1,
- demand_rate=0.01,
+ base_price=250,
+ demand_rate=0.02,
  gen=1,
  scale=2
 }
@@ -889,8 +889,8 @@ globtriberryjam={
  shortname="g.triberry jam",
  unlocked=false,
  icon=function() return 33 end,
- base_price=3,
- demand_rate=0.03,
+ base_price=500,
+ demand_rate=0.02,
  gen=1,
  scale=2
 }
@@ -899,8 +899,8 @@ globnanaberryjam={
  shortname="g.nanabery jam",
  unlocked=false,
  icon=function() return 33 end,
- base_price=9,
- demand_rate=0.01,
+ base_price=1000,
+ demand_rate=0.02,
  gen=2,
  scale=2
 }
@@ -909,8 +909,8 @@ globlueberryjam={
  shortname="g.b.berry jam",
  unlocked=false,
  icon=function() return 34 end,
- base_price=15,
- demand_rate=0.02,
+ base_price=250,
+ demand_rate=0.04,
  gen=2,
  scale=2
 }
@@ -919,8 +919,8 @@ globstrawberryjam={
  shortname="g.s.berry jam",
  unlocked=false,
  icon=function() return 36 end,
- base_price=10,
- demand_rate=0.07,
+ base_price=250,
+ demand_rate=0.04,
  gen=2,
  scale=2
 }
@@ -929,9 +929,9 @@ globmanberryjam={
  shortname="g.manberry jam",
  unlocked=false,
  icon=function() return 37 end,
- base_price=20,
+ base_price=200,
  demand_rate=0.01,
- gen=2,
+ gen=3,
  scale=2
 }
 
@@ -939,9 +939,9 @@ globluestrawberryjam={
  shortname="g.b.s.bery jam",
  unlocked=false,
  icon=function() return 38 end,
- base_price=20,
- demand_rate=0.03,
- gen=3,
+ base_price=350,
+ demand_rate=0.06,
+ gen=4,
  scale=2
 }
 
@@ -949,9 +949,9 @@ globluemanberryjam={
  shortname="g.b.m.bery jam",
  unlocked=false,
  icon=function() return 39 end,
- base_price=30,
- demand_rate=0.02,
- gen=3,
+ base_price=250,
+ demand_rate=0.03,
+ gen=4,
  scale=2
 }
 
@@ -959,9 +959,9 @@ globstrawmanberryjam={
  shortname="g.s.m.bery jam",
  unlocked=false,
  icon=function() return 56 end,
- base_price=25,
- demand_rate=0.01,
- gen=3,
+ base_price=250,
+ demand_rate=0.03,
+ gen=4,
  scale=2
 }
 
@@ -969,7 +969,7 @@ galactijam={
  shortname="globerry jam",
  unlocked=false,
  icon=function() return 66 end,
- base_price=1,
+ base_price=10,
  demand_rate=0.01,
  gen=1,
  scale=3
@@ -979,8 +979,8 @@ galactilactilactijam={
  shortname="galactrijam",
  unlocked=false,
  icon=function() return 66 end,
- base_price=3,
- demand_rate=0.02,
+ base_price=30,
+ demand_rate=0.01,
  gen=1,
  scale=3
 }
@@ -989,28 +989,28 @@ galactinanajam={
  shortname="galactinanajam",
  unlocked=false,
  icon=function() return 66 end,
- base_price=10,
- demand_rate=0.05,
- gen=2,
+ base_price=90,
+ demand_rate=0.01,
+ gen=1,
  scale=3
 }
 
 glactiblueberryjam={
- shortname="glactib. jam",
+ shortname="galactib. jam",
  unlocked=false,
  icon=function() return 112 end,
- base_price=3,
- demand_rate=0.01,
+ base_price=10,
+ demand_rate=0.03,
  gen=2,
  scale=3
 }
 
 glactistrawberryjam={
- shortname="glactis. jam",
+ shortname="galactis. jam",
  unlocked=false,
  icon=function() return 113 end,
- base_price=2,
- demand_rate=0.07,
+ base_price=10,
+ demand_rate=0.05,
  gen=2,
  scale=3
 }
@@ -1019,9 +1019,9 @@ galactimanberryjam={
  shortname="galactim. jam",
  unlocked=false,
  icon=function() return 114 end,
- base_price=20,
- demand_rate=0.05,
- gen=2,
+ base_price=10,
+ demand_rate=0.02,
+ gen=3,
  scale=3
 }
 
@@ -1029,9 +1029,9 @@ galactigloberryjam={
  shortname="galactig. jam",
  unlocked=false,
  icon=function() return 57 end,
- base_price=30,
- demand_rate=0.01,
- gen=3,
+ base_price=10,
+ demand_rate=0.075,
+ gen=4,
  scale=3
 }
 
@@ -1039,8 +1039,8 @@ galactibluestrawberryjam={
  shortname="galactib.s.jam",
  unlocked=false,
  icon=function() return 58 end,
- base_price=12,
- demand_rate=0.01,
+ base_price=10,
+ demand_rate=0.04,
  gen=3,
  scale=3
 }
@@ -1049,9 +1049,9 @@ galactibluemanberryjam={
  shortname="galactib.m.jam",
  unlocked=false,
  icon=function() return 59 end,
- base_price=11,
- demand_rate=0.02,
- gen=3,
+ base_price=10,
+ demand_rate=0.01,
+ gen=4,
  scale=3
 }
 
@@ -1059,9 +1059,9 @@ galactibluegloberryjam={
  shortname="galactib.g.jam",
  unlocked=false,
  icon=function() return 79 end,
- base_price=15,
- demand_rate=0.05,
- gen=3,
+ base_price=10,
+ demand_rate=0.01,
+ gen=5,
  scale=3
 }
 
@@ -1069,9 +1069,9 @@ galactistrawmanberryjam={
  shortname="galactis.m.jam",
  unlocked=false,
  icon=function() return 111 end,
- base_price=11,
- demand_rate=0.01,
- gen=3,
+ base_price=10,
+ demand_rate=0.03,
+ gen=4,
  scale=3
 }
 
@@ -1079,9 +1079,9 @@ galctistrawgloberryjam={
  shortname="galactis.g.jam",
  unlocked=false,
  icon=function() return 95 end,
- base_price=1,
- demand_rate=0.1,
- gen=3,
+ base_price=10,
+ demand_rate=0.6,
+ gen=5,
  scale=3
 }
 
@@ -1089,9 +1089,9 @@ galactiglobemanberryjam={
  shortname="galactig.m.jam",
  unlocked=false,
  icon=function() return 127 end,
- base_price=100,
- demand_rate=0.01,
- gen=3,
+ base_price=10,
+ demand_rate=0.045,
+ gen=6,
  scale=3
 }
 
@@ -1099,7 +1099,7 @@ darkjam={
  shortname="dark jam",
  unlocked=false,
  icon=function() return 80 end,
- base_price=1,
+ base_price=25,
  demand_rate=0.01,
  gen=1,
  scale=4
@@ -1109,7 +1109,7 @@ darktrijam={
  shortname="darktri jam",
  unlocked=false,
  icon=function() return 80 end,
- base_price=3,
+ base_price=80,
  demand_rate=0.02,
  gen=1,
  scale=4
@@ -1119,7 +1119,7 @@ darknanajam={
  shortname="darknana jam",
  unlocked=false,
  icon=function() return 80 end,
- base_price=9,
+ base_price=250,
  demand_rate=0.03,
  gen=2,
  scale=4
@@ -1129,8 +1129,8 @@ bigberryjam={
  shortname="bigberry jam",
  unlocked=false,
  icon=function() return 82 end,
- base_price=10,
- demand_rate=0.02,
+ base_price=5,
+ demand_rate=0.1,
  gen=1,
  scale=2
 }
@@ -1139,8 +1139,8 @@ bigtriberryjam={
  shortname="bigtribery jam",
  unlocked=false,
  icon=function() return 82 end,
- base_price=30,
- demand_rate=0.01,
+ base_price=50,
+ demand_rate=0.05,
  gen=1,
  scale=2
 }
@@ -1149,8 +1149,8 @@ bignanaberryjam={
  shortname="biganabery jam",
  unlocked=false,
  icon=function() return 82 end,
- base_price=45,
- demand_rate=0.03,
+ base_price=250,
+ demand_rate=0.01,
  gen=2,
  scale=2
 }
@@ -1159,9 +1159,9 @@ bangberryjam={
  shortname="bangberry jam",
  unlocked=false,
  icon=function() return 96 end,
- base_price=5,
+ base_price=1,
  demand_rate=0.01,
- gen=1,
+ gen=3,
  scale=4
 }
 
@@ -1189,9 +1189,29 @@ chaosjam={
  shortname="chaos jam",
  unlocked=false,
  icon=function() return 172 end,
- base_price=100,
+ base_price=1,
  demand_rate=0.01,
+ gen=2,
+ scale=4
+}
+
+alphachaosjam={
+ shortname="alphachaos jam",
+ unlocked=false,
+ icon=function() return 172 end,
+ base_price=10,
+ demand_rate=0.04,
  gen=3,
+ scale=4
+}
+
+omegachaosjam={
+ shortname="omegachaos jam",
+ unlocked=false,
+ icon=function() return 172 end,
+ base_price=50,
+ demand_rate=0.1,
+ gen=4,
  scale=4
 }
 
@@ -1210,7 +1230,7 @@ badtrijam={
  unlocked=false,
  icon=function() return 3 end,
  base_price=3,
- demand_rate=0.05,
+ demand_rate=0.01,
  gen=1,
  scale=1
 }
@@ -1220,7 +1240,7 @@ badnanajam={
  unlocked=false,
  icon=function() return 3 end,
  base_price=10,
- demand_rate=0.01,
+ demand_rate=0.05,
  gen=2,
  scale=1
 }
@@ -1239,7 +1259,7 @@ primordialjam={
  shortname="primordial jam",
  unlocked=false,
  icon=function() return 65 end,
- base_price=1,
+ base_price=32767,
  demand_rate=10,
  gen=6,
  scale=4
@@ -1984,26 +2004,28 @@ recipes={
  --chaos jam--
  {
   inputs={
-   bigberry,
-   badjam,
-  },
-  output=chaosjam
- },
- {
-  inputs={
-   darkberry,
-   badjam,
-  },
-  output=chaosjam
- },
- {
-  inputs={
-   badjam,
    bangberry,
+   bigberry,
+   badnanajam,
   },
   output=chaosjam
  },
-
+ {
+  inputs={
+   chaosjam,
+   chaosjam,
+   badnanajam,
+  },
+  output=alphachaosjam
+ },
+ {
+  inputs={
+   alphachaosjam,
+   alphachaosjam,
+   badnanajam,
+  },
+  output=omegachaosjam
+ },
  --badtri jam--
  {
   inputs={
@@ -2077,7 +2099,7 @@ function check_for_unlocks(scene)
   add(screen.active_scenes[1].bushes, bangberry_bush)
  end
 
- if cash_money[4]>=32767 and not darkberry_bush.unlocked then
+ if cash_money[4]>=2500 and not darkberry_bush.unlocked then
   darkberry_bush.unlocked=true
   add(screen.active_scenes[1].bushes, darkberry_bush)
  end
