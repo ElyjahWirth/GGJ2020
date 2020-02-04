@@ -755,7 +755,6 @@ bananaberryjam={
  scale=2
 }
 
-
 bananaberrytrijam={
  shortname="bananatrijama",
  unlocked=false,
@@ -1076,7 +1075,7 @@ galactistrawmanberryjam={
  scale=3
 }
 
-galctistawgloberryjam={
+galctistrawgloberryjam={
  shortname="galactis.g.jam",
  unlocked=false,
  icon=function() return 95 end,
@@ -1864,14 +1863,14 @@ recipes={
   output=galactistrawmanberryjam
  },
 
- --galctistawgloberryjam--
+ --galctistrawgloberryjam--
  {
   inputs={
    galactiberry,
    strawberry,
    globerry
   },
-  output=galctistawgloberryjam
+  output=galctistrawgloberryjam
  },
 
  --galactiglobemanberryjam--
