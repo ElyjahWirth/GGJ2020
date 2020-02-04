@@ -102,10 +102,11 @@ function new_start_screen()
  s.draw=function(s)
   cls()
   for i=1,#s.opts,1 do
-   print(s.opts[i], 60, 60+(10*i))
+   print(s.opts[i], 50, 60+(10*i))
   end
-  spr(32,50,60+(10*s.selected))
-  print("global jam game", 60, 20)
+  spr(32,40,58+(10*s.selected))
+  print("gram jam", 40, 20)
+  print("the global jam game", 50, 28)
  end
 
  s:init()
