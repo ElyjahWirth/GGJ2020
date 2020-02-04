@@ -780,10 +780,10 @@ bananaberryjam={
  unlocked=false,
  icon=function() return 9 end,
  quantity=0,
- base_price=1000,
+ base_price=10,
  demand_rate=0.01,
  gen=1,
- scale=1
+ scale=2
 }
 
 
@@ -792,21 +792,21 @@ bananaberrytrijam={
  unlocked=false,
  icon=function() return 9 end,
  quantity=0,
- base_price=3000,
+ base_price=30,
  demand_rate=0.01,
  gen=1,
- scale=1
+ scale=2
 }
 
 bananaberrynanajam={
  shortname="bananananajama",
  unlocked=false,
  icon=function() return 9 end,
- quantity=0,
+ quantity=90,
  base_price=9000,
  demand_rate=0.01,
  gen=1,
- scale=1
+ scale=2
 }
 
 blueberryjam={
@@ -904,7 +904,7 @@ bluestrawberyjam={
  quantity=0,
  base_price=12,
  demand_rate=0.03,
- gen=3,
+ gen=2,
  scale=1
 }
 
@@ -1059,7 +1059,7 @@ glactiblueberryjam={
  quantity=0,
  base_price=3,
  demand_rate=0.01,
- gen=3,
+ gen=2,
  scale=3
 }
 
