@@ -639,7 +639,7 @@ function get_price(jam)
   if(price==32767) return price
  end
 
- return increment(price, base_price*multipler)
+ return increment(price, base_price*multiplier)
 end
 
 function get_generatoin_modifier(jam)
