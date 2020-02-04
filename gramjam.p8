@@ -1,18 +1,21 @@
 pico-8 cartridge // http://www.pico-8.com
 version 18
 __lua__
---globals--
-cash_symbols={}
-cash_symbols[1]="\x98"
-cash_symbols[2]="\x93"
-cash_symbols[3]="\x88"
-cash_symbols[4]="\x85"
-cash_money={}
-cash_money[1]=50
-cash_money[2]=0
-cash_money[3]=0
-cash_money[4]=0
-known_good_recipes={}
+--gram jam
+sale_period_length=1.0
+global_demand_weight=1.0
+global_demand_rate_mod=1.0
+global_base_price_weight=1.0
+global_generation_weight=1.0
+global_quality_weight=1.0
+global_marketing_efficiency=1.0
+global_demand_loss=0.01
+global_demand_loss_modifier=1.0
+global_harvest_speed=1.0
+global_cook_speed=1.0
+global_sale_volume=1
+cash_symbols={"\x98","\x93","\x88","\x85"}
+cash_money={50,0,0,0}
 jam_timer=0
 game_over=false
 accountant_unlocked=false
@@ -42,21 +45,20 @@ function lose_money(value, scale)
 end
 
 function can_spend(value, scale)
- if cash_money[scale]-value < 0 or cash_money[scale]-value > cash_money[scale] then
-  return false
- else
-  return true
- end
+ if (cash_money[scale]-value < 0 or cash_money[scale]-value > cash_money[scale]) return false
+ return true
 end
 
 function increment(value, num)
  if (num==nil) num=1
- if value+num<0 then return 32767 else return value+num end
+ if (value+num<0) return 32767
+ return value+num
 end
 
 function decrement(value, num)
  if (num==nil) num=1
- if value-num<0 then return 0 else return value-num end
+ if (value-num<0) return 0
+ return value-num
 end
 
 
@@ -144,6 +146,7 @@ end
 function new_gameover_screen()
  local s={}
  s.init=function(s)
+  s.lines={"you have repaired the universe","you have returned all to","the primardial jam"}
   s.back=false
   game_over=true
  end
@@ -158,9 +161,9 @@ function new_gameover_screen()
 
  s.draw=function(s)
   cls()
-  print("you have repaired the universe",0,8)
-  print("you have returned all to",0,16)
-  print("the primardial jam",0,24)
+  for i=1,#s.lines,1 do
+   print(s.lines[i],(i*10),(i*8))
+  end
   sspr(8,32,8,8,48,48,32,32)
   local score="score: "..(32767-jam_timer)
   print(score,64-(4*(#score/2)),82)
@@ -193,9 +196,6 @@ function new_game_screen()
   for scene in all(s.scenes) do
    scene:update()
   end
-  for sys in all(s.update_systems) do
-   sys.update()
-  end
 
   s.active_scenes[s.current_scene].active=false
   if (btnp(0)) then
@@ -212,9 +212,7 @@ function new_game_screen()
  s.draw=function(s)
   cls()
   s.active_scenes[s.current_scene]:draw()
-  for sys in all(s.draw_systems) do
-   sys.draw()
-  end
+
   --draw the transition buttons--
   sspr(s.active_scenes[1].icon.x,s.active_scenes[1].icon.y,32,16,0,104)
   if (s.active_scenes[2]) sspr(s.active_scenes[2].icon.x, s.active_scenes[2].icon.y,32,16,32,104)
@@ -222,8 +220,7 @@ function new_game_screen()
   if (s.active_scenes[4]) sspr(s.active_scenes[4].icon.x, s.active_scenes[4].icon.y,32,16,96,104)
   --highlight current button
   local xpos=(s.current_scene-1)*32
-  local ypos=104
-  rect(xpos-1,ypos,xpos+32,ypos+15,7)
+  rect(xpos-1,104,xpos+32,119,7)
 
   local dollar_x=0
   local price=cash_symbols[1]..flr(cash_money[1])
@@ -247,10 +244,6 @@ end
 function new_scene()
  local s={}
  s.active=false
- s.update=function(scene) end
- s.draw=function(scene)
-  map(scene.background.x,scene.background.y,0,0,16,16)
- end
  s.unlocked=false
  s.background={
   x=0,
@@ -289,6 +282,7 @@ function new_upgrade_scene()
    end
 
    local selected=scene.available_upgrades[scene.selected_upgrade]
+   if(not selected.quantity) selected.quantity=0
    if btnp(5) and can_spend(selected.price, selected.scale) and selected.quantity < selected.max_quantity then
     if not (selected==banker or selected==accountant or selected==blockchain) then
      if (selected.quantity==0) add(s.purchased_upgrades, selected)
@@ -376,8 +370,8 @@ function new_store_scene()
   for jam in all(scene.stock) do
    if jam.sale_period_counter==nil then jam.sale_period_counter=0 end
    jam.sale_period_counter=increment(jam.sale_period_counter,1/30)
-   if jam.sale_period_counter > jam_sale_constants.sale_period_length then
-    local temp_demand = get_demand(jam)+(jam.demand_rate*jam_sale_constants.global_demand_rate_mod)
+   if jam.sale_period_counter > sale_period_length then
+    local temp_demand = get_demand(jam)+(jam.demand_rate*global_demand_rate_mod)
     if (temp_demand < 0) temp_demand=32767
     jam.demand=temp_demand
     jam.sale_period_counter=0.0
@@ -475,6 +469,7 @@ function new_farm_scene()
      }
      add(scene.planted_bushes, new_bush)
      lose_money(desired_bush.price, desired_bush.scale)
+     if(not desired_bush.quantity) desired_bush.quantity=0
      desired_bush.quantity=increment(desired_bush.quantity)
     end
    end
@@ -629,45 +624,29 @@ end
 
 -->8
 --ingredients--
-jam_sale_constants={
- sale_period_length=1.0,
- global_demand_weight=1.0,
- global_demand_rate_mod=1.0,
- global_base_price_weight=1.0,
- global_generation_weight=1.0,
- global_quality_weight=1.0,
- global_marketing_efficiency=1.0,
- global_demand_loss=0.01,
- global_demand_loss_modifier=1.0,
- global_harvest_speed=1.0,
- global_cook_speed=1.0,
- global_sale_volume=1
-}
-
 function get_price(jam)
- local price=get_base_price(jam) * get_generatoin_modifier(jam) * get_demand(jam) * jam_sale_constants.global_marketing_efficiency
+ local price=get_base_price(jam) * get_generatoin_modifier(jam) * get_demand(jam) * global_marketing_efficiency
  if(price < 0) price=32767
  return price
 end
 
 function get_generatoin_modifier(jam)
- return jam.gen*jam_sale_constants.global_generation_weight
+ return jam.gen*global_generation_weight
 end
 
 function get_base_price(jam)
- return jam.base_price * jam_sale_constants.global_base_price_weight * jam_sale_constants.global_quality_weight
+ return jam.base_price * global_base_price_weight * global_quality_weight
 end
 
 function get_demand(jam)
  if(jam.demand==nil) jam.demand=1
- return jam.demand*jam_sale_constants.global_demand_weight
+ return jam.demand*global_demand_weight
 end
 
 function sold(jam)
- local max_sold=min(jam.quantity, jam_sale_constants.global_sale_volume)
- for i=1,max_sold,1 do
+ for i=1,min(jam.quantity, global_sale_volume),1 do
   add_money(get_price(jam), jam.scale)
-  jam.demand = max(decrement(jam.demand,jam_sale_constants.global_demand_loss*jam_sale_constants.global_demand_loss_modifier), 0.01)
+  jam.demand = max(decrement(jam.demand,global_demand_loss*global_demand_loss_modifier), 0.01)
   jam.quantity=decrement(jam.quantity)
  end
 
@@ -678,21 +657,18 @@ strawberry={
  shortname="strawberry",
  unlocked=false,
  icon=function() return 16 end,
- quantity=0
 }
 
 blueberry={
  shortname="blueberry",
  unlocked=false,
  icon=function() return 17 end,
- quantity=0
 }
 
 bananaberry={
  shortname="bananaberry",
  unlocked=false,
  icon=function() return 63 end,
- quantity=0
 }
 
 manberry={
@@ -704,49 +680,42 @@ manberry={
  update_icon=function()
   manberry.current_icon=flr(rnd(#manberry.icon_options)+1)
  end,
- quantity=0
 }
 
 globerry={
  shortname="globerry",
  unlocked=false,
  icon=function() return 23 end,
- quantity=0
 }
 
 bigberry={
  shortname="bigberry",
  unlocked=false,
  icon=function() return 24 end,
- quantity=0
 }
 
 bangberry={
  shortname="bangberry",
  unlocked=false,
  icon=function() return 25 end,
- quantity=0
 }
 
 darkberry={
  shortname="darkberry",
  unlocked=false,
  icon=function() return 26 end,
- quantity=0
 }
 
 galactiberry={
  shortname="galactiberry",
  unlocked=false,
  icon=function() return 27 end,
- quantity=0
 }
 
 strawberryjam={
  shortname="strawberry jam",
  unlocked=false,
  icon=function() return 1 end,
- quantity=0,
  base_price=2,
  demand_rate=0.01,
  gen=1,
@@ -757,7 +726,6 @@ strawberrytrijam={
  shortname="s.tribery jam",
  unlocked=false,
  icon=function() return 1 end,
- quantity=0,
  base_price=6,
  demand_rate=0.01,
  gen=1,
@@ -768,7 +736,6 @@ strawberrynanajam={
  shortname="s.nanabery jam",
  unlocked=false,
  icon=function() return 1 end,
- quantity=0,
  base_price=18,
  demand_rate=0.01,
  gen=1,
@@ -779,7 +746,6 @@ bananaberryjam={
  shortname="bananajama",
  unlocked=false,
  icon=function() return 9 end,
- quantity=0,
  base_price=10,
  demand_rate=0.01,
  gen=1,
@@ -791,7 +757,6 @@ bananaberrytrijam={
  shortname="bananatrijama",
  unlocked=false,
  icon=function() return 9 end,
- quantity=0,
  base_price=30,
  demand_rate=0.01,
  gen=1,
@@ -802,7 +767,6 @@ bananaberrynanajam={
  shortname="bananananajama",
  unlocked=false,
  icon=function() return 9 end,
- quantity=90,
  base_price=9000,
  demand_rate=0.01,
  gen=1,
@@ -813,7 +777,6 @@ blueberryjam={
  shortname="blueberry jam",
  unlocked=false,
  icon=function() return 2 end,
- quantity=0,
  base_price=10,
  demand_rate=0.01,
  gen=1,
@@ -824,7 +787,6 @@ blueberrytrijam={
  shortname="b.tribery jam",
  unlocked=false,
  icon=function() return 2 end,
- quantity=0,
  base_price=30,
  demand_rate=0.01,
  gen=1,
@@ -835,7 +797,6 @@ blueberrynanajam={
  shortname="b.nanabery jam",
  unlocked=false,
  icon=function() return 2 end,
- quantity=0,
  base_price=90,
  demand_rate=0.01,
  gen=1,
@@ -846,7 +807,6 @@ manberryjam={
  shortname="manberry jam",
  unlocked=false,
  icon=function() return 5 end,
- quantity=0,
  base_price=100,
  demand_rate=0.01,
  gen=1,
@@ -857,7 +817,6 @@ manberrytrijam={
  shortname="m.triberry jam",
  unlocked=false,
  icon=function() return 11 end,
- quantity=0,
  base_price=300,
  demand_rate=0.03,
  gen=1,
@@ -868,7 +827,6 @@ manberrynanajam={
  shortname="mananabery jam",
  unlocked=false,
  icon=function() return 64 end,
- quantity=0,
  base_price=900,
  demand_rate=0.09,
  gen=1,
@@ -879,7 +837,6 @@ bluemanberryjam={
  shortname="blumanbery jam",
  unlocked=false,
  icon=function() return 8 end,
- quantity=0,
  base_price=110,
  demand_rate=0.03,
  gen=1,
@@ -890,7 +847,6 @@ strawmanberryjam={
  shortname="s.manberry jam",
  unlocked=false,
  icon=function() return 7 end,
- quantity=0,
  base_price=102,
  demand_rate=0.01,
  gen=1,
@@ -901,7 +857,6 @@ bluestrawberyjam={
  shortname="b.s.berry jam",
  unlocked=false,
  icon=function() return 6 end,
- quantity=0,
  base_price=12,
  demand_rate=0.03,
  gen=2,
@@ -912,7 +867,6 @@ bluemanstrawberyjam={
  shortname="b.m.s.bery jam",
  unlocked=false,
  icon=function() return 10 end,
- quantity=0,
  base_price=112,
  demand_rate=0.07,
  gen=3,
@@ -923,7 +877,6 @@ globerryjam={
  shortname="globerry jam",
  unlocked=false,
  icon=function() return 33 end,
- quantity=0,
  base_price=1,
  demand_rate=0.01,
  gen=1,
@@ -934,11 +887,9 @@ globtriberryjam={
  shortname="g.triberry jam",
  unlocked=false,
  icon=function() return 33 end,
- quantity=0,
  base_price=3,
  demand_rate=0.03,
  gen=1,
- demand=1,
  scale=2
 }
 
@@ -946,7 +897,6 @@ globnanaberryjam={
  shortname="g.nanabery jam",
  unlocked=false,
  icon=function() return 33 end,
- quantity=0,
  base_price=9,
  demand_rate=0.01,
  gen=2,
@@ -957,7 +907,6 @@ globlueberryjam={
  shortname="g.b.berry jam",
  unlocked=false,
  icon=function() return 34 end,
- quantity=0,
  base_price=15,
  demand_rate=0.02,
  gen=2,
@@ -968,7 +917,6 @@ globstrawberryjam={
  shortname="g.s.berry jam",
  unlocked=false,
  icon=function() return 36 end,
- quantity=0,
  base_price=10,
  demand_rate=0.07,
  gen=2,
@@ -979,7 +927,6 @@ globmanberryjam={
  shortname="g.manberry jam",
  unlocked=false,
  icon=function() return 37 end,
- quantity=0,
  base_price=20,
  demand_rate=0.01,
  gen=2,
@@ -990,7 +937,6 @@ globluestrawberryjam={
  shortname="g.b.s.bery jam",
  unlocked=false,
  icon=function() return 38 end,
- quantity=0,
  base_price=20,
  demand_rate=0.03,
  gen=3,
@@ -1001,7 +947,6 @@ globluemanberryjam={
  shortname="g.b.m.bery jam",
  unlocked=false,
  icon=function() return 39 end,
- quantity=0,
  base_price=30,
  demand_rate=0.02,
  gen=3,
@@ -1012,7 +957,6 @@ globstrawmanberryjam={
  shortname="g.s.m.bery jam",
  unlocked=false,
  icon=function() return 56 end,
- quantity=0,
  base_price=25,
  demand_rate=0.01,
  gen=3,
@@ -1023,7 +967,6 @@ galactijam={
  shortname="globerry jam",
  unlocked=false,
  icon=function() return 66 end,
- quantity=0,
  base_price=1,
  demand_rate=0.01,
  gen=1,
@@ -1034,7 +977,6 @@ galactilactilactijam={
  shortname="galactrijam",
  unlocked=false,
  icon=function() return 66 end,
- quantity=0,
  base_price=3,
  demand_rate=0.02,
  gen=1,
@@ -1045,7 +987,6 @@ galactinanajam={
  shortname="galactinanajam",
  unlocked=false,
  icon=function() return 66 end,
- quantity=0,
  base_price=10,
  demand_rate=0.05,
  gen=2,
@@ -1056,7 +997,6 @@ glactiblueberryjam={
  shortname="glactib. jam",
  unlocked=false,
  icon=function() return 112 end,
- quantity=0,
  base_price=3,
  demand_rate=0.01,
  gen=2,
@@ -1067,7 +1007,6 @@ glactistrawberryjam={
  shortname="glactis. jam",
  unlocked=false,
  icon=function() return 113 end,
- quantity=0,
  base_price=2,
  demand_rate=0.07,
  gen=2,
@@ -1078,7 +1017,6 @@ galactimanberryjam={
  shortname="galactim. jam",
  unlocked=false,
  icon=function() return 114 end,
- quantity=0,
  base_price=20,
  demand_rate=0.05,
  gen=2,
@@ -1089,7 +1027,6 @@ galactigloberryjam={
  shortname="galactig. jam",
  unlocked=false,
  icon=function() return 57 end,
- quantity=0,
  base_price=30,
  demand_rate=0.01,
  gen=3,
@@ -1100,7 +1037,6 @@ galactibluestrawberryjam={
  shortname="galactib.s.jam",
  unlocked=false,
  icon=function() return 58 end,
- quantity=0,
  base_price=12,
  demand_rate=0.01,
  gen=3,
@@ -1111,7 +1047,6 @@ galactibluemanberryjam={
  shortname="galactib.m.jam",
  unlocked=false,
  icon=function() return 59 end,
- quantity=0,
  base_price=11,
  demand_rate=0.02,
  gen=3,
@@ -1122,7 +1057,6 @@ galactibluegloberryjam={
  shortname="galactib.g.jam",
  unlocked=false,
  icon=function() return 79 end,
- quantity=0,
  base_price=15,
  demand_rate=0.05,
  gen=3,
@@ -1133,7 +1067,6 @@ galactistrawmanberryjam={
  shortname="galactis.m.jam",
  unlocked=false,
  icon=function() return 111 end,
- quantity=0,
  base_price=11,
  demand_rate=0.01,
  gen=3,
@@ -1144,7 +1077,6 @@ galctistawgloberryjam={
  shortname="galactis.g.jam",
  unlocked=false,
  icon=function() return 95 end,
- quantity=0,
  base_price=1,
  demand_rate=0.1,
  gen=3,
@@ -1155,7 +1087,6 @@ galactiglobemanberryjam={
  shortname="galactig.m.jam",
  unlocked=false,
  icon=function() return 127 end,
- quantity=0,
  base_price=100,
  demand_rate=0.01,
  gen=3,
@@ -1166,7 +1097,6 @@ darkjam={
  shortname="dark jam",
  unlocked=false,
  icon=function() return 80 end,
- quantity=0,
  base_price=1,
  demand_rate=0.01,
  gen=1,
@@ -1177,7 +1107,6 @@ darktrijam={
  shortname="darktri jam",
  unlocked=false,
  icon=function() return 80 end,
- quantity=0,
  base_price=3,
  demand_rate=0.02,
  gen=1,
@@ -1188,7 +1117,6 @@ darknanajam={
  shortname="darknana jam",
  unlocked=false,
  icon=function() return 80 end,
- quantity=0,
  base_price=9,
  demand_rate=0.03,
  gen=2,
@@ -1199,7 +1127,6 @@ bigberryjam={
  shortname="bigberry jam",
  unlocked=false,
  icon=function() return 82 end,
- quantity=0,
  base_price=10,
  demand_rate=0.02,
  gen=1,
@@ -1210,7 +1137,6 @@ bigtriberryjam={
  shortname="bigtribery jam",
  unlocked=false,
  icon=function() return 82 end,
- quantity=0,
  base_price=30,
  demand_rate=0.01,
  gen=1,
@@ -1221,7 +1147,6 @@ bignanaberryjam={
  shortname="biganabery jam",
  unlocked=false,
  icon=function() return 82 end,
- quantity=0,
  base_price=45,
  demand_rate=0.03,
  gen=2,
@@ -1232,7 +1157,6 @@ bangberryjam={
  shortname="bangberry jam",
  unlocked=false,
  icon=function() return 96 end,
- quantity=0,
  base_price=5,
  demand_rate=0.01,
  gen=1,
@@ -1243,7 +1167,6 @@ bangtriberryjam={
  shortname="bangtriberyjam",
  unlocked=false,
  icon=function() return 96 end,
- quantity=0,
  base_price=15,
  demand_rate=0.01,
  gen=1,
@@ -1254,7 +1177,6 @@ bangnanaberryjam={
  shortname="bangnanabeyjam",
  unlocked=false,
  icon=function() return 96 end,
- quantity=0,
  base_price=30,
  demand_rate=0.07,
  gen=2,
@@ -1265,7 +1187,6 @@ chaosjam={
  shortname="chaos jam",
  unlocked=false,
  icon=function() return 172 end,
- quantity=0,
  base_price=100,
  demand_rate=0.01,
  gen=3,
@@ -1276,7 +1197,6 @@ badjam={
  shortname="bad jam",
  unlocked=false,
  icon=function() return 3 end,
- quantity=0,
  base_price=1,
  demand_rate=0.01,
  gen=1,
@@ -1287,7 +1207,6 @@ badtrijam={
  shortname="badtri jam",
  unlocked=false,
  icon=function() return 3 end,
- quantity=0,
  base_price=3,
  demand_rate=0.05,
  gen=1,
@@ -1298,7 +1217,6 @@ badnanajam={
  shortname="badnana jam",
  unlocked=false,
  icon=function() return 3 end,
- quantity=0,
  base_price=10,
  demand_rate=0.01,
  gen=2,
@@ -1309,7 +1227,6 @@ bigbangjam={
  shortname="bigbang jam",
  unlocked=false,
  icon=function() return 81 end,
- quantity=0,
  base_price=100,
  demand_rate=0.01,
  gen=2,
@@ -1320,7 +1237,6 @@ primordialjam={
  shortname="primordial jam",
  unlocked=false,
  icon=function() return 65 end,
- quantity=0,
  base_price=1,
  demand_rate=10,
  gen=6,
@@ -1346,6 +1262,7 @@ function harvest_bush(bush)
   screen.active_scenes[2]=screen.scenes[2]
   screen.active_scenes[2].unlocked=true
  end
+ if(not bush.template.produce.quantity) bush.template.produce.quantity=0
  bush.template.produce.quantity=increment(bush.template.produce.quantity)
  if not bush.template.produce.unlocked then
   add(screen.active_scenes[2].available_ingredients, bush.template.produce)
@@ -1363,7 +1280,6 @@ strawberry_bush={
  produce=strawberry,
  harvest_time=10.0,
  unlocked=true,
- quantity=0
 }
 
 blueberry_bush={
@@ -1374,7 +1290,6 @@ blueberry_bush={
  produce=blueberry,
  harvest_time=3,
  unlocked=false,
- quantity=0
 }
 
 bananaberry_bush={
@@ -1385,7 +1300,6 @@ bananaberry_bush={
  produce=bananaberry,
  harvest_time=25.0,
  unlocked=false,
- quantity=0
 }
 
 manberry_bush={
@@ -1396,7 +1310,6 @@ manberry_bush={
  produce=manberry,
  harvest_time=100.0,
  unlocked=false,
- quantity=0
 }
 
 globerry_bush={
@@ -1407,7 +1320,6 @@ globerry_bush={
  produce=globerry,
  harvest_time=100.0,
  unlocked=false,
- quantity=0
 }
 
 bigberry_bush={
@@ -1418,7 +1330,6 @@ bigberry_bush={
  produce=bigberry,
  harvest_time=50.0,
  unlocked=false,
- quantity=0
 }
 
 bangberry_bush={
@@ -1429,7 +1340,6 @@ bangberry_bush={
  produce=bangberry,
  harvest_time=1.0,
  unlocked=false,
- quantity=0
 }
 
 darkberry_bush={
@@ -1440,7 +1350,6 @@ darkberry_bush={
  produce=darkberry,
  harvest_time=10.0,
  unlocked=false,
- quantity=0
 }
 
 galactiberry_bush={
@@ -1451,11 +1360,12 @@ galactiberry_bush={
  produce=galactiberry,
  harvest_time=10.0,
  unlocked=false,
- quantity=0
 }
 
 -->8
 --recipes--
+known_good_recipes={}
+
 function has_ingredients(recipe)
  input1=0
  input2=0
@@ -1495,6 +1405,7 @@ function spend_ingredients(recipe)
 end
 
 function gain_jam(jam)
+ if(not jam.quantity) jam.quantity=0
  store=screen.active_scenes[3]
  jam.quantity=increment(jam.quantity)
  if not jam.unlocked then
@@ -2196,6 +2107,7 @@ recipes={
 -->8
 -- upgrades --
 function check_for_unlocks(scene)
+ if(not primordialjam.quantity) primordialjam.quantity=0
  if (primordialjam.quantity >= 1) screen=new_gameover_screen()
 
  if cash_money[1]>=100 and not blueberry_bush.unlocked then
@@ -2292,7 +2204,7 @@ cook={
  countdown=0.0,
  update=function(scene)
   cook.countdown=increment(cook.countdown,1/30)
-  if cook.countdown > jam_sale_constants.global_cook_speed then
+  if cook.countdown > global_cook_speed then
    cook.countdown=0.0
    for i=1,cook.quantity,1 do
     for recipe in all(known_good_recipes) do
@@ -2314,13 +2226,12 @@ farmer={
  unlocked=false,
  price=100,
  scale=1,
- quantity=0,
  max_quantity=32767,
  icon=188,
  countdown=0.0,
  update=function(scene)
   farmer.countdown=increment(farmer.countdown,1/30)
-  if farmer.countdown > jam_sale_constants.global_harvest_speed then
+  if farmer.countdown > global_harvest_speed then
    farmer.countdown=0.0
    harvest(screen.active_scenes[1], farmer.quantity)
   end
@@ -2333,7 +2244,6 @@ accountant={
  unlocked=false,
  price=32767,
  scale=1,
- quantity=0,
  max_quantity=1,
  icon=173,
  on_purchase=function(scene)
@@ -2347,7 +2257,6 @@ banker={
  unlocked=false,
  price=32767,
  scale=2,
- quantity=0,
  max_quantity=1,
  icon=174,
  on_purchase=function(scene)
@@ -2361,7 +2270,6 @@ blockchain={
  unlocked=false,
  price=32767,
  scale=3,
- quantity=0,
  max_quantity=1,
  icon=175,
  on_purchase=function(scene)
@@ -2375,11 +2283,10 @@ sales={
  unlocked=false,
  price=1,
  scale=2,
- quantity=0,
  max_quantity=32767,
  icon=191,
  on_purchase=function(scene)
-  jam_sale_constants.global_sale_volume=increment(jam_sale_constants.global_sale_volume)
+  global_sale_volume=increment(global_sale_volume)
  end
 }
 
@@ -2389,11 +2296,10 @@ marketer={
  unlocked=false,
  price=1,
  scale=3,
- quantity=0,
  max_quantity=32767,
  icon=190,
  on_purchase=function(scene)
-  jam_sale_constants.global_demand_rate_mod=increment(jam_sale_constants.global_demand_rate_mod)
+  global_demand_rate_mod=increment(global_demand_rate_mod)
  end
 }
 
@@ -2403,11 +2309,10 @@ ceo={
  unlocked=false,
  price=1,
  scale=4,
- quantity=0,
  max_quantity=32767,
  icon=228,
  on_purchase=function(scene)
-  jam_sale_constants.global_marketing_efficiency=increment(jam_sale_constants.global_marketing_efficiency, 0.1)
+  global_marketing_efficiency=increment(global_marketing_efficiency, 0.1)
  end
 }
 __gfx__
