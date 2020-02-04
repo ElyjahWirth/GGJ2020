@@ -63,6 +63,9 @@ end
 
 
 function _init()
+ for r in all(recipes) do
+  r.discovered=false
+ end
  screen = new_start_screen()
 end
 
@@ -1521,7 +1524,6 @@ end
 recipes={
  --strawberry jam--
  {
-  discovered=false,
   inputs={
    strawberry
   },
@@ -1529,7 +1531,6 @@ recipes={
  },
  --strawtriberry jam--
  {
-  discovered=false,
   inputs={
    strawberry,
    strawberry,
@@ -1539,7 +1540,6 @@ recipes={
  },
  --strawnanaberry jam--
  {
-  discovered=false,
   inputs={
    strawberrytrijam,
    strawberrytrijam,
@@ -1548,7 +1548,6 @@ recipes={
   output=strawberrynanajam
  },
  {
-  discovered=false,
   inputs={
    strawberry,
    bananaberry
@@ -1558,7 +1557,6 @@ recipes={
 
  --blueberry jam--
  {
-  discovered=false,
   inputs={
    blueberry
   },
@@ -1566,7 +1564,6 @@ recipes={
  },
 --bluetriberry jam--
  {
-  discovered=false,
   inputs={
    blueberry,
    blueberry,
@@ -1576,7 +1573,6 @@ recipes={
  },
  --bluenanaberry jam--
  {
-  discovered=false,
   inputs={
    blueberrytrijam,
    blueberrytrijam,
@@ -1585,7 +1581,6 @@ recipes={
   output=blueberrynanajam
  },
  {
-  discovered=false,
   inputs={
    blueberry,
    bananaberry
@@ -1594,7 +1589,6 @@ recipes={
  },
 --bananaberry jam--
  {
-  discovered=false,
   inputs={
    bananaberry
   },
@@ -1602,7 +1596,6 @@ recipes={
  },
 --bananatriberry jam--
  {
-  discovered=false,
   inputs={
    bananaberry,
    bananaberry,
@@ -1612,7 +1605,6 @@ recipes={
  },
  --bananananaberry jam--
  {
-  discovered=false,
   inputs={
    bananaberrytrijam,
    bananaberrytrijam,
@@ -1622,7 +1614,6 @@ recipes={
  },
 --manberry jam--
  {
-  discovered=false,
   inputs={
    manberry
   },
@@ -1630,7 +1621,6 @@ recipes={
  },
  --mantriberry jam--
  {
-  discovered=false,
   inputs={
    manberry,
    manberry,
@@ -1640,7 +1630,6 @@ recipes={
  },
  --mananaberry jam
  {
-  discovered=false,
   inputs={
    manberrytrijam,
    manberrytrijam,
@@ -1649,7 +1638,6 @@ recipes={
   output=manberrynanajam
  },
  {
-  discovered=false,
   inputs={
    manberry,
    bananaberry
@@ -1658,7 +1646,6 @@ recipes={
  },
  --bluemanbery jam
  {
-  discovered=false,
   inputs={
    blueberry,
    manberry,
@@ -1667,7 +1654,6 @@ recipes={
  },
  --strawmanbery jam
  {
-  discovered=false,
   inputs={
    strawberry,
    manberry,
@@ -1676,7 +1662,6 @@ recipes={
  },
  --bluestrawbery jam
  {
-  discovered=false,
   inputs={
    strawberry,
    blueberry
@@ -1686,7 +1671,6 @@ recipes={
 
 --bluemanstrawbery jam
  {
-  discovered=false,
   inputs={
    strawberry,
    manberry,
@@ -1696,7 +1680,6 @@ recipes={
  },
 --globerry jam--
  {
-  discovered=false,
   inputs={
    globerry,
   },
@@ -1704,7 +1687,6 @@ recipes={
  },
  --globtriberry jam--
  {
-  discovered=false,
   inputs={
    globerry,
    globerry,
@@ -1714,7 +1696,6 @@ recipes={
  },
  --globnanaberry jam--
  {
-  discovered=false,
   inputs={
    globtriberryjam,
    globtriberryjam,
@@ -1723,7 +1704,6 @@ recipes={
   output=globnanaberryjam
  },
  {
-  discovered=false,
   inputs={
    globerry,
    bananaberry
@@ -1733,7 +1713,6 @@ recipes={
 
  --globblueberry jam--
  {
-  discovered=false,
   inputs={
    globerry,
    blueberry
@@ -1742,7 +1721,6 @@ recipes={
  },
 --globstrawberry jam--
  {
-  discovered=false,
   inputs={
    globerry,
    strawberry
@@ -1751,7 +1729,6 @@ recipes={
  },
 --globmanberry jam--
  {
-  discovered=false,
   inputs={
    globerry,
    manberry
@@ -1760,7 +1737,6 @@ recipes={
  },
  --globluestrawberry jam--
  {
-  discovered=false,
   inputs={
    globerry,
    strawberry,
@@ -1770,7 +1746,6 @@ recipes={
  },
 --globluemanberry jam--
  {
-  discovered=false,
   inputs={
    globerry,
    manberry,
@@ -1780,7 +1755,6 @@ recipes={
  },
 --glostrawmanberry jam--
  {
-  discovered=false,
   inputs={
    globerry,
    manberry,
@@ -1790,7 +1764,6 @@ recipes={
  },
 --galactijam--
  {
-  discovered=false,
   inputs={
    galactiberry,
   },
@@ -1798,7 +1771,6 @@ recipes={
  },
  --galactrijam--
  {
-  discovered=false,
   inputs={
    galactiberry,
    galactiberry,
@@ -1808,7 +1780,6 @@ recipes={
  },
  --galactinanajam--
  {
-  discovered=false,
   inputs={
    galactilactilactijam,
    galactilactilactijam,
@@ -1817,17 +1788,14 @@ recipes={
   output=galactinanajam
  },
  {
-  discovered=false,
   inputs={
    galactiberry,
    bananaberry
   },
   output=galactinanajam
  },
-
  --galactibluejam--
  {
-  discovered=false,
   inputs={
    galactiberry,
    blueberry
@@ -1836,7 +1804,6 @@ recipes={
  },
  --galactistrawjam--
  {
-  discovered=false,
   inputs={
    galactiberry,
    strawberry
@@ -1845,7 +1812,6 @@ recipes={
  },
  --galactimanjam--
  {
-  discovered=false,
   inputs={
    galactiberry,
    manberry
@@ -1854,7 +1820,6 @@ recipes={
  },
  --galactiglobejam--
  {
-  discovered=false,
   inputs={
    galactiberry,
    globerry
@@ -1863,7 +1828,6 @@ recipes={
  },
  --galactibluestrawberryjam--
  {
-  discovered=false,
   inputs={
    galactiberry,
    blueberry,
@@ -1874,7 +1838,6 @@ recipes={
 
  --galactibluestrawberryjam--
  {
-  discovered=false,
   inputs={
    galactiberry,
    blueberry,
@@ -1884,7 +1847,6 @@ recipes={
  },
  --galactibluestrawberryjam--
  {
-  discovered=false,
   inputs={
    galactiberry,
    blueberry,
@@ -1894,7 +1856,6 @@ recipes={
  },
  --galactistrawmanberryjam--
  {
-  discovered=false,
   inputs={
    galactiberry,
    strawberry,
@@ -1905,7 +1866,6 @@ recipes={
 
  --galctistawgloberryjam--
  {
-  discovered=false,
   inputs={
    galactiberry,
    strawberry,
@@ -1916,7 +1876,6 @@ recipes={
 
  --galactiglobemanberryjam--
  {
-  discovered=false,
   inputs={
    galactiberry,
    manberry,
@@ -1926,7 +1885,6 @@ recipes={
  },
  --dark jam--
  {
-  discovered=false,
   inputs={
    darkberry,
   },
@@ -1934,7 +1892,6 @@ recipes={
  },
  --darktri jam--
  {
-  discovered=false,
   inputs={
    darkberry,
    darkberry,
@@ -1944,7 +1901,6 @@ recipes={
  },
  --darknana jam--
  {
-  discovered=false,
   inputs={
    darktrijam,
    darktrijam,
@@ -1953,7 +1909,6 @@ recipes={
   output=darknanajam
  },
  {
-  discovered=false,
   inputs={
    darkberry,
    bananaberry
@@ -1962,7 +1917,6 @@ recipes={
  },
  --big jam--
  {
-  discovered=false,
   inputs={
    bigberry,
   },
@@ -1971,7 +1925,6 @@ recipes={
 
  --bigtri jam--
  {
-  discovered=false,
   inputs={
    bigberry,
    bigberry,
@@ -1981,7 +1934,6 @@ recipes={
  },
  --bignana jam--
  {
-  discovered=false,
   inputs={
    bigtriberryjam,
    bigtriberryjam,
@@ -1990,7 +1942,6 @@ recipes={
   output=bignanaberryjam
  },
  {
-  discovered=false,
   inputs={
    bigberry,
    bananaberry
@@ -2000,7 +1951,6 @@ recipes={
 
  --bang jam--
  {
-  discovered=false,
   inputs={
    bangberry,
   },
@@ -2009,7 +1959,6 @@ recipes={
 
  --bigtri jam--
  {
-  discovered=false,
   inputs={
    bangberry,
    bangberry,
@@ -2019,7 +1968,6 @@ recipes={
  },
  --bangnana jam--
  {
-  discovered=false,
   inputs={
    bangtriberryjam,
    bangtriberryjam,
@@ -2028,7 +1976,6 @@ recipes={
   output=bangnanaberryjam
  },
  {
-  discovered=false,
   inputs={
    bangberry,
    bananaberry
@@ -2037,7 +1984,6 @@ recipes={
  },
  --chaos jam--
  {
-  discovered=false,
   inputs={
    bigberry,
    badjam,
@@ -2045,7 +1991,6 @@ recipes={
   output=chaosjam
  },
  {
-  discovered=false,
   inputs={
    darkberry,
    badjam,
@@ -2053,7 +1998,6 @@ recipes={
   output=chaosjam
  },
  {
-  discovered=false,
   inputs={
    badjam,
    bangberry,
@@ -2063,7 +2007,6 @@ recipes={
 
  --badtri jam--
  {
-  discovered=false,
   inputs={
    badjam,
    badjam,
@@ -2073,7 +2016,6 @@ recipes={
  },
  --badnana jam--
  {
-  discovered=false,
   inputs={
    badtrijam,
    badtrijam,
@@ -2083,7 +2025,6 @@ recipes={
  },
  --bigbang jam--
  {
-  discovered=false,
   inputs={
    bigberry,
    bangberry,
@@ -2092,7 +2033,6 @@ recipes={
  },
  --primordial jam--
  {
-  discovered=false,
   inputs={
    bigbangjam,
    darknanajam,
@@ -2101,8 +2041,6 @@ recipes={
   output=primordialjam
  },
 }
-
-
 
 -->8
 -- upgrades --
