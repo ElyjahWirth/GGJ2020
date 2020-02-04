@@ -15,13 +15,30 @@ cash_money[4]=0
 known_good_recipes={}
 jam_timer=0
 game_over=false
+accountant_unlocked=false
+banker_unlocked=false
+blockchain_unlocked=false
 
 function add_money(value, scale)
   cash_money[scale]=increment(cash_money[scale],value)
+  if cash_money[scale]==32767 then
+   if(scale==1 and accountant_unlocked) then
+    cash_money[1]=0
+    cash_money[2]=increment(cash_money[2],1)
+   end
+   if(scale==2 and banker_unlocked) then
+    cash_money[2]=0
+    cash_money[3]=increment(cash_money[3],1)
+   end
+   if(scale==3 and blockchain_unlocked) then
+    cash_money[3]=0
+    cash_money[4]=increment(cash_money[4],1)
+   end
+  end
 end
 
 function lose_money(value, scale)
-  cash_money[scale]=decrement(cash_money[scale],value)
+ cash_money[scale]=decrement(cash_money[scale],value)
 end
 
 function can_spend(value, scale)
@@ -163,7 +180,7 @@ function new_game_screen()
   add(s.scenes, new_farm_scene())
   add(s.scenes, new_kitchen_scene())
   add(s.scenes, new_store_scene())
-  add(s.scenes, new_hr_scene())
+  add(s.scenes, new_upgrade_scene())
   s.active_scenes={}
   for scene in all(s.scenes) do
    if (scene.unlocked) add(s.active_scenes,scene)
@@ -225,7 +242,7 @@ function new_game_screen()
 end
 
 -->8
--- hr -- store -- kitchen -- farm--
+-- upgrade -- store -- kitchen -- farm--
 function new_scene()
  local s={}
  s.active=false
@@ -246,7 +263,7 @@ function new_scene()
  return s
 end
 
-function new_hr_scene()
+function new_upgrade_scene()
  local s=new_scene()
  s.name="hr"
  s.background.x=48
@@ -274,7 +291,9 @@ function new_hr_scene()
 
    local selected=scene.available_upgrades[scene.selected_upgrade]
    if btnp(5) and can_spend(selected.price, selected.scale) and selected.quantity < selected.max_quantity then
-    if (selected.quantity==0) add(s.purchased_upgrades, selected)
+    if not (upgrade==banker or upgrade==accountant or upgrade==blockchain) then
+     if (selected.quantity==0) add(s.purchased_upgrades, selected)
+    end
     selected.quantity=increment(selected.quantity)
     if(selected.on_purchase) selected.on_purchase(scene)
     lose_money(selected.price, selected.scale)
@@ -312,7 +331,6 @@ function new_hr_scene()
 
   for i=1,#scene.purchased_upgrades,1 do
    local upgrade = scene.purchased_upgrades[i]
-   if not (upgrade==banker or upgrade==accountant or upgrade==blockchain) then
     local icon=upgrade.icon
     local x_pix=(icon*8)%128
     local y_pix=flr(abs(icon/16))*8
@@ -321,7 +339,6 @@ function new_hr_scene()
 
     sspr(x_pix,y_pix,8,8,x_target,y_target,16,16)
     print(upgrade.quantity,x_target+17,y_target)
-   end
   end
 
   if #scene.available_upgrades>0 then
@@ -651,13 +668,13 @@ function get_demand(jam)
 end
 
 function sold(jam)
- local new_quantity=decrement(jam.quantity, jam_sale_constants.global_sale_volume)
- local volume_actually_sold=jam.quantity-new_quantity
- jam.quantity=new_quantity
- for i=1,volume_actually_sold,1 do
-  add_money(get_price(jam)*jam_sale_constants.global_sale_volume, jam.scale)
+ local max_sold=min(jam.quantity, jam_sale_constants.global_sale_volume)
+ for i=1,max_sold,1 do
+  add_money(get_price(jam), jam.scale)
   jam.demand = max(decrement(jam.demand,jam_sale_constants.global_demand_loss*jam_sale_constants.global_demand_loss_modifier), 0.01)
+  jam.quantity=decrement(jam.quantity)
  end
+
  jam.sale_period_counter=0
 end
 
@@ -1367,10 +1384,10 @@ blueberry_bush={
 bananaberry_bush={
  name="bananaberry bush",
  icon=62,
- price=10000,
+ price=2500,
  scale=2,
  produce=bananaberry,
- harvest_time=100.0,
+ harvest_time=25.0,
  unlocked=false,
  quantity=0
 }
@@ -2215,7 +2232,7 @@ function check_for_unlocks(scene)
   add(screen.active_scenes[1].bushes, bangberry_bush)
  end
 
- if cash_money[3]>=100 and not darkberry_bush.unlocked then
+ if cash_money[4]>=32767 and not darkberry_bush.unlocked then
   darkberry_bush.unlocked=true
   add(screen.active_scenes[1].bushes, darkberry_bush)
  end
@@ -2323,11 +2340,8 @@ accountant={
  quantity=0,
  max_quantity=1,
  icon=173,
- update=function(scene)
-  if cash_money[1]==32767 then
-   cash_money[1]=0
-   add_money(1, 2)
-  end
+ on_purchase=function(scene)
+  accountant_unlocked=true
  end
 }
 
@@ -2340,11 +2354,8 @@ banker={
  quantity=0,
  max_quantity=1,
  icon=174,
- update=function(scene)
-  if cash_money[2]==32767 then
-   cash_money[2]=0
-   add_money(1,3)
-  end
+ on_purchase=function(scene)
+  banker_unlocked=true
  end
 }
 
@@ -2357,11 +2368,8 @@ blockchain={
  quantity=0,
  max_quantity=1,
  icon=175,
- update=function(scene)
-  if cash_money[3]==32767 then
-   cash_money[3]=0
-   add_money(1,4)
-  end
+ on_purchase=function(scene)
+  blockchain_unlocked=true
  end
 }
 
