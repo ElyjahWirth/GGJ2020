@@ -51,7 +51,7 @@ end
 
 function increment(value, num)
  if (num==nil) num=1
- if (value+num<0) return 32767
+ if (value+num<0.01) return 32767
  return value+num
 end
 
@@ -500,6 +500,7 @@ function new_farm_scene()
 
    sspr(x_pix,y_pix,8,8,x_target,y_target,16,16)
    print(price,x_target+18,y_target+2)
+   if(not bush.quantity) bush.quantity=0
    print(bush.quantity,x_target+18,y_target+12)
    if (i==scene.selected) rect(x_target-1,y_target-1,x_target+16,y_target+16,7)
    row+=1
@@ -628,9 +629,17 @@ end
 -->8
 --ingredients--
 function get_price(jam)
- local price=get_base_price(jam) * get_generatoin_modifier(jam) * get_demand(jam) * global_marketing_efficiency
- if(price < 0) price=32767
- return price
+ local base_price=get_base_price(jam)
+ local multiplier=get_generatoin_modifier(jam) * get_demand(jam) * global_marketing_efficiency
+ local loop_end=flr(multiplier)
+ local price=0
+ for i=1,loop_end,1 do
+  price=increment(price, base_price)
+  multipler=decrement(multipler, 1)
+  if(price==32767) return price
+ end
+
+ return increment(price, base_price*multipler)
 end
 
 function get_generatoin_modifier(jam)
