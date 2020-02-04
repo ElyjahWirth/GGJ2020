@@ -290,7 +290,7 @@ function new_upgrade_scene()
 
    local selected=scene.available_upgrades[scene.selected_upgrade]
    if btnp(5) and can_spend(selected.price, selected.scale) and selected.quantity < selected.max_quantity then
-    if not (upgrade==banker or upgrade==accountant or upgrade==blockchain) then
+    if not (selected==banker or selected==accountant or selected==blockchain) then
      if (selected.quantity==0) add(s.purchased_upgrades, selected)
     end
     selected.quantity=increment(selected.quantity)
