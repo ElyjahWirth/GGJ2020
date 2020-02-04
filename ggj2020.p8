@@ -246,7 +246,6 @@ end
 function new_scene()
  local s={}
  s.active=false
- s.name="scene"
  s.update=function(scene) end
  s.draw=function(scene)
   map(scene.background.x,scene.background.y,0,0,16,16)
@@ -265,7 +264,6 @@ end
 
 function new_upgrade_scene()
  local s=new_scene()
- s.name="hr"
  s.background.x=48
  s.unlocked=false
  s.icon.x=88
@@ -354,7 +352,6 @@ end
 
 function new_store_scene()
  local s=new_scene()
- s.name="store"
  s.background.x=32
  s.unlocked=false
  s.icon.x=56
@@ -443,7 +440,6 @@ end
 
 function new_farm_scene()
  local s=new_scene()
- s.name="farm"
  s.unlocked=true
  s.icon={
   x=96,
@@ -530,7 +526,6 @@ end
 
 function new_kitchen_scene()
  local s=new_scene()
- s.name="kitchen"
  s.background.x=16
  s.unlocked=false
  s.icon={
