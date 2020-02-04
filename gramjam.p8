@@ -635,7 +635,7 @@ function get_price(jam)
  local price=0
  for i=1,loop_end,1 do
   price=increment(price, base_price)
-  multipler=decrement(multipler, 1)
+  multiplier=decrement(multiplier, 1)
   if(price==32767) return price
  end
 
